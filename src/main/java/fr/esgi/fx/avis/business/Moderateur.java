@@ -1,10 +1,8 @@
 package fr.esgi.fx.avis.business;
 
-import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Entity
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor

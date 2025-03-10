@@ -8,25 +8,19 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Avis {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @Lob
     @NonNull
     private String description;
 
-    @ManyToOne
     @NonNull
     private Jeu jeu;
 
-    @ManyToOne
     @NonNull
     private Joueur joueur;
 
@@ -34,6 +28,5 @@ public class Avis {
 
     private LocalDateTime dateDEnvoi;
 
-    @ManyToOne
     private Moderateur moderateur;
 }
