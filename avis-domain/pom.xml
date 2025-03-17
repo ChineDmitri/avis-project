@@ -9,14 +9,5 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>avis-usecase</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>fr.esgi</groupId>
-            <artifactId>avis-persistance</artifactId>
-            <version>${avis.persistance}</version>
-        </dependency>
-    </dependencies>
-
+    <artifactId>avis-domain</artifactId>
 </project>

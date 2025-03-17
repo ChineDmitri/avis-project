@@ -8,7 +8,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.4.3</version>
-<!--        <relativePath/>-->
     </parent>
 
     <groupId>fr.esgi</groupId>
@@ -17,7 +16,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>avis-domaine</module>
+        <module>avis-domain</module>
         <module>avis-web</module>
         <module>avis-persistance</module>
         <module>avis-usecase</module>
@@ -28,6 +27,13 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.boot.version>3.4.3</spring.boot.version>
+        <lombok.version>1.18.34</lombok.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <avis.domain>0.0.1-SNAPSHOT</avis.domain>
+        <avis.usecase>0.0.1-SNAPSHOT</avis.usecase>
+        <avis.persistance>0.0.1-SNAPSHOT</avis.persistance>
+        <avis.web>0.0.1-SNAPSHOT</avis.web>
     </properties>
 
     <dependencyManagement>
@@ -35,7 +41,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.4.3</version>
+                <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -43,7 +49,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.34</version>
+                <version>${lombok.version}</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
@@ -53,13 +59,12 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-            <version>1.6.3</version>
+            <version>${mapstruct.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-<!--            <optional>true</optional>-->
         </dependency>
 
         <dependency>
@@ -76,13 +81,13 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.11.0</version>
                     <configuration>
-                        <source>21</source>
-                        <target>21</target>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                                <version>1.18.34</version>
+                                <version>${lombok.version}</version>
                             </path>
                             <path>
                                 <groupId>org.projectlombok</groupId>
@@ -92,7 +97,7 @@
                             <path>
                                 <groupId>org.mapstruct</groupId>
                                 <artifactId>mapstruct-processor</artifactId>
-                                <version>1.6.3</version>
+                                <version>${mapstruct.version}</version>
                             </path>
                         </annotationProcessorPaths>
                     </configuration>
