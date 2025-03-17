@@ -1,0 +1,5 @@
+2025-03-17T00:01:03.116+01:00  INFO 60699 --- [avis] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-17T00:01:03.121+01:00  INFO 60699 --- [avis] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-03-17T00:01:03.126+01:00  INFO 60699 --- [avis] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-17T00:01:03.129+01:00  INFO 60699 --- [avis] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-03-17T00:01:03.132+01:00  INFO 60699 --- [avis] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
