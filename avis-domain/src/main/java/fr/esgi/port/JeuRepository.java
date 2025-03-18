@@ -4,6 +4,8 @@ import fr.esgi.model.Editeur;
 import fr.esgi.model.Genre;
 import fr.esgi.model.Jeu;
 import fr.esgi.model.Plateforme;
+import fr.esgi.model.page.CustomPagedResult;
+import fr.esgi.model.page.PaginationParams;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +14,10 @@ import java.util.Optional;
 public interface JeuRepository {
 
     Jeu findById(Long id);
+
+    List<Jeu> findAll();
+
+    CustomPagedResult<Jeu> findAll(PaginationParams paginationParams);
 
     Jeu findFirstByNom(String nom);
 

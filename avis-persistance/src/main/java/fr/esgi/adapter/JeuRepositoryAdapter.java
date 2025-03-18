@@ -1,5 +1,6 @@
 package fr.esgi.adapter;
 
+import fr.esgi.adapter.page.PageAdapter;
 import fr.esgi.entity.GenreEntity;
 import fr.esgi.entity.JeuEntity;
 import fr.esgi.mapper.EditeurMapper;
@@ -9,9 +10,13 @@ import fr.esgi.model.Editeur;
 import fr.esgi.model.Genre;
 import fr.esgi.model.Jeu;
 import fr.esgi.model.Plateforme;
+import fr.esgi.model.page.CustomPagedResult;
+import fr.esgi.model.page.PaginationParams;
 import fr.esgi.port.JeuRepository;
 import fr.esgi.repository.JeuJpaRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -26,6 +31,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     private JeuMapper        jeuMapper;
     private EditeurMapper    editeurMapper;
     private PlateformeMapper plateformeMapper;
+    private PageAdapter      pageAdapter;
 
     @Override
     public Jeu findById(Long id) {
@@ -33,6 +39,27 @@ public class JeuRepositoryAdapter implements JeuRepository {
                                .map(jeuMapper::entityToDomain)
                                .orElse(null);
     }
+
+    @Override
+    public List<Jeu> findAll() {
+        return jeuJpaRepository.findAll()
+                               .stream()
+                               .map(jeuMapper::entityToDomain)
+                               .collect(Collectors.toList());
+    }
+
+    @Override
+    public CustomPagedResult<Jeu> findAll(PaginationParams paginationParams) {
+        //        Page<JeuEntity> page = jeuJpaRepository.findAll(
+        //                this.pageAdapter.toSpringPageable(paginationParams)
+        //        );
+        return pageAdapter.fromSpringPage(
+                jeuJpaRepository.findAll(
+                        pageAdapter.toSpringPageable(paginationParams)
+                ),
+                jeuMapper::entityToDomain);
+    }
+
 
     @Override
     public Jeu findFirstByNom(String nom) {

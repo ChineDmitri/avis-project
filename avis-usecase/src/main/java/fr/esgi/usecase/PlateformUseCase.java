@@ -1,9 +1,8 @@
 package fr.esgi.usecase;
 
-import fr.esgi.adapter.PlateformeRepositoryAdapter;
 import fr.esgi.model.Plateforme;
 import fr.esgi.port.PlateformeRepository;
-import fr.esgi.service.PlateformeService;
+import fr.esgi.api.PlateformeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package fr.esgi.controller;
 
 import fr.esgi.model.Editeur;
-import fr.esgi.service.EditeurService;
+import fr.esgi.api.EditeurService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 @AllArgsConstructor
-public class EditeurController {
+public class EditeurMvc {
 
     @Autowired
     private EditeurService editeurService;

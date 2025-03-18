@@ -1,13 +1,17 @@
 package fr.esgi.usecase;
 
-import fr.esgi.entity.JeuEntity;
+import fr.esgi.adapter.page.PageAdapter;
 import fr.esgi.model.Jeu;
+import fr.esgi.model.page.CustomPagedResult;
+import fr.esgi.model.page.PaginationParams;
 import fr.esgi.port.JeuRepository;
-import fr.esgi.service.JeuService;
+import fr.esgi.api.JeuService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +25,8 @@ import java.nio.file.StandardCopyOption;
 public class JeuUseCase implements JeuService {
 
     private JeuRepository jeuRepository;
+    @Autowired
+    private PageAdapter pageAdapter;
 
     @Override
     public Jeu ajouterJeu(Jeu jeu) {
@@ -33,12 +39,17 @@ public class JeuUseCase implements JeuService {
     }
 
     @Override
+    public CustomPagedResult<Jeu> recupererJeux(PaginationParams paginationParams) {
+        return jeuRepository.findAll(paginationParams);
+    }
+
+    @Override
     public Jeu enregistrerJeu(Jeu jeu) {
         return jeuRepository.save(jeu);
     }
 
     @Override
-    public boolean ajouterImage(Long id, FileInputStream image) {
+    public boolean ajouterImage(Long id, InputStream image) {
         try {
             // Find the game
             Jeu jeu = jeuRepository.findById(id);

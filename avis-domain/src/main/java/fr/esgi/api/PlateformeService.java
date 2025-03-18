@@ -1,4 +1,4 @@
-package fr.esgi.service;
+package fr.esgi.api;
 
 
 import fr.esgi.model.Plateforme;
