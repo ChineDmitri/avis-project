@@ -34,6 +34,7 @@
         <avis.usecase>0.0.1-SNAPSHOT</avis.usecase>
         <avis.persistance>0.0.1-SNAPSHOT</avis.persistance>
         <avis.web>0.0.1-SNAPSHOT</avis.web>
+        <junit-jupiter.version>5.12.0</junit-jupiter.version>
     </properties>
 
     <dependencyManagement>
@@ -73,15 +74,9 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.12.0</version>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -140,6 +135,50 @@
                     <configuration>
                         <mainClass>fr.esgi.AvisApplication</mainClass>
                     </configuration>
+                </plugin>
+
+                <!-- Run tests with Surefire -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.1.2</version>
+                </plugin>
+
+                <!-- JaCoCo for code coverage -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.10</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                        <!-- Aggregate reports from all modules -->
+                        <execution>
+                            <id>report-aggregate</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>report-aggregate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Maven Site for reports -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.12.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
