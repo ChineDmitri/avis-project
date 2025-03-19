@@ -1,7 +1,7 @@
 package fr.esgi.controller;
 
-import fr.esgi.model.Editeur;
 import fr.esgi.api.EditeurService;
+import fr.esgi.model.Editeur;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +35,6 @@ public class EditeurMvc {
 
         return mav;
     }
-    //@GetMapping("/editeurs")
-    //public String showEditeurs(Model model) {
-    //    // Add attributes to model as needed for the view
-    //    // e.g., model.addAttribute("editeurs", editeursList);
-    //    return "editeursView"; // Updated view name mapped to editeursView.html
-    //}
 
     @PostMapping("editeurs")
     public ModelAndView rechercherEditeurs(@RequestParam("nom") String nom) {
