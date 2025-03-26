@@ -479,3 +479,42 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-03-19T22:29:52.153+01:00  WARN 34317 --- [avis] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 2025-03-19T22:29:52.676+01:00  INFO 34317 --- [avis] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2025-03-19T22:29:52.681+01:00  INFO 34317 --- [avis] [main] fr.esgi.AvisApplication                  : Started AvisApplication in 3.164 seconds (process running for 3.52)
+2025-03-26T23:31:42.171+01:00  INFO 78324 --- [avis] [main] fr.esgi.AvisApplication                  : Starting AvisApplication using Java 21.0.4 with PID 78324 (/home/ds/0_workspace/_IntellJ/0.4_CleanArchitecture/avis-project/avis-application/target/classes started by ds in /home/ds/0_workspace/_IntellJ/0.4_CleanArchitecture/avis-project)
+2025-03-26T23:31:42.172+01:00  INFO 78324 --- [avis] [main] fr.esgi.AvisApplication                  : The following 1 profile is active: "DEV"
+2025-03-26T23:31:42.681+01:00  INFO 78324 --- [avis] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-26T23:31:42.732+01:00  INFO 78324 --- [avis] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 10 JPA repository interfaces.
+2025-03-26T23:31:43.016+01:00  INFO 78324 --- [avis] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-26T23:31:43.023+01:00  INFO 78324 --- [avis] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-26T23:31:43.024+01:00  INFO 78324 --- [avis] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-26T23:31:43.044+01:00  INFO 78324 --- [avis] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-26T23:31:43.045+01:00  INFO 78324 --- [avis] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 841 ms
+2025-03-26T23:31:43.123+01:00  INFO 78324 --- [avis] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-26T23:31:43.160+01:00  INFO 78324 --- [avis] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-26T23:31:43.179+01:00  INFO 78324 --- [avis] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-03-26T23:31:43.351+01:00  INFO 78324 --- [avis] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-26T23:31:43.367+01:00  INFO 78324 --- [avis] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-03-26T23:31:43.463+01:00  INFO 78324 --- [avis] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:avis user=SA
+2025-03-26T23:31:43.464+01:00  INFO 78324 --- [avis] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-03-26T23:31:43.494+01:00  INFO 78324 --- [avis] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-26T23:31:44.110+01:00  INFO 78324 --- [avis] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-26T23:31:44.143+01:00  INFO 78324 --- [avis] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-26T23:31:44.301+01:00  INFO 78324 --- [avis] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-03-26T23:31:44.812+01:00  WARN 78324 --- [avis] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-26T23:31:45.304+01:00  INFO 78324 --- [avis] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-03-26T23:31:45.308+01:00  INFO 78324 --- [avis] [main] fr.esgi.AvisApplication                  : Started AvisApplication in 3.568 seconds (process running for 4.28)
+2025-03-26T23:31:53.210+01:00  INFO 78324 --- [avis] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-26T23:31:53.211+01:00  INFO 78324 --- [avis] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-26T23:31:53.212+01:00  INFO 78324 --- [avis] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-03-26T23:31:56.068+01:00  WARN 78324 --- [avis] [http-nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'nom' for method parameter type String is not present]
+2025-03-26T23:33:55.750+01:00  INFO 78324 --- [avis] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-26T23:33:55.753+01:00  INFO 78324 --- [avis] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-03-26T23:33:55.759+01:00  INFO 78324 --- [avis] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-26T23:33:55.762+01:00  INFO 78324 --- [avis] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-03-26T23:33:55.767+01:00  INFO 78324 --- [avis] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
