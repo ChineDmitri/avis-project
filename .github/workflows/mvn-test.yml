@@ -25,18 +25,21 @@ jobs:
       - name: Run tests
         run: mvn -B test
 
-      - name: Generate JaCoCo report
-        run: mvn jacoco:report
+      #####
+      # Uncomment the following when generate JaCoCo reports and upload test results will added
+      #####
+      # - name: Generate JaCoCo report
+      #   run: mvn jacoco:report
 
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-results
-          path: "**/target/surefire-reports/*.xml"
+      # - name: Upload test results
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: test-results
+      #     path: "**/target/surefire-reports/*.xml"
 
-      - name: Upload coverage reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-reports
-          path: "**/target/site/jacoco/"
+      # - name: Upload coverage reports
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: coverage-reports
+      #     path: "**/target/site/jacoco/"
