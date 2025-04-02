@@ -90,7 +90,7 @@ public class JeuController {
                                           MultipartFile image) throws
                                                                TechnicalException {
         InputStream imageStream = fileAdapter.toInputStream(image);
-        jeuService.ajouterImage(idJeu, imageStream);
+        String fnfp = jeuService.ajouterImage(idJeu, imageStream);
         return new ModelAndView("redirect:/jeux");
     }
 }

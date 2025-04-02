@@ -16,5 +16,12 @@ public interface JeuService {
 
     Jeu enregistrerJeu(Jeu jeu);
 
-    boolean ajouterImage(Long id, InputStream image);
+    /**
+     * Add an image to a game and return filename
+     * if exception occurs, return `StringUtils.EMPTY`
+     * @param id
+     * @param image
+     * @return
+     */
+    String ajouterImage(Long id, InputStream image);
 }

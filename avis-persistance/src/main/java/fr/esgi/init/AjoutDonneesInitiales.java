@@ -1,6 +1,10 @@
 package fr.esgi.init;
 
 import com.github.javafaker.Faker;
+import fr.esgi.model.Editeur;
+import fr.esgi.model.Jeu;
+import fr.esgi.port.EditeurRepository;
+import fr.esgi.port.JeuRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
@@ -8,11 +12,13 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Locale;
 
+
 /*
-    * Cette classe permet d'ajouter des données initiales dans la base de données
-    * TO-DO à implementer
+ * Cette classe permet d'ajouter des données initiales dans la base de données
+ * TO-DO à implementer
  */
 @Component
 @AllArgsConstructor
@@ -20,7 +26,9 @@ import java.util.Locale;
 @Transactional(readOnly = true)
 public class AjoutDonneesInitiales {
 
-    /*private EditeurRepository        editeurRepository;
+    private JeuRepository     jeuRepository;
+    private EditeurRepository editeurRepository;
+    /*;
     private ClassificationRepository classificationRepository;
     private GenreRepository      genreRepository;
     private PlateformeRepository plateformeRepository;
@@ -74,7 +82,10 @@ public class AjoutDonneesInitiales {
     }
 
     private void ajouterJeux() {
-        // to-do
+        Editeur editeur = new Editeur();
+        editeur.setNom("CD Projekt");
+        // Save the Editeur instance first
+        editeurRepository.save(editeur);
     }
 
     private void ajouterPlateformes() {
