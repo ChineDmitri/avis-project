@@ -3,6 +3,7 @@ package fr.esgi.adapter;
 import fr.esgi.adapter.page.PageAdapter;
 import fr.esgi.entity.GenreEntity;
 import fr.esgi.entity.JeuEntity;
+import fr.esgi.mapper.CycleAvoidingMappingContext;
 import fr.esgi.mapper.EditeurMapper;
 import fr.esgi.mapper.JeuMapper;
 import fr.esgi.mapper.PlateformeMapper;
@@ -36,7 +37,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     @Override
     public Jeu findById(Long id) {
         return jeuJpaRepository.findById(id)
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .orElse(null);
     }
 
@@ -44,7 +45,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     public List<Jeu> findAll() {
         return jeuJpaRepository.findAll()
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
@@ -53,25 +54,28 @@ public class JeuRepositoryAdapter implements JeuRepository {
         //        Page<JeuEntity> page = jeuJpaRepository.findAll(
         //                this.pageAdapter.toSpringPageable(paginationParams)
         //        );
+        System.out.println("jeuMapper = " + jeuMapper);
+
         return pageAdapter.fromSpringPage(
                 jeuJpaRepository.findAll(
                         pageAdapter.toSpringPageable(paginationParams)
                 ),
-                jeuMapper::entityToDomain);
+                entity -> jeuMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) // 💡 ici
+        );
     }
 
 
     @Override
     public Jeu findFirstByNom(String nom) {
         JeuEntity entity = jeuJpaRepository.findFirstByNom(nom);
-        return entity != null ? jeuMapper.entityToDomain(entity) : null;
+        return entity != null ? jeuMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) : null;
     }
 
     @Override
     public List<Jeu> findByEditeur(Editeur editeur) {
-        List<JeuEntity> entities = jeuJpaRepository.findByEditeur(editeurMapper.domainToEntity(editeur));
+        List<JeuEntity> entities = jeuJpaRepository.findByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
         return entities.stream()
-                       .map(jeuMapper::entityToDomain)
+                       .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                        .collect(Collectors.toList());
     }
 
@@ -79,40 +83,43 @@ public class JeuRepositoryAdapter implements JeuRepository {
     public List<Jeu> findByEditeurNom(String nom) {
         List<JeuEntity> entities = jeuJpaRepository.findByEditeurNom(nom);
         return entities.stream()
-                       .map(jeuMapper::entityToDomain)
+                       .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                        .collect(Collectors.toList());
     }
 
     @Override
     public List<Jeu> findByEditeurAndGenre(Editeur editeur, Genre genre) {
-        List<JeuEntity> entities = jeuJpaRepository.findByEditeurAndGenre(editeurMapper.domainToEntity(editeur),
+        List<JeuEntity> entities = jeuJpaRepository.findByEditeurAndGenre(editeurMapper.domainToEntity(
+                                                                                  editeur,
+                                                                                  new CycleAvoidingMappingContext()
+                                                                          ),
                                                                           GenreEntity.builder()
                                                                                      .id(genre.getId())
                                                                                      .build());
         return entities.stream()
-                       .map(jeuMapper::entityToDomain)
+                       .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                        .collect(Collectors.toList());
     }
 
     @Override
     public List<Jeu> findTop5ByEditeurOrderByDateDeSortieDesc(Editeur editeur) {
-        List<JeuEntity> entities = jeuJpaRepository.findTop5ByEditeurOrderByDateDeSortieDesc(editeurMapper.domainToEntity(editeur));
+        List<JeuEntity> entities = jeuJpaRepository.findTop5ByEditeurOrderByDateDeSortieDesc(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
 
         return entities.stream()
-                       .map(jeuMapper::entityToDomain)
+                       .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                        .collect(Collectors.toList());
     }
 
     @Override
     public List<Jeu> findByEditeurAndGenreAndClassificationNom(Editeur editeur, Genre genre, String nom) {
-        List<JeuEntity> entities = jeuJpaRepository.findByEditeurAndGenreAndClassificationNom(editeurMapper.domainToEntity(editeur),
+        List<JeuEntity> entities = jeuJpaRepository.findByEditeurAndGenreAndClassificationNom(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()),
                                                                                               GenreEntity.builder()
                                                                                                          .id(genre.getId())
                                                                                                          .build(),
                                                                                               nom);
 
         return entities.stream()
-                       .map(jeuMapper::entityToDomain)
+                       .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                        .collect(Collectors.toList());
     }
 
@@ -124,7 +131,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
         List<JeuEntity> entities = jeuJpaRepository.findByGenre(genreEntity);
 
         return entities.stream()
-                       .map(jeuMapper::entityToDomain)
+                       .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                        .collect(Collectors.toList());
     }
 
@@ -132,7 +139,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     public List<Jeu> findByGenreNom(String nom) {
         return jeuJpaRepository.findByGenreNom(nom)
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
@@ -140,7 +147,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     public List<Jeu> findByNomLike(String nom) {
         return jeuJpaRepository.findByNomLike(nom)
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
@@ -148,26 +155,27 @@ public class JeuRepositoryAdapter implements JeuRepository {
     public List<Jeu> findByNomLikeAndDateDeSortieBetween(String nom, LocalDate dateDebut, LocalDate dateFin) {
         return jeuJpaRepository.findByNomLikeAndDateDeSortieBetween(nom, dateDebut, dateFin)
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
     @Override
     public List<Jeu> findByEditeurAndNomLikeAndDateDeSortieBetween(Editeur editeur, String nom, LocalDate dateDebut, LocalDate dateFin) {
-        return jeuJpaRepository.findByEditeurAndNomLikeAndDateDeSortieBetween(editeurMapper.domainToEntity(editeur),
+        return jeuJpaRepository.findByEditeurAndNomLikeAndDateDeSortieBetween(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()),
                                                                               nom,
                                                                               dateDebut,
                                                                               dateFin)
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
     @Override
     public List<Jeu> findAllByPlateformesContaining(Plateforme plateforme) {
-        return jeuJpaRepository.findAllByPlateformesContaining(plateformeMapper.domainToEntity(plateforme))
+        return jeuJpaRepository.findAllByPlateformesContaining(plateformeMapper.domainToEntity(plateforme,
+                                                                                               new CycleAvoidingMappingContext()))
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
@@ -175,21 +183,21 @@ public class JeuRepositoryAdapter implements JeuRepository {
     public List<Jeu> findByPlateformesNom(String nom) {
         return jeuJpaRepository.findByPlateformesNom(nom)
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
     @Override
     public Optional<Jeu> findByNom(String nom) {
         return jeuJpaRepository.findByNom(nom)
-                               .map(jeuMapper::entityToDomain);
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()));
     }
 
     @Override
     public List<Jeu> findByNomEndingWith(String filtre) {
         return jeuJpaRepository.findByNomEndingWith(filtre)
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
@@ -200,25 +208,26 @@ public class JeuRepositoryAdapter implements JeuRepository {
 
     @Override
     public long countByEditeur(Editeur editeur) {
-        return jeuJpaRepository.countByEditeur(editeurMapper.domainToEntity(editeur));
+        return jeuJpaRepository.countByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
     }
 
     @Override
     public Jeu save(Jeu jeu) {
-        JeuEntity je = jeuJpaRepository.save(jeuMapper.domainToEntity(jeu));
-        return jeuMapper.entityToDomain(je);
+        JeuEntity je = jeuJpaRepository.save(jeuMapper.domainToEntity(jeu, new CycleAvoidingMappingContext()));
+        return jeuMapper.entityToDomain(je, new CycleAvoidingMappingContext());
     }
 
     @Override
     public long deleteByEditeur(Editeur editeur) {
-        return jeuJpaRepository.deleteByEditeur(editeurMapper.domainToEntity(editeur));
+        return jeuJpaRepository.deleteByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
     }
 
     @Override
     public List<Jeu> findByPlateformes(Plateforme plateforme) {
-        return jeuJpaRepository.findByPlateformes(plateformeMapper.domainToEntity(plateforme))
+        return jeuJpaRepository.findByPlateformes(plateformeMapper.domainToEntity(plateforme,
+                                                                                  new CycleAvoidingMappingContext()))
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
@@ -230,21 +239,21 @@ public class JeuRepositoryAdapter implements JeuRepository {
                                                                                             .id(genre.getId())
                                                                                             .build())
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 
     @Override
     public Optional<Jeu> findByNomIgnoreCase(String nom) {
         return jeuJpaRepository.findByNomIgnoreCase(nom)
-                               .map(jeuMapper::entityToDomain);
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()));
     }
 
     @Override
     public List<Jeu> findGamesRandomlySorted() {
         return jeuJpaRepository.findGamesRandomlySorted()
                                .stream()
-                               .map(jeuMapper::entityToDomain)
+                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .collect(Collectors.toList());
     }
 }

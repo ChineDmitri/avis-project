@@ -13,7 +13,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-@AllArgsConstructor
 @DynamicUpdate
 @DynamicInsert
 @Table(indexes = @Index(name="Jeu_Nom_Index", columnList = "nom"))
@@ -60,19 +59,19 @@ public class JeuEntity {
         this.nom = nom;
     }
 
-//    public JeuEntity(String nom, LocalDate dateDeSortie, EditeurEntity editeur) {
-//        this(nom, editeur);
-//        this.dateDeSortie = dateDeSortie;
-//    }
+    public JeuEntity(String nom, LocalDate dateDeSortie, EditeurEntity editeur) {
+        this(nom, editeur);
+        this.dateDeSortie = dateDeSortie;
+    }
 
-//    public JeuEntity(String nom, String description, LocalDate dateSortie, EditeurEntity editeur) {
-//        this(nom, dateSortie, editeur);
-//        this.description = description;
-//    }
+    public JeuEntity(String nom, String description, LocalDate dateSortie, EditeurEntity editeur) {
+        this(nom, dateSortie, editeur);
+        this.description = description;
+    }
 
-//    public JeuEntity(String nom, LocalDate dateSortie, EditeurEntity editeur, GenreEntity genre) {
-//        this(nom, null, dateSortie, editeur);
-//        this.genre = genre;
-//    }
+    public JeuEntity(String nom, LocalDate dateSortie, EditeurEntity editeur, GenreEntity genre) {
+        this(nom, null, dateSortie, editeur);
+        this.genre = genre;
+    }
 
 }

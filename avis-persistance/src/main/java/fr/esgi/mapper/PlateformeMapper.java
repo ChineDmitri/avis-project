@@ -2,9 +2,7 @@ package fr.esgi.mapper;
 
 import fr.esgi.entity.PlateformeEntity;
 import fr.esgi.model.Plateforme;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 @Mapper(
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -14,6 +12,9 @@ public interface PlateformeMapper {
 //    Plateforme dtoToDomain(PlateformeDto plateformeDto);
 //    PlateformeDto domainToDto(Plateforme plateforme);
 
-    Plateforme entityToDomain(PlateformeEntity plateformeEntity);
-    PlateformeEntity domainToEntity(Plateforme plateforme);
+    @Mapping(target = "jeux", ignore = true) // éviter la récursivité infinie
+    Plateforme entityToDomain(PlateformeEntity plateformeEntity, @Context CycleAvoidingMappingContext context);
+
+    @Mapping(target = "jeux", ignore = true)
+    PlateformeEntity domainToEntity(Plateforme plateforme, @Context CycleAvoidingMappingContext context);
 }

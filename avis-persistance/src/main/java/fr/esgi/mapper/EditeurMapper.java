@@ -12,8 +12,13 @@ public interface EditeurMapper {
     //    Editeur dtoToDomain(EditeurEntity editeurDto);
     //    EditeurDto domainToDto(Editeur editeur);
 
-        Editeur entityToDomain(EditeurEntity editeurEntity);
-        EditeurEntity domainToEntity(Editeur editeur);
+    @Mapping(target = "jeux", ignore = true)
+    Editeur entityToDomain(EditeurEntity editeurEntity,
+                           @Context CycleAvoidingMappingContext context);
+
+    @Mapping(target = "jeux", ignore = true)
+    EditeurEntity domainToEntity(Editeur editeur,
+                                 @Context CycleAvoidingMappingContext context);
 
     //    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     //    Editeur partialUpdate(EditeurDto editeurDto, @MappingTarget Editeur editeur);

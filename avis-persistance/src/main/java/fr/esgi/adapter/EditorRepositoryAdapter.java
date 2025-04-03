@@ -1,6 +1,7 @@
 package fr.esgi.adapter;
 
 import fr.esgi.entity.EditeurEntity;
+import fr.esgi.mapper.CycleAvoidingMappingContext;
 import fr.esgi.mapper.EditeurMapper;
 import fr.esgi.mapper.JeuMapper;
 import fr.esgi.model.Editeur;
@@ -22,13 +23,16 @@ public class EditorRepositoryAdapter implements EditeurRepository {
     private JeuMapper            jeuMapper;
 
 
-
-
     @Override
     public List<Jeu> findEditorsWithoutGames() {
+        CycleAvoidingMappingContext context = new CycleAvoidingMappingContext();
         return editeurJpaRepository.findEditorsWithoutGames()
                                    .stream()
-                                   .map(jeuMapper::entityToDomain)
+                                   .map(e -> jeuMapper.entityToDomain(
+                                                e,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   )
                                    .collect(Collectors.toList());
     }
 
@@ -36,41 +40,57 @@ public class EditorRepositoryAdapter implements EditeurRepository {
     public List<Editeur> findByNomContainingIgnoreCase(String nom) {
         return editeurJpaRepository.findByNomContainingIgnoreCase(nom)
                                    .stream()
-                                   .map(editeurMapper::entityToDomain)
+                                   .map(e -> editeurMapper.entityToDomain(
+                                                e,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   )
                                    .collect(Collectors.toList());
     }
 
     @Override
     public Editeur findByNom(String nom) {
         EditeurEntity entity = editeurJpaRepository.findByNom(nom);
-        return entity != null ? editeurMapper.entityToDomain(entity) : null;
+        return entity != null ? editeurMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) : null;
     }
 
     @Override
     public Optional<Editeur> findByNomIgnoreCase(String nom) {
         return editeurJpaRepository.findByNomIgnoreCase(nom)
-                                   .map(editeurMapper::entityToDomain);
+                                   .map(e -> editeurMapper.entityToDomain(
+                                                e,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   );
     }
 
     @Override
     public Editeur save(Editeur editeur) {
-        EditeurEntity entity      = editeurMapper.domainToEntity(editeur);
+        EditeurEntity entity      = editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext());
         EditeurEntity savedEntity = editeurJpaRepository.save(entity);
-        return editeurMapper.entityToDomain(savedEntity);
+        return editeurMapper.entityToDomain(savedEntity, new CycleAvoidingMappingContext());
     }
 
     @Override
     public List<Editeur> findAll() {
         return editeurJpaRepository.findAll()
                                    .stream()
-                                   .map(editeurMapper::entityToDomain)
+                                   .map(editeurEntity -> editeurMapper.entityToDomain(
+                                                editeurEntity,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   )
                                    .collect(Collectors.toList());
     }
 
     @Override
     public Optional<Editeur> findById(Long id) {
         return editeurJpaRepository.findById(id)
-                                   .map(editeurMapper::entityToDomain);
+                                   .map(editeurEntity -> editeurMapper.entityToDomain(
+                                                editeurEntity,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   );
     }
 
     @Override
