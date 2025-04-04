@@ -24,17 +24,21 @@ public interface JeuMapper {
     @Named("mapEditeurAvoidingCycle")
     default Editeur mapEditeurAvoidingCycle(EditeurEntity editeurEntity,
                                             @Context CycleAvoidingMappingContext context) {
+        if (editeurEntity == null) {
+            return null;
+        }
+
         Editeur existing = context.getMappedInstance(editeurEntity, Editeur.class);
         if (existing != null) {
             return existing;
         }
 
-        Editeur editeur = new Editeur(); // ou utilise un constructeur propre
+        Editeur editeur = new Editeur(); // or use a proper constructor
         context.storeMappedInstance(editeurEntity, editeur);
 
         editeur.setId(editeurEntity.getId());
         editeur.setNom(editeurEntity.getNom());
-        // on ignore les jeux ici ou on peut mapper manuellement si besoin
+        // ignore games here or map manually if needed
         return editeur;
     }
 }
