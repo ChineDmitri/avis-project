@@ -15,8 +15,4 @@ public class ModerateurEntity extends UtilisateurEntity {
 
     private String numeroDeTelephone;
 
-//    public ModerateurEntity(String pseudo, String motDePasse, String mail, String numeroDeTelephone) {
-//        super(pseudo, motDePasse, mail);
-//        this.numeroDeTelephone = numeroDeTelephone;
-//    }
 }

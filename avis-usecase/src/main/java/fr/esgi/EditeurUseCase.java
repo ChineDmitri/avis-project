@@ -1,8 +1,8 @@
-package fr.esgi.usecase;
+package fr.esgi;
 
+import fr.esgi.api.EditeurService;
 import fr.esgi.model.Editeur;
 import fr.esgi.port.EditeurRepository;
-import fr.esgi.api.EditeurService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

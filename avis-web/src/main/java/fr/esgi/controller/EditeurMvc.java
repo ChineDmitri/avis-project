@@ -28,7 +28,7 @@ public class EditeurMvc {
 
     @GetMapping({"editeurs", "index", "/"})
     public ModelAndView getEditeurs() {
-        ModelAndView  mav      = new ModelAndView("editeurs");
+        ModelAndView  mav      = new ModelAndView("editeurs"); // NOSONAR
         List<Editeur> editeurs = editeurService.recupererEditeurs();
 
         mav.addObject("editeurs", editeurs);

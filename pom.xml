@@ -21,6 +21,7 @@
         <module>avis-persistance</module>
         <module>avis-usecase</module>
         <module>avis-application</module>
+        <module>avis-cloud</module>
     </modules>
 
     <properties>
@@ -71,6 +72,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
         </dependency>
 
         <dependency>

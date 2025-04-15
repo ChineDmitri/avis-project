@@ -1,6 +1,5 @@
 package fr.esgi.controller;
 
-import fr.esgi.adapter.FileAdapter;
 import fr.esgi.adapter.page.PageAdapter;
 import fr.esgi.api.JeuService;
 import fr.esgi.exception.TechnicalException;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.InputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -31,8 +30,7 @@ public class JeuController {
     private JeuService  jeuService;
     @Autowired
     private PageAdapter pageAdapter;
-    @Autowired
-    private FileAdapter fileAdapter;
+
 
     @GetMapping({"jeux"})
     public ModelAndView getJeux(
@@ -89,8 +87,12 @@ public class JeuController {
                                           @RequestParam("file")
                                           MultipartFile image) throws
                                                                TechnicalException {
-        InputStream imageStream = fileAdapter.toInputStream(image);
-        String fnfp = jeuService.ajouterImage(idJeu, imageStream);
+        try {
+            String fnfp = jeuService.ajouterImage(idJeu, image.getInputStream());
+            System.out.println("File name with path: " + fnfp);
+        } catch (IOException e) {
+            throw new TechnicalException(e.getMessage());
+        }
         return new ModelAndView("redirect:/jeux");
     }
 }

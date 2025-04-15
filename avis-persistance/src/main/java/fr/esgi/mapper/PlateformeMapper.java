@@ -9,8 +9,6 @@ import org.mapstruct.*;
         componentModel = MappingConstants.ComponentModel.SPRING
 )
 public interface PlateformeMapper {
-//    Plateforme dtoToDomain(PlateformeDto plateformeDto);
-//    PlateformeDto domainToDto(Plateforme plateforme);
 
     @Mapping(target = "jeux", ignore = true) // éviter la récursivité infinie
     Plateforme entityToDomain(PlateformeEntity plateformeEntity, @Context CycleAvoidingMappingContext context);

@@ -22,7 +22,7 @@ public class PlateformeRepositoryAdapter implements PlateformeRepository {
         return plateformeJpaRepository.findByNomContaining(filtre)
                                       .stream()
                                       .map(p -> plateformeMapper.entityToDomain(p, new CycleAvoidingMappingContext()))
-                                      .collect(Collectors.toList());
+                                      .toList();
     }
 
     @Override
@@ -49,6 +49,6 @@ public class PlateformeRepositoryAdapter implements PlateformeRepository {
         return plateformeJpaRepository.findAll()
                                       .stream()
                                       .map(p -> plateformeMapper.entityToDomain(p, new CycleAvoidingMappingContext()))
-                                      .collect(Collectors.toList());
+                                      .toList();
     }
 }

@@ -31,7 +31,7 @@ public class AvisRepositoryAdapter implements AvisRepository {
     public List<Avis> findAll() {
         return avisJpaRepository.findAll().stream()
                                 .map(avisMapper::entityToDomain)
-                                .collect(Collectors.toList());
+                                .toList();
     }
 
     @Override

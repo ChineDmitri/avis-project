@@ -35,15 +35,6 @@ public interface JoueurJpaRepository extends JpaRepository<JoueurEntity, Long> {
     @Query("select j from JoueurEntity j where j.dateDeNaissance = ?1 and j.dateDeNaissance = ?2")
     Page<JoueurEntity> methodHQL(LocalDate dateDeNaissanceStart, LocalDate dateDeNaissanceEnd, Pageable pageable);
 
-    // Comment obtenir le nombre de joueurs par année de naissance
-    // Projection : SELECT new
-//    @Query("""
-//            SELECT new fr.esgi.fx.avis.dto.NbJoueursParAnnee(year(j.dateDeNaissance), count(*))
-//            FROM JoueurEntity j
-//            GROUP BY year(j.dateDeNaissance)
-//            """)
-//    List<NbJoueursParAnnee> findNbJoueursParAnnee();
-
     // Requête pour obtenir les joueurs triés sur le
     // nombre d'avis décroissant
    @Query("""

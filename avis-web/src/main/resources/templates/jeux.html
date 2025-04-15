@@ -27,7 +27,7 @@
     </thead>
     <tbody>
     <tr th:each="jeu, stat:${pageDeJeux.content}">
-        <td><img th:src="@{'/images/' + ${jeu.id} + '.jpg'}" width="80px"></td>
+        <td><img th:src="@{${jeu.image}}" width="80px"></td>
         <td th:text="${jeu.nom}"></td>
         <td th:text="${jeu.genre}"></td>
         <td>

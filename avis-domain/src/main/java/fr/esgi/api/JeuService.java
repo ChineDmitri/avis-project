@@ -20,8 +20,8 @@ public interface JeuService {
      * Add an image to a game and return filename
      * if exception occurs, return `StringUtils.EMPTY`
      * @param id
-     * @param image
+     * @param is
      * @return
      */
-    String ajouterImage(Long id, InputStream image);
+    String ajouterImage(Long id, InputStream is);
 }

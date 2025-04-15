@@ -2,7 +2,6 @@ package fr.esgi.port;
 
 import fr.esgi.model.Joueur;
 
-import java.awt.print.Pageable;
 import java.time.LocalDate;
 import java.util.List;
 

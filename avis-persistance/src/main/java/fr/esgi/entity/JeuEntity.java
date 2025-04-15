@@ -2,7 +2,10 @@ package fr.esgi.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -43,16 +46,12 @@ public class JeuEntity {
 
     private LocalDate dateDeSortie;
 
-    // JeuEntity est la classe centrale
-    //
     @ManyToMany
     private List<PlateformeEntity> plateformes;
 
     private String image;
 
     private float prix;
-
-    //private int version;
 
     public JeuEntity(String nom) {
         super();

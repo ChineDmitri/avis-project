@@ -1,7 +1,7 @@
 package fr.esgi.mapper;
 
-import fr.esgi.model.Jeu;
 import fr.esgi.dto.JeuDto;
+import fr.esgi.model.Jeu;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)

@@ -12,8 +12,6 @@ import org.mapstruct.*;
         uses = {EditeurMapper.class, PlateformeMapper.class}
 )
 public interface JeuMapper {
-    //    Jeu dtoToDomain(JeuDto jeuDto);
-    //    JeuDto domainToDto(Jeu jeu);
 
     @Mapping(target = "editeur", qualifiedByName = "mapEditeurAvoidingCycle")
     Jeu entityToDomain(JeuEntity jeuEntity,

@@ -25,7 +25,6 @@ public class EditorRepositoryAdapter implements EditeurRepository {
 
     @Override
     public List<Jeu> findEditorsWithoutGames() {
-        CycleAvoidingMappingContext context = new CycleAvoidingMappingContext();
         return editeurJpaRepository.findEditorsWithoutGames()
                                    .stream()
                                    .map(e -> jeuMapper.entityToDomain(
@@ -33,7 +32,7 @@ public class EditorRepositoryAdapter implements EditeurRepository {
                                                 new CycleAvoidingMappingContext()
                                         )
                                    )
-                                   .collect(Collectors.toList());
+                                   .toList();
     }
 
     @Override
@@ -45,7 +44,7 @@ public class EditorRepositoryAdapter implements EditeurRepository {
                                                 new CycleAvoidingMappingContext()
                                         )
                                    )
-                                   .collect(Collectors.toList());
+                                   .toList();
     }
 
     @Override
@@ -80,7 +79,7 @@ public class EditorRepositoryAdapter implements EditeurRepository {
                                                 new CycleAvoidingMappingContext()
                                         )
                                    )
-                                   .collect(Collectors.toList());
+                                   .toList();
     }
 
     @Override

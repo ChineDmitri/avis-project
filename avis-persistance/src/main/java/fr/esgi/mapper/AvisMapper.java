@@ -12,9 +12,6 @@ import org.mapstruct.ReportingPolicy;
         uses = {JoueurMapper.class, JeuMapper.class}
 )
 public interface AvisMapper {
-//    Avis dtoToDomain(AvisEntity avisDto);
-    //    AvisEntity domainToDto(Avis avis);
-
     Avis entityToDomain(AvisEntity avisEntity);
     AvisEntity domainToEntity(Avis avis);
 }

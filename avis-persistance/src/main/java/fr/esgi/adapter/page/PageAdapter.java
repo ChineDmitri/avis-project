@@ -40,7 +40,7 @@ public class PageAdapter {
         List<R> content = springPage.getContent()
                                     .stream()
                                     .map(mapper)
-                                    .collect(Collectors.toList());
+                                    .toList();
 
         return new CustomPagedResult<>(
                 content,

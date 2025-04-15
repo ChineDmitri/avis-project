@@ -11,9 +11,6 @@ import org.mapstruct.ReportingPolicy;
         componentModel = MappingConstants.ComponentModel.SPRING
 )
 public interface JoueurMapper {
-//    Joueur dtoToDomain(JoueurEntity joueurDto);
-//    JoueurEntity domainToDto(Joueur joueur);
-
     Joueur entityToDomain(JoueurEntity joueurEntity);
     JoueurEntity domainToEntity(Joueur joueur);
 }
