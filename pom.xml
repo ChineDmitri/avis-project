@@ -17,8 +17,8 @@
 
     <modules>
         <module>avis-domain</module>
-        <module>avis-web</module>
         <module>avis-persistance</module>
+        <module>avis-web</module>
         <module>avis-usecase</module>
         <module>avis-application</module>
         <module>avis-cloud</module>
