@@ -16,7 +16,6 @@ public class Jeu  {
     @NonNull
     private String nom;
 
-//    @NonNull
     private Editeur editeur;
 
     private Genre genre;
