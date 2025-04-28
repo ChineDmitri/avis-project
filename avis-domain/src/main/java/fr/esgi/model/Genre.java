@@ -9,7 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-//@SuperBuilder
 public class Genre {
 
     private Long id;
