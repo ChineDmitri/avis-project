@@ -1,10 +1,16 @@
 name: Maven Tests & Code Coverage
 
+# Correction de la syntaxe des branches
 on:
   push:
-    branches: [main, master, develop 'feature/*', 'feature_*']
+    branches: [main, master, develop, 'feature/*', 'feature_*']
   pull_request:
     branches: [main, master, develop]
+
+# Permissions au niveau du workflow
+permissions:
+  contents: write
+  pages: write
 
 jobs:
   test:
@@ -14,6 +20,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # Important pour permettre les pushs
+          persist-credentials: true
+          fetch-depth: 0
 
       - name: Set up JDK 21
         uses: actions/setup-java@v3
@@ -61,6 +71,8 @@ jobs:
           folder: avis-coverage/target/site/jacoco-aggregate
           branch: gh-pages
           target-folder: coverage-report
+          token: ${{ secrets.GITHUB_TOKEN }}
+          clean: true
 
       # Optionnel: vérifier les seuils de couverture et échouer si non respectés
       # - name: Verify coverage thresholds
