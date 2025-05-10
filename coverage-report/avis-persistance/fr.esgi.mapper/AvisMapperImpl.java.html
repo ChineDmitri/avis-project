@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AvisMapperImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">avis-coverage</a> &gt; <a href="../index.html" class="el_bundle">avis-persistance</a> &gt; <a href="index.source.html" class="el_package">fr.esgi.mapper</a> &gt; <span class="el_source">AvisMapperImpl.java</span></div><h1>AvisMapperImpl.java</h1><pre class="source lang-java linenums">package fr.esgi.mapper;
+
+import fr.esgi.entity.AvisEntity;
+import fr.esgi.entity.ClassificationEntity;
+import fr.esgi.entity.EditeurEntity;
+import fr.esgi.entity.GenreEntity;
+import fr.esgi.entity.JeuEntity;
+import fr.esgi.entity.ModerateurEntity;
+import fr.esgi.entity.PlateformeEntity;
+import fr.esgi.model.Avis;
+import fr.esgi.model.Classification;
+import fr.esgi.model.Editeur;
+import fr.esgi.model.Genre;
+import fr.esgi.model.Jeu;
+import fr.esgi.model.Moderateur;
+import fr.esgi.model.Plateforme;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2025-05-10T15:36:05+0000&quot;,
+    comments = &quot;version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)&quot;
+)
+@Component
+<span class="nc" id="L29">public class AvisMapperImpl implements AvisMapper {</span>
+
+    @Autowired
+    private JoueurMapper joueurMapper;
+
+    @Override
+    public Avis entityToDomain(AvisEntity avisEntity) {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if ( avisEntity == null ) {</span>
+<span class="nc" id="L37">            return null;</span>
+        }
+
+<span class="nc" id="L40">        Avis avis = new Avis();</span>
+
+<span class="nc" id="L42">        avis.setId( avisEntity.getId() );</span>
+<span class="nc" id="L43">        avis.setDescription( avisEntity.getDescription() );</span>
+<span class="nc" id="L44">        avis.setJeu( jeuEntityToJeu( avisEntity.getJeu() ) );</span>
+<span class="nc" id="L45">        avis.setJoueur( joueurMapper.entityToDomain( avisEntity.getJoueur() ) );</span>
+<span class="nc" id="L46">        avis.setNote( avisEntity.getNote() );</span>
+<span class="nc" id="L47">        avis.setDateDEnvoi( avisEntity.getDateDEnvoi() );</span>
+<span class="nc" id="L48">        avis.setModerateur( moderateurEntityToModerateur( avisEntity.getModerateur() ) );</span>
+
+<span class="nc" id="L50">        return avis;</span>
+    }
+
+    @Override
+    public AvisEntity domainToEntity(Avis avis) {
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        if ( avis == null ) {</span>
+<span class="nc" id="L56">            return null;</span>
+        }
+
+<span class="nc" id="L59">        AvisEntity avisEntity = new AvisEntity();</span>
+
+<span class="nc" id="L61">        avisEntity.setId( avis.getId() );</span>
+<span class="nc" id="L62">        avisEntity.setDescription( avis.getDescription() );</span>
+<span class="nc" id="L63">        avisEntity.setJeu( jeuToJeuEntity( avis.getJeu() ) );</span>
+<span class="nc" id="L64">        avisEntity.setJoueur( joueurMapper.domainToEntity( avis.getJoueur() ) );</span>
+<span class="nc" id="L65">        avisEntity.setNote( avis.getNote() );</span>
+<span class="nc" id="L66">        avisEntity.setDateDEnvoi( avis.getDateDEnvoi() );</span>
+<span class="nc" id="L67">        avisEntity.setModerateur( moderateurToModerateurEntity( avis.getModerateur() ) );</span>
+
+<span class="nc" id="L69">        return avisEntity;</span>
+    }
+
+    protected List&lt;Jeu&gt; jeuEntityListToJeuList(List&lt;JeuEntity&gt; list) {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L74">            return null;</span>
+        }
+
+<span class="nc" id="L77">        List&lt;Jeu&gt; list1 = new ArrayList&lt;Jeu&gt;( list.size() );</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        for ( JeuEntity jeuEntity : list ) {</span>
+<span class="nc" id="L79">            list1.add( jeuEntityToJeu( jeuEntity ) );</span>
+<span class="nc" id="L80">        }</span>
+
+<span class="nc" id="L82">        return list1;</span>
+    }
+
+    protected Editeur editeurEntityToEditeur(EditeurEntity editeurEntity) {
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        if ( editeurEntity == null ) {</span>
+<span class="nc" id="L87">            return null;</span>
+        }
+
+<span class="nc" id="L90">        Editeur editeur = new Editeur();</span>
+
+<span class="nc" id="L92">        editeur.setId( editeurEntity.getId() );</span>
+<span class="nc" id="L93">        editeur.setNom( editeurEntity.getNom() );</span>
+<span class="nc" id="L94">        editeur.setJeux( jeuEntityListToJeuList( editeurEntity.getJeux() ) );</span>
+
+<span class="nc" id="L96">        return editeur;</span>
+    }
+
+    protected Genre genreEntityToGenre(GenreEntity genreEntity) {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if ( genreEntity == null ) {</span>
+<span class="nc" id="L101">            return null;</span>
+        }
+
+<span class="nc" id="L104">        Genre.GenreBuilder genre = Genre.builder();</span>
+
+<span class="nc" id="L106">        genre.id( genreEntity.getId() );</span>
+<span class="nc" id="L107">        genre.nom( genreEntity.getNom() );</span>
+<span class="nc" id="L108">        genre.jeux( jeuEntityListToJeuList( genreEntity.getJeux() ) );</span>
+
+<span class="nc" id="L110">        return genre.build();</span>
+    }
+
+    protected Classification classificationEntityToClassification(ClassificationEntity classificationEntity) {
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        if ( classificationEntity == null ) {</span>
+<span class="nc" id="L115">            return null;</span>
+        }
+
+<span class="nc" id="L118">        Classification classification = new Classification();</span>
+
+<span class="nc" id="L120">        classification.setId( classificationEntity.getId() );</span>
+<span class="nc" id="L121">        classification.setNom( classificationEntity.getNom() );</span>
+<span class="nc" id="L122">        classification.setCouleurRGB( classificationEntity.getCouleurRGB() );</span>
+<span class="nc" id="L123">        classification.setJeux( jeuEntityListToJeuList( classificationEntity.getJeux() ) );</span>
+
+<span class="nc" id="L125">        return classification;</span>
+    }
+
+    protected Plateforme plateformeEntityToPlateforme(PlateformeEntity plateformeEntity) {
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        if ( plateformeEntity == null ) {</span>
+<span class="nc" id="L130">            return null;</span>
+        }
+
+<span class="nc" id="L133">        Plateforme plateforme = new Plateforme();</span>
+
+<span class="nc" id="L135">        plateforme.setId( plateformeEntity.getId() );</span>
+<span class="nc" id="L136">        plateforme.setNom( plateformeEntity.getNom() );</span>
+<span class="nc" id="L137">        plateforme.setJeux( jeuEntityListToJeuList( plateformeEntity.getJeux() ) );</span>
+<span class="nc" id="L138">        plateforme.setDateDeSortie( plateformeEntity.getDateDeSortie() );</span>
+
+<span class="nc" id="L140">        return plateforme;</span>
+    }
+
+    protected List&lt;Plateforme&gt; plateformeEntityListToPlateformeList(List&lt;PlateformeEntity&gt; list) {
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L145">            return null;</span>
+        }
+
+<span class="nc" id="L148">        List&lt;Plateforme&gt; list1 = new ArrayList&lt;Plateforme&gt;( list.size() );</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        for ( PlateformeEntity plateformeEntity : list ) {</span>
+<span class="nc" id="L150">            list1.add( plateformeEntityToPlateforme( plateformeEntity ) );</span>
+<span class="nc" id="L151">        }</span>
+
+<span class="nc" id="L153">        return list1;</span>
+    }
+
+    protected Jeu jeuEntityToJeu(JeuEntity jeuEntity) {
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if ( jeuEntity == null ) {</span>
+<span class="nc" id="L158">            return null;</span>
+        }
+
+<span class="nc" id="L161">        Jeu.JeuBuilder jeu = Jeu.builder();</span>
+
+<span class="nc" id="L163">        jeu.id( jeuEntity.getId() );</span>
+<span class="nc" id="L164">        jeu.nom( jeuEntity.getNom() );</span>
+<span class="nc" id="L165">        jeu.editeur( editeurEntityToEditeur( jeuEntity.getEditeur() ) );</span>
+<span class="nc" id="L166">        jeu.genre( genreEntityToGenre( jeuEntity.getGenre() ) );</span>
+<span class="nc" id="L167">        jeu.classification( classificationEntityToClassification( jeuEntity.getClassification() ) );</span>
+<span class="nc" id="L168">        jeu.description( jeuEntity.getDescription() );</span>
+<span class="nc" id="L169">        jeu.dateDeSortie( jeuEntity.getDateDeSortie() );</span>
+<span class="nc" id="L170">        jeu.plateformes( plateformeEntityListToPlateformeList( jeuEntity.getPlateformes() ) );</span>
+<span class="nc" id="L171">        jeu.image( jeuEntity.getImage() );</span>
+<span class="nc" id="L172">        jeu.prix( jeuEntity.getPrix() );</span>
+
+<span class="nc" id="L174">        return jeu.build();</span>
+    }
+
+    protected Moderateur moderateurEntityToModerateur(ModerateurEntity moderateurEntity) {
+<span class="nc bnc" id="L178" title="All 2 branches missed.">        if ( moderateurEntity == null ) {</span>
+<span class="nc" id="L179">            return null;</span>
+        }
+
+<span class="nc" id="L182">        Moderateur.ModerateurBuilder&lt;?, ?&gt; moderateur = Moderateur.builder();</span>
+
+<span class="nc" id="L184">        moderateur.id( moderateurEntity.getId() );</span>
+<span class="nc" id="L185">        moderateur.pseudo( moderateurEntity.getPseudo() );</span>
+<span class="nc" id="L186">        moderateur.motDePasse( moderateurEntity.getMotDePasse() );</span>
+<span class="nc" id="L187">        moderateur.email( moderateurEntity.getEmail() );</span>
+<span class="nc" id="L188">        moderateur.numeroDeTelephone( moderateurEntity.getNumeroDeTelephone() );</span>
+
+<span class="nc" id="L190">        return moderateur.build();</span>
+    }
+
+    protected List&lt;JeuEntity&gt; jeuListToJeuEntityList(List&lt;Jeu&gt; list) {
+<span class="nc bnc" id="L194" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L195">            return null;</span>
+        }
+
+<span class="nc" id="L198">        List&lt;JeuEntity&gt; list1 = new ArrayList&lt;JeuEntity&gt;( list.size() );</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">        for ( Jeu jeu : list ) {</span>
+<span class="nc" id="L200">            list1.add( jeuToJeuEntity( jeu ) );</span>
+<span class="nc" id="L201">        }</span>
+
+<span class="nc" id="L203">        return list1;</span>
+    }
+
+    protected EditeurEntity editeurToEditeurEntity(Editeur editeur) {
+<span class="nc bnc" id="L207" title="All 2 branches missed.">        if ( editeur == null ) {</span>
+<span class="nc" id="L208">            return null;</span>
+        }
+
+<span class="nc" id="L211">        EditeurEntity editeurEntity = new EditeurEntity();</span>
+
+<span class="nc" id="L213">        editeurEntity.setId( editeur.getId() );</span>
+<span class="nc" id="L214">        editeurEntity.setNom( editeur.getNom() );</span>
+<span class="nc" id="L215">        editeurEntity.setJeux( jeuListToJeuEntityList( editeur.getJeux() ) );</span>
+
+<span class="nc" id="L217">        return editeurEntity;</span>
+    }
+
+    protected GenreEntity genreToGenreEntity(Genre genre) {
+<span class="nc bnc" id="L221" title="All 2 branches missed.">        if ( genre == null ) {</span>
+<span class="nc" id="L222">            return null;</span>
+        }
+
+<span class="nc" id="L225">        GenreEntity.GenreEntityBuilder genreEntity = GenreEntity.builder();</span>
+
+<span class="nc" id="L227">        genreEntity.id( genre.getId() );</span>
+<span class="nc" id="L228">        genreEntity.nom( genre.getNom() );</span>
+<span class="nc" id="L229">        genreEntity.jeux( jeuListToJeuEntityList( genre.getJeux() ) );</span>
+
+<span class="nc" id="L231">        return genreEntity.build();</span>
+    }
+
+    protected ClassificationEntity classificationToClassificationEntity(Classification classification) {
+<span class="nc bnc" id="L235" title="All 2 branches missed.">        if ( classification == null ) {</span>
+<span class="nc" id="L236">            return null;</span>
+        }
+
+<span class="nc" id="L239">        ClassificationEntity classificationEntity = new ClassificationEntity();</span>
+
+<span class="nc" id="L241">        classificationEntity.setId( classification.getId() );</span>
+<span class="nc" id="L242">        classificationEntity.setNom( classification.getNom() );</span>
+<span class="nc" id="L243">        classificationEntity.setCouleurRGB( classification.getCouleurRGB() );</span>
+<span class="nc" id="L244">        classificationEntity.setJeux( jeuListToJeuEntityList( classification.getJeux() ) );</span>
+
+<span class="nc" id="L246">        return classificationEntity;</span>
+    }
+
+    protected PlateformeEntity plateformeToPlateformeEntity(Plateforme plateforme) {
+<span class="nc bnc" id="L250" title="All 2 branches missed.">        if ( plateforme == null ) {</span>
+<span class="nc" id="L251">            return null;</span>
+        }
+
+<span class="nc" id="L254">        PlateformeEntity plateformeEntity = new PlateformeEntity();</span>
+
+<span class="nc" id="L256">        plateformeEntity.setId( plateforme.getId() );</span>
+<span class="nc" id="L257">        plateformeEntity.setNom( plateforme.getNom() );</span>
+<span class="nc" id="L258">        plateformeEntity.setJeux( jeuListToJeuEntityList( plateforme.getJeux() ) );</span>
+<span class="nc" id="L259">        plateformeEntity.setDateDeSortie( plateforme.getDateDeSortie() );</span>
+
+<span class="nc" id="L261">        return plateformeEntity;</span>
+    }
+
+    protected List&lt;PlateformeEntity&gt; plateformeListToPlateformeEntityList(List&lt;Plateforme&gt; list) {
+<span class="nc bnc" id="L265" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L266">            return null;</span>
+        }
+
+<span class="nc" id="L269">        List&lt;PlateformeEntity&gt; list1 = new ArrayList&lt;PlateformeEntity&gt;( list.size() );</span>
+<span class="nc bnc" id="L270" title="All 2 branches missed.">        for ( Plateforme plateforme : list ) {</span>
+<span class="nc" id="L271">            list1.add( plateformeToPlateformeEntity( plateforme ) );</span>
+<span class="nc" id="L272">        }</span>
+
+<span class="nc" id="L274">        return list1;</span>
+    }
+
+    protected JeuEntity jeuToJeuEntity(Jeu jeu) {
+<span class="nc bnc" id="L278" title="All 2 branches missed.">        if ( jeu == null ) {</span>
+<span class="nc" id="L279">            return null;</span>
+        }
+
+<span class="nc" id="L282">        JeuEntity jeuEntity = new JeuEntity();</span>
+
+<span class="nc" id="L284">        jeuEntity.setId( jeu.getId() );</span>
+<span class="nc" id="L285">        jeuEntity.setNom( jeu.getNom() );</span>
+<span class="nc" id="L286">        jeuEntity.setEditeur( editeurToEditeurEntity( jeu.getEditeur() ) );</span>
+<span class="nc" id="L287">        jeuEntity.setGenre( genreToGenreEntity( jeu.getGenre() ) );</span>
+<span class="nc" id="L288">        jeuEntity.setClassification( classificationToClassificationEntity( jeu.getClassification() ) );</span>
+<span class="nc" id="L289">        jeuEntity.setDescription( jeu.getDescription() );</span>
+<span class="nc" id="L290">        jeuEntity.setDateDeSortie( jeu.getDateDeSortie() );</span>
+<span class="nc" id="L291">        jeuEntity.setPlateformes( plateformeListToPlateformeEntityList( jeu.getPlateformes() ) );</span>
+<span class="nc" id="L292">        jeuEntity.setImage( jeu.getImage() );</span>
+<span class="nc" id="L293">        jeuEntity.setPrix( jeu.getPrix() );</span>
+
+<span class="nc" id="L295">        return jeuEntity;</span>
+    }
+
+    protected ModerateurEntity moderateurToModerateurEntity(Moderateur moderateur) {
+<span class="nc bnc" id="L299" title="All 2 branches missed.">        if ( moderateur == null ) {</span>
+<span class="nc" id="L300">            return null;</span>
+        }
+
+<span class="nc" id="L303">        ModerateurEntity.ModerateurEntityBuilder&lt;?, ?&gt; moderateurEntity = ModerateurEntity.builder();</span>
+
+<span class="nc" id="L305">        moderateurEntity.id( moderateur.getId() );</span>
+<span class="nc" id="L306">        moderateurEntity.pseudo( moderateur.getPseudo() );</span>
+<span class="nc" id="L307">        moderateurEntity.motDePasse( moderateur.getMotDePasse() );</span>
+<span class="nc" id="L308">        moderateurEntity.email( moderateur.getEmail() );</span>
+<span class="nc" id="L309">        moderateurEntity.numeroDeTelephone( moderateur.getNumeroDeTelephone() );</span>
+
+<span class="nc" id="L311">        return moderateurEntity.build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

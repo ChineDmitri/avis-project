@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>EditorRepositoryAdapter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">avis-coverage</a> &gt; <a href="../index.html" class="el_bundle">avis-persistance</a> &gt; <a href="index.source.html" class="el_package">fr.esgi.adapter</a> &gt; <span class="el_source">EditorRepositoryAdapter.java</span></div><h1>EditorRepositoryAdapter.java</h1><pre class="source lang-java linenums">package fr.esgi.adapter;
+
+import fr.esgi.entity.EditeurEntity;
+import fr.esgi.mapper.CycleAvoidingMappingContext;
+import fr.esgi.mapper.EditeurMapper;
+import fr.esgi.mapper.JeuMapper;
+import fr.esgi.model.Editeur;
+import fr.esgi.model.Jeu;
+import fr.esgi.port.EditeurRepository;
+import fr.esgi.repository.EditeurJpaRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Component
+@AllArgsConstructor
+public class EditorRepositoryAdapter implements EditeurRepository {
+    private EditeurJpaRepository editeurJpaRepository;
+    private EditeurMapper        editeurMapper;
+    private JeuMapper            jeuMapper;
+
+
+    @Override
+    public List&lt;Jeu&gt; findEditorsWithoutGames() {
+<span class="nc" id="L28">        return editeurJpaRepository.findEditorsWithoutGames()</span>
+<span class="nc" id="L29">                                   .stream()</span>
+<span class="nc" id="L30">                                   .map(e -&gt; jeuMapper.entityToDomain(</span>
+                                                e,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   )
+<span class="nc" id="L35">                                   .toList();</span>
+    }
+
+    @Override
+    public List&lt;Editeur&gt; findByNomContainingIgnoreCase(String nom) {
+<span class="nc" id="L40">        return editeurJpaRepository.findByNomContainingIgnoreCase(nom)</span>
+<span class="nc" id="L41">                                   .stream()</span>
+<span class="nc" id="L42">                                   .map(e -&gt; editeurMapper.entityToDomain(</span>
+                                                e,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   )
+<span class="nc" id="L47">                                   .toList();</span>
+    }
+
+    @Override
+    public Editeur findByNom(String nom) {
+<span class="nc" id="L52">        EditeurEntity entity = editeurJpaRepository.findByNom(nom);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        return entity != null ? editeurMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) : null;</span>
+    }
+
+    @Override
+    public Optional&lt;Editeur&gt; findByNomIgnoreCase(String nom) {
+<span class="nc" id="L58">        return editeurJpaRepository.findByNomIgnoreCase(nom)</span>
+<span class="nc" id="L59">                                   .map(e -&gt; editeurMapper.entityToDomain(</span>
+                                                e,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   );
+    }
+
+    @Override
+    public Editeur save(Editeur editeur) {
+<span class="nc" id="L68">        EditeurEntity entity      = editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext());</span>
+<span class="nc" id="L69">        EditeurEntity savedEntity = editeurJpaRepository.save(entity);</span>
+<span class="nc" id="L70">        return editeurMapper.entityToDomain(savedEntity, new CycleAvoidingMappingContext());</span>
+    }
+
+    @Override
+    public List&lt;Editeur&gt; findAll() {
+<span class="nc" id="L75">        return editeurJpaRepository.findAll()</span>
+<span class="nc" id="L76">                                   .stream()</span>
+<span class="nc" id="L77">                                   .map(editeurEntity -&gt; editeurMapper.entityToDomain(</span>
+                                                editeurEntity,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   )
+<span class="nc" id="L82">                                   .toList();</span>
+    }
+
+    @Override
+    public Optional&lt;Editeur&gt; findById(Long id) {
+<span class="nc" id="L87">        return editeurJpaRepository.findById(id)</span>
+<span class="nc" id="L88">                                   .map(editeurEntity -&gt; editeurMapper.entityToDomain(</span>
+                                                editeurEntity,
+                                                new CycleAvoidingMappingContext()
+                                        )
+                                   );
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+<span class="nc" id="L97">        return editeurJpaRepository.existsById(id);</span>
+    }
+
+    @Override
+    public void deleteById(Long id) {
+<span class="nc" id="L102">        editeurJpaRepository.deleteById(id);</span>
+<span class="nc" id="L103">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>JeuEntity.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">avis-coverage</a> &gt; <a href="../index.html" class="el_bundle">avis-persistance</a> &gt; <a href="index.source.html" class="el_package">fr.esgi.entity</a> &gt; <span class="el_source">JeuEntity.java</span></div><h1>JeuEntity.java</h1><pre class="source lang-java linenums">package fr.esgi.entity;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Entity
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
+@DynamicUpdate
+@DynamicInsert
+@Table(indexes = @Index(name=&quot;Jeu_Nom_Index&quot;, columnList = &quot;nom&quot;))
+public class JeuEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = &quot;jeu_seq&quot;)
+    @SequenceGenerator(name = &quot;jeu_seq&quot;)
+    private Long id;
+
+    @Column(nullable = false)
+    @NonNull
+    private String nom;
+
+    @NonNull
+    @ManyToOne // Many JeuEntity to One EditeurEntity
+    @JsonManagedReference
+    private EditeurEntity editeur;
+
+    @ManyToOne // Many JeuEntity to One GenreEntity
+    private GenreEntity genre;
+
+    @ManyToOne
+    private ClassificationEntity classification;
+
+    @Lob
+    private String description;
+
+    private LocalDate dateDeSortie;
+
+    @ManyToMany
+    private List&lt;PlateformeEntity&gt; plateformes;
+
+    private String image;
+
+    private float prix;
+
+    public JeuEntity(String nom) {
+<span class="nc" id="L57">        super();</span>
+<span class="nc" id="L58">        this.nom = nom;</span>
+<span class="nc" id="L59">    }</span>
+
+    public JeuEntity(String nom, LocalDate dateDeSortie, EditeurEntity editeur) {
+<span class="nc" id="L62">        this(nom, editeur);</span>
+<span class="nc" id="L63">        this.dateDeSortie = dateDeSortie;</span>
+<span class="nc" id="L64">    }</span>
+
+    public JeuEntity(String nom, String description, LocalDate dateSortie, EditeurEntity editeur) {
+<span class="nc" id="L67">        this(nom, dateSortie, editeur);</span>
+<span class="nc" id="L68">        this.description = description;</span>
+<span class="nc" id="L69">    }</span>
+
+    public JeuEntity(String nom, LocalDate dateSortie, EditeurEntity editeur, GenreEntity genre) {
+<span class="nc" id="L72">        this(nom, null, dateSortie, editeur);</span>
+<span class="nc" id="L73">        this.genre = genre;</span>
+<span class="nc" id="L74">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

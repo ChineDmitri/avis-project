@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>FileUploaderSystem.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">avis-coverage</a> &gt; <a href="../index.html" class="el_bundle">avis-domain</a> &gt; <a href="index.source.html" class="el_package">fr.esgi.port.decorator</a> &gt; <span class="el_source">FileUploaderSystem.java</span></div><h1>FileUploaderSystem.java</h1><pre class="source lang-java linenums">package fr.esgi.port.decorator;
+
+import fr.esgi.port.FileUploader;
+import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+@AllArgsConstructor
+public class FileUploaderSystem implements FileUploader {
+
+    @Override
+    public String upload(InputStream io) {
+        try {
+            // Permanent upload directory
+<span class="nc" id="L21">            String uploadDir = &quot;/uploads/&quot;;</span>
+<span class="nc" id="L22">            Path uploadPath = Paths.get(uploadDir);</span>
+
+            // Create the directory if it doesn't exist
+<span class="nc bnc" id="L25" title="All 2 branches missed.">            if (!Files.exists(uploadPath)) {</span>
+<span class="nc" id="L26">                Files.createDirectories(uploadPath);</span>
+            }
+
+            // Generate a unique filename
+<span class="nc" id="L30">            String filename = System.currentTimeMillis() + &quot;.jpg&quot;;</span>
+<span class="nc" id="L31">            Path filePath = uploadPath.resolve(filename);</span>
+
+            // Save the file
+<span class="nc" id="L34">            Files.copy(io, filePath, StandardCopyOption.REPLACE_EXISTING);</span>
+
+<span class="nc" id="L36">            System.out.println(&quot;[LOG] PATH : &quot; + filePath.toFile().getAbsolutePath());</span>
+            // Return the relative path for access
+<span class="nc" id="L38">            return &quot;/uploads/&quot; + filename;</span>
+<span class="nc" id="L39">        } catch (IOException e) {</span>
+<span class="nc" id="L40">            System.err.println(&quot;Error uploading file: &quot; + e.getMessage());</span>
+<span class="nc" id="L41">            return StringUtils.EMPTY;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

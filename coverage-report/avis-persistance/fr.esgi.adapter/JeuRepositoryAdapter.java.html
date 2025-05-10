@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>JeuRepositoryAdapter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">avis-coverage</a> &gt; <a href="../index.html" class="el_bundle">avis-persistance</a> &gt; <a href="index.source.html" class="el_package">fr.esgi.adapter</a> &gt; <span class="el_source">JeuRepositoryAdapter.java</span></div><h1>JeuRepositoryAdapter.java</h1><pre class="source lang-java linenums">package fr.esgi.adapter;
+
+import fr.esgi.adapter.page.PageAdapter;
+import fr.esgi.entity.GenreEntity;
+import fr.esgi.entity.JeuEntity;
+import fr.esgi.mapper.CycleAvoidingMappingContext;
+import fr.esgi.mapper.EditeurMapper;
+import fr.esgi.mapper.JeuMapper;
+import fr.esgi.mapper.PlateformeMapper;
+import fr.esgi.model.Editeur;
+import fr.esgi.model.Genre;
+import fr.esgi.model.Jeu;
+import fr.esgi.model.Plateforme;
+import fr.esgi.model.page.CustomPagedResult;
+import fr.esgi.model.page.PaginationParams;
+import fr.esgi.port.JeuRepository;
+import fr.esgi.repository.JeuJpaRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Component
+@AllArgsConstructor
+public class JeuRepositoryAdapter implements JeuRepository {
+    private JeuJpaRepository jeuJpaRepository;
+    private JeuMapper        jeuMapper;
+    private EditeurMapper    editeurMapper;
+    private PlateformeMapper plateformeMapper;
+    private PageAdapter      pageAdapter;
+
+    @Override
+    public Jeu findById(Long id) {
+<span class="nc" id="L37">        return jeuJpaRepository.findById(id)</span>
+<span class="nc" id="L38">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L39">                               .orElse(null);</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findAll() {
+<span class="nc" id="L44">        return jeuJpaRepository.findAll()</span>
+<span class="nc" id="L45">                               .stream()</span>
+<span class="nc" id="L46">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L47">                               .toList();</span>
+    }
+
+    @Override
+    public CustomPagedResult&lt;Jeu&gt; findAll(PaginationParams paginationParams) {
+<span class="nc" id="L52">        System.out.println(&quot;jeuMapper = &quot; + jeuMapper);</span>
+
+<span class="nc" id="L54">        return pageAdapter.fromSpringPage(</span>
+<span class="nc" id="L55">                jeuJpaRepository.findAll(</span>
+<span class="nc" id="L56">                        pageAdapter.toSpringPageable(paginationParams)</span>
+                ),
+<span class="nc" id="L58">                entity -&gt; jeuMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) // 💡 ici</span>
+        );
+    }
+
+
+    @Override
+    public Jeu findFirstByNom(String nom) {
+<span class="nc" id="L65">        JeuEntity entity = jeuJpaRepository.findFirstByNom(nom);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        return entity != null ? jeuMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) : null;</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByEditeur(Editeur editeur) {
+<span class="nc" id="L71">        List&lt;JeuEntity&gt; entities = jeuJpaRepository.findByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));</span>
+<span class="nc" id="L72">        return entities.stream()</span>
+<span class="nc" id="L73">                       .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L74">                       .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByEditeurNom(String nom) {
+<span class="nc" id="L79">        List&lt;JeuEntity&gt; entities = jeuJpaRepository.findByEditeurNom(nom);</span>
+<span class="nc" id="L80">        return entities.stream()</span>
+<span class="nc" id="L81">                       .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L82">                       .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByEditeurAndGenre(Editeur editeur, Genre genre) {
+<span class="nc" id="L87">        List&lt;JeuEntity&gt; entities = jeuJpaRepository.findByEditeurAndGenre(editeurMapper.domainToEntity(</span>
+                                                                                  editeur,
+                                                                                  new CycleAvoidingMappingContext()
+                                                                          ),
+<span class="nc" id="L91">                                                                          GenreEntity.builder()</span>
+<span class="nc" id="L92">                                                                                     .id(genre.getId())</span>
+<span class="nc" id="L93">                                                                                     .build());</span>
+<span class="nc" id="L94">        return entities.stream()</span>
+<span class="nc" id="L95">                       .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L96">                       .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findTop5ByEditeurOrderByDateDeSortieDesc(Editeur editeur) {
+<span class="nc" id="L101">        List&lt;JeuEntity&gt; entities = jeuJpaRepository.findTop5ByEditeurOrderByDateDeSortieDesc(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));</span>
+
+<span class="nc" id="L103">        return entities.stream()</span>
+<span class="nc" id="L104">                       .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L105">                       .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByEditeurAndGenreAndClassificationNom(Editeur editeur, Genre genre, String nom) {
+<span class="nc" id="L110">        List&lt;JeuEntity&gt; entities = jeuJpaRepository.findByEditeurAndGenreAndClassificationNom(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()),</span>
+<span class="nc" id="L111">                                                                                              GenreEntity.builder()</span>
+<span class="nc" id="L112">                                                                                                         .id(genre.getId())</span>
+<span class="nc" id="L113">                                                                                                         .build(),</span>
+                                                                                              nom);
+
+<span class="nc" id="L116">        return entities.stream()</span>
+<span class="nc" id="L117">                       .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L118">                       .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByGenre(Genre genre) {
+<span class="nc" id="L123">        GenreEntity genreEntity = GenreEntity.builder()</span>
+<span class="nc" id="L124">                                             .id(genre.getId())</span>
+<span class="nc" id="L125">                                             .build();</span>
+<span class="nc" id="L126">        List&lt;JeuEntity&gt; entities = jeuJpaRepository.findByGenre(genreEntity);</span>
+
+<span class="nc" id="L128">        return entities.stream()</span>
+<span class="nc" id="L129">                       .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L130">                       .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByGenreNom(String nom) {
+<span class="nc" id="L135">        return jeuJpaRepository.findByGenreNom(nom)</span>
+<span class="nc" id="L136">                               .stream()</span>
+<span class="nc" id="L137">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L138">                               .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByNomLike(String nom) {
+<span class="nc" id="L143">        return jeuJpaRepository.findByNomLike(nom)</span>
+<span class="nc" id="L144">                               .stream()</span>
+<span class="nc" id="L145">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L146">                               .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByNomLikeAndDateDeSortieBetween(String nom, LocalDate dateDebut, LocalDate dateFin) {
+<span class="nc" id="L151">        return jeuJpaRepository.findByNomLikeAndDateDeSortieBetween(nom, dateDebut, dateFin)</span>
+<span class="nc" id="L152">                               .stream()</span>
+<span class="nc" id="L153">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L154">                               .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByEditeurAndNomLikeAndDateDeSortieBetween(Editeur editeur, String nom, LocalDate dateDebut, LocalDate dateFin) {
+<span class="nc" id="L159">        return jeuJpaRepository.findByEditeurAndNomLikeAndDateDeSortieBetween(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()),</span>
+                                                                              nom,
+                                                                              dateDebut,
+                                                                              dateFin)
+<span class="nc" id="L163">                               .stream()</span>
+<span class="nc" id="L164">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L165">                               .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findAllByPlateformesContaining(Plateforme plateforme) {
+<span class="nc" id="L170">        return jeuJpaRepository.findAllByPlateformesContaining(plateformeMapper.domainToEntity(plateforme,</span>
+                                                                                               new CycleAvoidingMappingContext()))
+<span class="nc" id="L172">                               .stream()</span>
+<span class="nc" id="L173">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L174">                               .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByPlateformesNom(String nom) {
+<span class="nc" id="L179">        return jeuJpaRepository.findByPlateformesNom(nom)</span>
+<span class="nc" id="L180">                               .stream()</span>
+<span class="nc" id="L181">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L182">                               .toList();</span>
+    }
+
+    @Override
+    public Optional&lt;Jeu&gt; findByNom(String nom) {
+<span class="nc" id="L187">        return jeuJpaRepository.findByNom(nom)</span>
+<span class="nc" id="L188">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()));</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByNomEndingWith(String filtre) {
+<span class="nc" id="L193">        return jeuJpaRepository.findByNomEndingWith(filtre)</span>
+<span class="nc" id="L194">                               .stream()</span>
+<span class="nc" id="L195">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L196">                               .toList();</span>
+    }
+
+    @Override
+    public boolean existsByNom(String nom) {
+<span class="nc" id="L201">        return jeuJpaRepository.existsByNom(nom);</span>
+    }
+
+    @Override
+    public long countByEditeur(Editeur editeur) {
+<span class="nc" id="L206">        return jeuJpaRepository.countByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));</span>
+    }
+
+    @Override
+    public Jeu save(Jeu jeu) {
+<span class="nc" id="L211">        JeuEntity je = jeuJpaRepository.save(jeuMapper.domainToEntity(jeu, new CycleAvoidingMappingContext()));</span>
+<span class="nc" id="L212">        return jeuMapper.entityToDomain(je, new CycleAvoidingMappingContext());</span>
+    }
+
+    @Override
+    public long deleteByEditeur(Editeur editeur) {
+<span class="nc" id="L217">        return jeuJpaRepository.deleteByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByPlateformes(Plateforme plateforme) {
+<span class="nc" id="L222">        return jeuJpaRepository.findByPlateformes(plateformeMapper.domainToEntity(plateforme,</span>
+                                                                                  new CycleAvoidingMappingContext()))
+<span class="nc" id="L224">                               .stream()</span>
+<span class="nc" id="L225">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L226">                               .toList();</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findByDateDeSortieBetweenAndGenreAndImageNotNull(LocalDate dateDeSortieStart, LocalDate dateDeSortieEnd, Genre genre) {
+<span class="nc" id="L231">        return jeuJpaRepository.findByDateDeSortieBetweenAndGenreAndImageNotNull(dateDeSortieStart,</span>
+                                                                                 dateDeSortieEnd,
+<span class="nc" id="L233">                                                                                 GenreEntity.builder()</span>
+<span class="nc" id="L234">                                                                                            .id(genre.getId())</span>
+<span class="nc" id="L235">                                                                                            .build())</span>
+<span class="nc" id="L236">                               .stream()</span>
+<span class="nc" id="L237">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L238">                               .toList();</span>
+    }
+
+    @Override
+    public Optional&lt;Jeu&gt; findByNomIgnoreCase(String nom) {
+<span class="nc" id="L243">        return jeuJpaRepository.findByNomIgnoreCase(nom)</span>
+<span class="nc" id="L244">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()));</span>
+    }
+
+    @Override
+    public List&lt;Jeu&gt; findGamesRandomlySorted() {
+<span class="nc" id="L249">        return jeuJpaRepository.findGamesRandomlySorted()</span>
+<span class="nc" id="L250">                               .stream()</span>
+<span class="nc" id="L251">                               .map(jeuEntity -&gt; jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L252">                               .toList();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

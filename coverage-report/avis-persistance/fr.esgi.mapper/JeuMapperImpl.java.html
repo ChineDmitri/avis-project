@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>JeuMapperImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">avis-coverage</a> &gt; <a href="../index.html" class="el_bundle">avis-persistance</a> &gt; <a href="index.source.html" class="el_package">fr.esgi.mapper</a> &gt; <span class="el_source">JeuMapperImpl.java</span></div><h1>JeuMapperImpl.java</h1><pre class="source lang-java linenums">package fr.esgi.mapper;
+
+import fr.esgi.entity.ClassificationEntity;
+import fr.esgi.entity.GenreEntity;
+import fr.esgi.entity.JeuEntity;
+import fr.esgi.entity.PlateformeEntity;
+import fr.esgi.model.Classification;
+import fr.esgi.model.Genre;
+import fr.esgi.model.Jeu;
+import fr.esgi.model.Plateforme;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2025-05-10T15:36:04+0000&quot;,
+    comments = &quot;version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)&quot;
+)
+@Component
+<span class="nc" id="L23">public class JeuMapperImpl implements JeuMapper {</span>
+
+    @Autowired
+    private EditeurMapper editeurMapper;
+    @Autowired
+    private PlateformeMapper plateformeMapper;
+
+    @Override
+    public Jeu entityToDomain(JeuEntity jeuEntity, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if ( jeuEntity == null ) {</span>
+<span class="nc" id="L33">            return null;</span>
+        }
+
+<span class="nc" id="L36">        Jeu.JeuBuilder jeu = Jeu.builder();</span>
+
+<span class="nc" id="L38">        jeu.editeur( mapEditeurAvoidingCycle( jeuEntity.getEditeur(), context ) );</span>
+<span class="nc" id="L39">        jeu.id( jeuEntity.getId() );</span>
+<span class="nc" id="L40">        jeu.nom( jeuEntity.getNom() );</span>
+<span class="nc" id="L41">        jeu.genre( genreEntityToGenre( jeuEntity.getGenre(), context ) );</span>
+<span class="nc" id="L42">        jeu.classification( classificationEntityToClassification( jeuEntity.getClassification(), context ) );</span>
+<span class="nc" id="L43">        jeu.description( jeuEntity.getDescription() );</span>
+<span class="nc" id="L44">        jeu.dateDeSortie( jeuEntity.getDateDeSortie() );</span>
+<span class="nc" id="L45">        jeu.plateformes( plateformeEntityListToPlateformeList( jeuEntity.getPlateformes(), context ) );</span>
+<span class="nc" id="L46">        jeu.image( jeuEntity.getImage() );</span>
+<span class="nc" id="L47">        jeu.prix( jeuEntity.getPrix() );</span>
+
+<span class="nc" id="L49">        return jeu.build();</span>
+    }
+
+    @Override
+    public JeuEntity domainToEntity(Jeu jeu, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if ( jeu == null ) {</span>
+<span class="nc" id="L55">            return null;</span>
+        }
+
+<span class="nc" id="L58">        JeuEntity jeuEntity = new JeuEntity();</span>
+
+<span class="nc" id="L60">        jeuEntity.setId( jeu.getId() );</span>
+<span class="nc" id="L61">        jeuEntity.setNom( jeu.getNom() );</span>
+<span class="nc" id="L62">        jeuEntity.setEditeur( editeurMapper.domainToEntity( jeu.getEditeur(), context ) );</span>
+<span class="nc" id="L63">        jeuEntity.setGenre( genreToGenreEntity( jeu.getGenre(), context ) );</span>
+<span class="nc" id="L64">        jeuEntity.setClassification( classificationToClassificationEntity( jeu.getClassification(), context ) );</span>
+<span class="nc" id="L65">        jeuEntity.setDescription( jeu.getDescription() );</span>
+<span class="nc" id="L66">        jeuEntity.setDateDeSortie( jeu.getDateDeSortie() );</span>
+<span class="nc" id="L67">        jeuEntity.setPlateformes( plateformeListToPlateformeEntityList( jeu.getPlateformes(), context ) );</span>
+<span class="nc" id="L68">        jeuEntity.setImage( jeu.getImage() );</span>
+<span class="nc" id="L69">        jeuEntity.setPrix( jeu.getPrix() );</span>
+
+<span class="nc" id="L71">        return jeuEntity;</span>
+    }
+
+    protected List&lt;Jeu&gt; jeuEntityListToJeuList(List&lt;JeuEntity&gt; list, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L76">            return null;</span>
+        }
+
+<span class="nc" id="L79">        List&lt;Jeu&gt; list1 = new ArrayList&lt;Jeu&gt;( list.size() );</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        for ( JeuEntity jeuEntity : list ) {</span>
+<span class="nc" id="L81">            list1.add( entityToDomain( jeuEntity, context ) );</span>
+<span class="nc" id="L82">        }</span>
+
+<span class="nc" id="L84">        return list1;</span>
+    }
+
+    protected Genre genreEntityToGenre(GenreEntity genreEntity, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if ( genreEntity == null ) {</span>
+<span class="nc" id="L89">            return null;</span>
+        }
+
+<span class="nc" id="L92">        Genre.GenreBuilder genre = Genre.builder();</span>
+
+<span class="nc" id="L94">        genre.id( genreEntity.getId() );</span>
+<span class="nc" id="L95">        genre.nom( genreEntity.getNom() );</span>
+<span class="nc" id="L96">        genre.jeux( jeuEntityListToJeuList( genreEntity.getJeux(), context ) );</span>
+
+<span class="nc" id="L98">        return genre.build();</span>
+    }
+
+    protected Classification classificationEntityToClassification(ClassificationEntity classificationEntity, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if ( classificationEntity == null ) {</span>
+<span class="nc" id="L103">            return null;</span>
+        }
+
+<span class="nc" id="L106">        Classification classification = new Classification();</span>
+
+<span class="nc" id="L108">        classification.setId( classificationEntity.getId() );</span>
+<span class="nc" id="L109">        classification.setNom( classificationEntity.getNom() );</span>
+<span class="nc" id="L110">        classification.setCouleurRGB( classificationEntity.getCouleurRGB() );</span>
+<span class="nc" id="L111">        classification.setJeux( jeuEntityListToJeuList( classificationEntity.getJeux(), context ) );</span>
+
+<span class="nc" id="L113">        return classification;</span>
+    }
+
+    protected List&lt;Plateforme&gt; plateformeEntityListToPlateformeList(List&lt;PlateformeEntity&gt; list, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L118">            return null;</span>
+        }
+
+<span class="nc" id="L121">        List&lt;Plateforme&gt; list1 = new ArrayList&lt;Plateforme&gt;( list.size() );</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        for ( PlateformeEntity plateformeEntity : list ) {</span>
+<span class="nc" id="L123">            list1.add( plateformeMapper.entityToDomain( plateformeEntity, context ) );</span>
+<span class="nc" id="L124">        }</span>
+
+<span class="nc" id="L126">        return list1;</span>
+    }
+
+    protected List&lt;JeuEntity&gt; jeuListToJeuEntityList(List&lt;Jeu&gt; list, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L131">            return null;</span>
+        }
+
+<span class="nc" id="L134">        List&lt;JeuEntity&gt; list1 = new ArrayList&lt;JeuEntity&gt;( list.size() );</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        for ( Jeu jeu : list ) {</span>
+<span class="nc" id="L136">            list1.add( domainToEntity( jeu, context ) );</span>
+<span class="nc" id="L137">        }</span>
+
+<span class="nc" id="L139">        return list1;</span>
+    }
+
+    protected GenreEntity genreToGenreEntity(Genre genre, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if ( genre == null ) {</span>
+<span class="nc" id="L144">            return null;</span>
+        }
+
+<span class="nc" id="L147">        GenreEntity.GenreEntityBuilder genreEntity = GenreEntity.builder();</span>
+
+<span class="nc" id="L149">        genreEntity.id( genre.getId() );</span>
+<span class="nc" id="L150">        genreEntity.nom( genre.getNom() );</span>
+<span class="nc" id="L151">        genreEntity.jeux( jeuListToJeuEntityList( genre.getJeux(), context ) );</span>
+
+<span class="nc" id="L153">        return genreEntity.build();</span>
+    }
+
+    protected ClassificationEntity classificationToClassificationEntity(Classification classification, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if ( classification == null ) {</span>
+<span class="nc" id="L158">            return null;</span>
+        }
+
+<span class="nc" id="L161">        ClassificationEntity classificationEntity = new ClassificationEntity();</span>
+
+<span class="nc" id="L163">        classificationEntity.setId( classification.getId() );</span>
+<span class="nc" id="L164">        classificationEntity.setNom( classification.getNom() );</span>
+<span class="nc" id="L165">        classificationEntity.setCouleurRGB( classification.getCouleurRGB() );</span>
+<span class="nc" id="L166">        classificationEntity.setJeux( jeuListToJeuEntityList( classification.getJeux(), context ) );</span>
+
+<span class="nc" id="L168">        return classificationEntity;</span>
+    }
+
+    protected List&lt;PlateformeEntity&gt; plateformeListToPlateformeEntityList(List&lt;Plateforme&gt; list, CycleAvoidingMappingContext context) {
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L173">            return null;</span>
+        }
+
+<span class="nc" id="L176">        List&lt;PlateformeEntity&gt; list1 = new ArrayList&lt;PlateformeEntity&gt;( list.size() );</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">        for ( Plateforme plateforme : list ) {</span>
+<span class="nc" id="L178">            list1.add( plateformeMapper.domainToEntity( plateforme, context ) );</span>
+<span class="nc" id="L179">        }</span>
+
+<span class="nc" id="L181">        return list1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>PlateformeRepositoryAdapter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">avis-coverage</a> &gt; <a href="../index.html" class="el_bundle">avis-persistance</a> &gt; <a href="index.source.html" class="el_package">fr.esgi.adapter</a> &gt; <span class="el_source">PlateformeRepositoryAdapter.java</span></div><h1>PlateformeRepositoryAdapter.java</h1><pre class="source lang-java linenums">package fr.esgi.adapter;
+
+import fr.esgi.mapper.CycleAvoidingMappingContext;
+import fr.esgi.mapper.PlateformeMapper;
+import fr.esgi.model.Plateforme;
+import fr.esgi.port.PlateformeRepository;
+import fr.esgi.repository.PlateformeJpaRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
+@AllArgsConstructor
+public class PlateformeRepositoryAdapter implements PlateformeRepository {
+    private PlateformeJpaRepository plateformeJpaRepository;
+    private PlateformeMapper        plateformeMapper;
+
+    @Override
+    public List&lt;Plateforme&gt; findByNomContaining(String filtre) {
+<span class="nc" id="L22">        return plateformeJpaRepository.findByNomContaining(filtre)</span>
+<span class="nc" id="L23">                                      .stream()</span>
+<span class="nc" id="L24">                                      .map(p -&gt; plateformeMapper.entityToDomain(p, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L25">                                      .toList();</span>
+    }
+
+    @Override
+    public Plateforme findByNom(String nom) {
+<span class="nc" id="L30">        return plateformeMapper.entityToDomain(plateformeJpaRepository.findByNom(nom),</span>
+                                               new CycleAvoidingMappingContext());
+    }
+
+    @Override
+    public void delete(Plateforme plateforme) {
+<span class="nc" id="L36">        plateformeJpaRepository.delete(plateformeMapper.domainToEntity(plateforme,</span>
+                                                                       new CycleAvoidingMappingContext()));
+<span class="nc" id="L38">    }</span>
+
+    @Override
+    public Plateforme save(Plateforme plateforme) {
+<span class="nc" id="L42">        return plateformeMapper.entityToDomain(plateformeJpaRepository.save(plateformeMapper.domainToEntity(plateforme,</span>
+                                                                                                            new CycleAvoidingMappingContext())),
+                                               new CycleAvoidingMappingContext());
+    }
+
+    @Override
+    public List&lt;Plateforme&gt; findAll() {
+<span class="nc" id="L49">        return plateformeJpaRepository.findAll()</span>
+<span class="nc" id="L50">                                      .stream()</span>
+<span class="nc" id="L51">                                      .map(p -&gt; plateformeMapper.entityToDomain(p, new CycleAvoidingMappingContext()))</span>
+<span class="nc" id="L52">                                      .toList();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
