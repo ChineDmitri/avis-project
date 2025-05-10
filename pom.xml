@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.3</version>
+        <version>3.4.5</version>
     </parent>
 
     <groupId>fr.esgi</groupId>
@@ -55,6 +55,20 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!-- Ovveride dependency with CVE-2022-1471(9.8) -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>2.3</version>
+            </dependency>
+
+            <!-- Override Tomcat to address potential vulnerabilities CVE-2025-31651(9.8)-->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>10.1.40</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -215,7 +229,7 @@
                     <artifactId>dependency-check-maven</artifactId>
                     <version>12.1.1</version>
                     <configuration>
-                        <failBuildOnCVSS>8</failBuildOnCVSS>
+                        <failBuildOnCVSS>7</failBuildOnCVSS>
                         <formats>
                             <format>HTML</format>
                             <format>XML</format>
@@ -223,7 +237,7 @@
                         </formats>
                         <outputDirectory>${project.build.directory}/dependency-check</outputDirectory>
                         <!-- Add NVD API Key configuration -->
-                        <nvdApiKey>${nvd.api.key}</nvdApiKey>
+                        <!-- <nvdApiKey>54c1d3dd-****-****-****-ead991f45afe</nvdApiKey>-->
                         <scanSet>
                             <fileSet>
                                 <directory>${project.basedir}</directory>
@@ -243,7 +257,7 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        
+
     </build>
 
 </project>
