@@ -87,16 +87,16 @@ jobs:
           
       #     echo "✅ Coverage thresholds met!"
 
-      # Pour afficher un résumé des résultats dans GitHub
-      - name: Coverage Summary
-        run: |
-          echo "## 📊 Code Coverage Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Type | Coverage |" >> $GITHUB_STEP_SUMMARY
-          echo "| ---- | -------- |" >> $GITHUB_STEP_SUMMARY
-          INSTRUCTION=$(grep -A 1 "Total.*instruction" avis-coverage/target/site/jacoco-aggregate/index.html | tail -n 1 | grep -o '[0-9]\+%')
-          BRANCH=$(grep -A 1 "Total.*branch" avis-coverage/target/site/jacoco-aggregate/index.html | tail -n 1 | grep -o '[0-9]\+%')
-          echo "| Instructions | $INSTRUCTION |" >> $GITHUB_STEP_SUMMARY
-          echo "| Branches | $BRANCH |" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Detailed report available as workflow artifact." >> $GITHUB_STEP_SUMMARY
+      # # Pour afficher un résumé des résultats dans GitHub
+      # - name: Coverage Summary
+      #   run: |
+      #     echo "## 📊 Code Coverage Summary" >> $GITHUB_STEP_SUMMARY
+      #     echo "" >> $GITHUB_STEP_SUMMARY
+      #     echo "| Type | Coverage |" >> $GITHUB_STEP_SUMMARY
+      #     echo "| ---- | -------- |" >> $GITHUB_STEP_SUMMARY
+      #     INSTRUCTION=$(grep -A 1 "Total.*instruction" avis-coverage/target/site/jacoco-aggregate/index.html | tail -n 1 | grep -o '[0-9]\+%')
+      #     BRANCH=$(grep -A 1 "Total.*branch" avis-coverage/target/site/jacoco-aggregate/index.html | tail -n 1 | grep -o '[0-9]\+%')
+      #     echo "| Instructions | $INSTRUCTION |" >> $GITHUB_STEP_SUMMARY
+      #     echo "| Branches | $BRANCH |" >> $GITHUB_STEP_SUMMARY
+      #     echo "" >> $GITHUB_STEP_SUMMARY
+      #     echo "Detailed report available as workflow artifact." >> $GITHUB_STEP_SUMMARY
