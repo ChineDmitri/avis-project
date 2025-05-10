@@ -2,7 +2,7 @@ name: OWASP Dependency Check
 
 on:
   push:
-    branches: [ main, master, 'feature/*', 'feature_*' ]
+    branches: [ 'feature/*', 'feature_*' ]
   pull_request:
     branches: [ main, master ]
   schedule:
