@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.3</version>
+        <version>3.4.5</version>
     </parent>
 
     <groupId>fr.esgi</groupId>
@@ -17,8 +17,8 @@
 
     <modules>
         <module>avis-domain</module>
-        <module>avis-web</module>
         <module>avis-persistance</module>
+        <module>avis-web</module>
         <module>avis-usecase</module>
         <module>avis-application</module>
         <module>avis-cloud</module>
@@ -27,6 +27,7 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>3.4.3</spring.boot.version>
         <lombok.version>1.18.34</lombok.version>
@@ -36,6 +37,7 @@
         <avis.persistance>0.0.1-SNAPSHOT</avis.persistance>
         <avis.web>0.0.1-SNAPSHOT</avis.web>
         <junit-jupiter.version>5.12.0</junit-jupiter.version>
+        <nvd.api.key>${env.NVD_API_KEY}</nvd.api.key>
     </properties>
 
     <dependencyManagement>
@@ -53,6 +55,20 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!-- Ovveride dependency with CVE-2022-1471(9.8) -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>2.3</version>
+            </dependency>
+
+            <!-- Override Tomcat to address potential vulnerabilities CVE-2025-31651(9.8)-->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>10.1.40</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -206,8 +222,42 @@
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.12.1</version>
                 </plugin>
+
+                <!-- Security OWASP -->
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>12.1.1</version>
+                    <configuration>
+                        <failBuildOnCVSS>7</failBuildOnCVSS>
+                        <formats>
+                            <format>HTML</format>
+                            <format>XML</format>
+                            <format>JSON</format>
+                        </formats>
+                        <outputDirectory>${project.build.directory}/dependency-check</outputDirectory>
+                        <!-- Add NVD API Key configuration -->
+                        <!-- <nvdApiKey>54c1d3dd-****-****-****-ead991f45afe</nvdApiKey>-->
+                        <scanSet>
+                            <fileSet>
+                                <directory>${project.basedir}</directory>
+                                <includes>
+                                    <include>**/*.jar</include>
+                                </includes>
+                            </fileSet>
+                        </scanSet>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
+
     </build>
 
 </project>
