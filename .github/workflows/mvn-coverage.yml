@@ -2,7 +2,7 @@ name: Maven Tests & Code Coverage
 
 on:
   push:
-    branches: [main, master, develop]
+    branches: [main, master, develop 'feature/*', 'feature_*']
   pull_request:
     branches: [main, master, develop]
 
