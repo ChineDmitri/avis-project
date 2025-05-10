@@ -9,66 +9,65 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>avis-usecase</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>avis-coverage</artifactId>
+    <name>avis-coverage</name>
+    <description>Module pour l'agrégation des rapports de couverture</description>
 
+    <!-- Dépendances vers tous les autres modules pour agréger les rapports -->
     <dependencies>
+        <dependency>
+            <groupId>fr.esgi</groupId>
+            <artifactId>avis-domain</artifactId>
+            <version>${avis.domain}</version>
+        </dependency>
         <dependency>
             <groupId>fr.esgi</groupId>
             <artifactId>avis-persistance</artifactId>
             <version>${avis.persistance}</version>
         </dependency>
-
+        <dependency>
+            <groupId>fr.esgi</groupId>
+            <artifactId>avis-usecase</artifactId>
+            <version>${avis.usecase}</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.esgi</groupId>
+            <artifactId>avis-web</artifactId>
+            <version>${avis.web}</version>
+        </dependency>
         <dependency>
             <groupId>fr.esgi</groupId>
             <artifactId>avis-cloud</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>fr.esgi</groupId>
+            <artifactId>avis-application</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>prepare-agent</id>
+                        <id>report-aggregate</id>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <goals>
-                            <goal>report</goal>
+                            <goal>report-aggregate</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-
 </project>
