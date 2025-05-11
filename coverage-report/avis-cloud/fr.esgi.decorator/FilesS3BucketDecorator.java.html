@@ -8,15 +8,15 @@ import java.io.InputStream;
 public class FilesS3BucketDecorator extends FileUploaderDecorator {
 
     public FilesS3BucketDecorator(FileUploader delegate) {
-<span class="nc" id="L11">        super(delegate);</span>
-<span class="nc" id="L12">    }</span>
+<span class="fc" id="L11">        super(delegate);</span>
+<span class="fc" id="L12">    }</span>
 
     @Override
     public String upload(InputStream io) {
-<span class="nc" id="L16">        System.out.println(&quot;[LOG] Téléversement vers S3 démarré&quot;);</span>
-<span class="nc" id="L17">        String fileName = super.upload(io);</span>
-<span class="nc" id="L18">        System.out.println(&quot;[LOG] Téléversement vers S3 terminé. FileName: &quot; + fileName);</span>
-<span class="nc" id="L19">        return fileName;</span>
+<span class="fc" id="L16">        System.out.println(&quot;[LOG] Téléversement vers S3 démarré&quot;);</span>
+<span class="fc" id="L17">        String fileName = super.upload(io);</span>
+<span class="fc" id="L18">        System.out.println(&quot;[LOG] Téléversement vers S3 terminé. FileName: &quot; + fileName);</span>
+<span class="fc" id="L19">        return fileName;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
