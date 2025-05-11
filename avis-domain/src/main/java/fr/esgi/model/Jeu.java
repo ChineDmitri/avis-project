@@ -1,55 +1,56 @@
-package fr.esgi.model;
+    package fr.esgi.model;
 
-import lombok.*;
+    import lombok.*;
 
-import java.time.LocalDate;
-import java.util.List;
+    import java.time.LocalDate;
+    import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
-public class Jeu  {
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Data
+    @Builder
+    public class Jeu  {
 
-    private Long id;
+        private Long id;
 
-    @NonNull
-    private String nom;
+        @NonNull
+        private String nom;
 
-    private Editeur editeur;
+        private Editeur editeur;
 
-    private Genre genre;
+        private Genre genre;
 
-    private Classification classification;
+        private Classification classification;
 
-    private String description;
+        private String description;
 
-    private LocalDate dateDeSortie;
+        private LocalDate dateDeSortie;
 
-    private List<Plateforme> plateformes;
+        private List<Plateforme> plateformes;
 
-    private String image;
+        private String image;
 
-    private float prix;
+        private float prix;
 
-    public Jeu(String nom, Editeur editeur) {
-        super();
-        this.nom = nom;
+        public Jeu(String nom, Editeur editeur) {
+            super();
+            this.nom = nom;
+            this.editeur = editeur;
+        }
+
+        public Jeu(String nom, LocalDate dateDeSortie, Editeur editeur) {
+            this(nom, editeur);
+            this.dateDeSortie = dateDeSortie;
+        }
+
+        public Jeu(String nom, String description, LocalDate dateSortie, Editeur editeur) {
+            this(nom, dateSortie, editeur);
+            this.description = description;
+        }
+
+        public Jeu(String nom, LocalDate dateSortie, Editeur editeur, Genre genre) {
+            this(nom, null, dateSortie, editeur);
+            this.genre = genre;
+        }
+
     }
-
-    public Jeu(String nom, LocalDate dateDeSortie, Editeur editeur) {
-        this(nom, editeur);
-        this.dateDeSortie = dateDeSortie;
-    }
-
-    public Jeu(String nom, String description, LocalDate dateSortie, Editeur editeur) {
-        this(nom, dateSortie, editeur);
-        this.description = description;
-    }
-
-    public Jeu(String nom, LocalDate dateSortie, Editeur editeur, Genre genre) {
-        this(nom, null, dateSortie, editeur);
-        this.genre = genre;
-    }
-
-}
