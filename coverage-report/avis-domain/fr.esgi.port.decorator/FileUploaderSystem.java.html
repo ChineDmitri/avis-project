@@ -14,33 +14,34 @@ import java.nio.file.StandardCopyOption;
 @AllArgsConstructor
 public class FileUploaderSystem implements FileUploader {
 
+    private String uploadDir;
+
+<span class="fc" id="L19">    public FileUploaderSystem() {</span>
+<span class="fc" id="L20">        this.uploadDir = &quot;/uploads/&quot;; // Default directory</span>
+<span class="fc" id="L21">    }</span>
+
     @Override
     public String upload(InputStream io) {
         try {
-            // Permanent upload directory
-<span class="nc" id="L21">            String uploadDir = &quot;/uploads/&quot;;</span>
-<span class="nc" id="L22">            Path uploadPath = Paths.get(uploadDir);</span>
+<span class="fc" id="L26">            Path uploadPath = Paths.get(uploadDir);</span>
 
-            // Create the directory if it doesn't exist
-<span class="nc bnc" id="L25" title="All 2 branches missed.">            if (!Files.exists(uploadPath)) {</span>
-<span class="nc" id="L26">                Files.createDirectories(uploadPath);</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">            if (!Files.exists(uploadPath)) {</span>
+<span class="fc" id="L29">                Files.createDirectories(uploadPath);</span>
             }
 
-            // Generate a unique filename
-<span class="nc" id="L30">            String filename = System.currentTimeMillis() + &quot;.jpg&quot;;</span>
-<span class="nc" id="L31">            Path filePath = uploadPath.resolve(filename);</span>
+<span class="fc" id="L32">            String filename = System.currentTimeMillis() + &quot;.jpg&quot;;</span>
+<span class="fc" id="L33">            Path filePath = uploadPath.resolve(filename);</span>
 
-            // Save the file
-<span class="nc" id="L34">            Files.copy(io, filePath, StandardCopyOption.REPLACE_EXISTING);</span>
+<span class="fc" id="L35">            Files.copy(io, filePath, StandardCopyOption.REPLACE_EXISTING);</span>
 
-<span class="nc" id="L36">            System.out.println(&quot;[LOG] PATH : &quot; + filePath.toFile().getAbsolutePath());</span>
-            // Return the relative path for access
-<span class="nc" id="L38">            return &quot;/uploads/&quot; + filename;</span>
-<span class="nc" id="L39">        } catch (IOException e) {</span>
-<span class="nc" id="L40">            System.err.println(&quot;Error uploading file: &quot; + e.getMessage());</span>
-<span class="nc" id="L41">            return StringUtils.EMPTY;</span>
+<span class="fc" id="L37">            System.out.println(&quot;[LOG] PATH : &quot; + filePath.toAbsolutePath());</span>
+
+<span class="fc" id="L39">            return &quot;/&quot; + Paths.get(uploadDir).getFileName() + &quot;/&quot; + filename;</span>
+<span class="fc" id="L40">        } catch (IOException e) {</span>
+<span class="fc" id="L41">            System.err.println(&quot;Error uploading file: &quot; + e.getMessage());</span>
+<span class="fc" id="L42">            return StringUtils.EMPTY;</span>
         }
     }
-
 }
+
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

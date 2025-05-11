@@ -14,10 +14,10 @@ public abstract class FileUploaderDecorator implements FileUploader {
 
     @Override
     public String upload(InputStream io) {
-<span class="nc" id="L17">        System.out.println(&quot;[LOG] Téléversement standard démarré&quot;);</span>
-<span class="nc" id="L18">        String fileName = delegate.upload(io);</span>
-<span class="nc" id="L19">        System.out.println(&quot;[LOG] Téléversement standard terminé. FileName: &quot; + fileName);</span>
-<span class="nc" id="L20">        return fileName;</span>
+<span class="fc" id="L17">        System.out.println(&quot;[LOG] Téléversement standard démarré&quot;);</span>
+<span class="fc" id="L18">        String fileName = delegate.upload(io);</span>
+<span class="fc" id="L19">        System.out.println(&quot;[LOG] Téléversement standard terminé. FileName: &quot; + fileName);</span>
+<span class="fc" id="L20">        return fileName;</span>
     }
 
 }

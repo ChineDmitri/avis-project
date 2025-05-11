@@ -20,11 +20,11 @@ public class CustomPagedResult&lt;T&gt; {
     }
 
     public int getOffset() {
-<span class="nc" id="L23">        return offset;</span>
+<span class="fc" id="L23">        return offset;</span>
     }
 
     public int getLimit() {
-<span class="nc" id="L27">        return limit;</span>
+<span class="fc" id="L27">        return limit;</span>
     }
 
     public long getTotalElements() {
@@ -32,7 +32,7 @@ public class CustomPagedResult&lt;T&gt; {
     }
 
     public boolean hasNext() {
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        return offset + limit &lt; totalElements;</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        return offset + limit &lt; totalElements;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

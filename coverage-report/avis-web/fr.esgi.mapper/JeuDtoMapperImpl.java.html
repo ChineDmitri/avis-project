@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
-    date = &quot;2025-05-11T13:35:40+0000&quot;,
+    date = &quot;2025-05-11T21:41:57+0000&quot;,
     comments = &quot;version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)&quot;
 )
 @Component
@@ -88,7 +88,7 @@ import org.springframework.stereotype.Component;
         }
 <span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if ( jeuDto.getEditeur() != null ) {</span>
 <span class="pc bpc" id="L90" title="1 of 2 branches missed.">            if ( jeu.getEditeur() == null ) {</span>
-<span class="fc" id="L91">                jeu.setEditeur( new Editeur() );</span>
+<span class="nc" id="L91">                jeu.setEditeur( new Editeur() );</span>
             }
 <span class="fc" id="L93">            editeurDtoToEditeur1( jeuDto.getEditeur(), jeu.getEditeur() );</span>
         }
@@ -256,8 +256,8 @@ import org.springframework.stereotype.Component;
     }
 
     protected EditeurDto editeurToEditeurDto(Editeur editeur) {
-<span class="fc bfc" id="L259" title="All 2 branches covered.">        if ( editeur == null ) {</span>
-<span class="fc" id="L260">            return null;</span>
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">        if ( editeur == null ) {</span>
+<span class="nc" id="L260">            return null;</span>
         }
 
 <span class="fc" id="L263">        Long id = null;</span>
