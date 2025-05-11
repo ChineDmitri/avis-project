@@ -17,7 +17,7 @@ public class JeuDto implements Serializable {
     GenreDto genre;
     ClassificationDto classification;
     String description;
-    LocalDate dateSortie;
+    LocalDate dateDeSortie;
     List<PlateformeDto> plateformes;
 
 }
