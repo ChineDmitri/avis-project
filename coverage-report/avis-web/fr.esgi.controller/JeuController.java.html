@@ -41,44 +41,44 @@ public class JeuController {
             )
             Pageable pageable,
             HttpServletRequest request) {
-<span class="nc" id="L44">        ModelAndView mav = new ModelAndView(&quot;jeux&quot;);</span>
+<span class="fc" id="L44">        ModelAndView mav = new ModelAndView(&quot;jeux&quot;);</span>
 
         // Create sort string for the view (keeping existing functionality)
-<span class="nc" id="L47">        Iterator&lt;Sort.Order&gt; iterator = pageable.getSort()</span>
-<span class="nc" id="L48">                                                .iterator();</span>
-<span class="nc" id="L49">        StringBuilder sortBuilder = new StringBuilder();</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        while (iterator.hasNext()) {</span>
-<span class="nc" id="L51">            Sort.Order order = iterator.next();</span>
-<span class="nc" id="L52">            sortBuilder.append(order.getProperty());</span>
-<span class="nc" id="L53">            sortBuilder.append(',');</span>
-<span class="nc" id="L54">            sortBuilder.append(order.getDirection());</span>
-<span class="nc bnc" id="L55" title="All 2 branches missed.">            if (iterator.hasNext()) {</span>
+<span class="fc" id="L47">        Iterator&lt;Sort.Order&gt; iterator = pageable.getSort()</span>
+<span class="fc" id="L48">                                                .iterator();</span>
+<span class="fc" id="L49">        StringBuilder sortBuilder = new StringBuilder();</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        while (iterator.hasNext()) {</span>
+<span class="fc" id="L51">            Sort.Order order = iterator.next();</span>
+<span class="fc" id="L52">            sortBuilder.append(order.getProperty());</span>
+<span class="fc" id="L53">            sortBuilder.append(',');</span>
+<span class="fc" id="L54">            sortBuilder.append(order.getDirection());</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">            if (iterator.hasNext()) {</span>
 <span class="nc" id="L56">                sortBuilder.append(&quot;&amp;sort=&quot;);</span>
             }
-<span class="nc" id="L58">        }</span>
-<span class="nc" id="L59">        mav.addObject(&quot;sort&quot;, sortBuilder.toString());</span>
+<span class="fc" id="L58">        }</span>
+<span class="fc" id="L59">        mav.addObject(&quot;sort&quot;, sortBuilder.toString());</span>
 
         // Convert Spring's Pageable to our custom PaginationParams
-<span class="nc" id="L62">        PaginationParams paginationParams = pageAdapter.toPaginationParams(pageable);</span>
+<span class="fc" id="L62">        PaginationParams paginationParams = pageAdapter.toPaginationParams(pageable);</span>
 
         // Call the service with our custom pagination parameters
-<span class="nc" id="L65">        CustomPagedResult&lt;Jeu&gt; jeux = jeuService.recupererJeux(paginationParams);</span>
+<span class="fc" id="L65">        CustomPagedResult&lt;Jeu&gt; jeux = jeuService.recupererJeux(paginationParams);</span>
 
         // Add the result to the model
-<span class="nc" id="L68">        mav.addObject(&quot;pageDeJeux&quot;, jeux);</span>
+<span class="fc" id="L68">        mav.addObject(&quot;pageDeJeux&quot;, jeux);</span>
 
-<span class="nc" id="L70">        Long dateHeureDebut = (Long) request.getAttribute(&quot;dateHeureDebut&quot;);</span>
-<span class="nc" id="L71">        mav.addObject(&quot;tempsDeTraitementEnMs&quot;, new Date().getTime() - dateHeureDebut);</span>
+<span class="fc" id="L70">        Long dateHeureDebut = (Long) request.getAttribute(&quot;dateHeureDebut&quot;);</span>
+<span class="fc" id="L71">        mav.addObject(&quot;tempsDeTraitementEnMs&quot;, new Date().getTime() - dateHeureDebut);</span>
 
-<span class="nc" id="L73">        return mav;</span>
+<span class="fc" id="L73">        return mav;</span>
     }
 
     @GetMapping(&quot;televersement&quot;)
     public ModelAndView getTeleversement(@RequestParam(&quot;ID&quot;)
                                          Long id) {
-<span class="nc" id="L79">        ModelAndView mav = new ModelAndView(&quot;televersement&quot;);</span>
-<span class="nc" id="L80">        mav.addObject(&quot;jeu&quot;, jeuService.recupererJeu(id));</span>
-<span class="nc" id="L81">        return mav;</span>
+<span class="fc" id="L79">        ModelAndView mav = new ModelAndView(&quot;televersement&quot;);</span>
+<span class="fc" id="L80">        mav.addObject(&quot;jeu&quot;, jeuService.recupererJeu(id));</span>
+<span class="fc" id="L81">        return mav;</span>
     }
 
     @PostMapping(&quot;televersement/{idJeu}&quot;)
@@ -88,12 +88,12 @@ public class JeuController {
                                           MultipartFile image) throws
                                                                TechnicalException {
         try {
-<span class="nc" id="L91">            String fnfp = jeuService.ajouterImage(idJeu, image.getInputStream());</span>
-<span class="nc" id="L92">            System.out.println(&quot;File name with path: &quot; + fnfp);</span>
-<span class="nc" id="L93">        } catch (IOException e) {</span>
-<span class="nc" id="L94">            throw new TechnicalException(e.getMessage());</span>
-<span class="nc" id="L95">        }</span>
-<span class="nc" id="L96">        return new ModelAndView(&quot;redirect:/jeux&quot;);</span>
+<span class="fc" id="L91">            String fnfp = jeuService.ajouterImage(idJeu, image.getInputStream());</span>
+<span class="fc" id="L92">            System.out.println(&quot;File name with path: &quot; + fnfp);</span>
+<span class="fc" id="L93">        } catch (IOException e) {</span>
+<span class="fc" id="L94">            throw new TechnicalException(e.getMessage());</span>
+<span class="fc" id="L95">        }</span>
+<span class="fc" id="L96">        return new ModelAndView(&quot;redirect:/jeux&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

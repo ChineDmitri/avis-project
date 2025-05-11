@@ -23,31 +23,31 @@ public class EditeurMvc {
 
     @GetMapping(&quot;/hello&quot;)
     public String home(Model model) {
-<span class="nc" id="L26">        return &quot;hello&quot;;</span>
+<span class="fc" id="L26">        return &quot;hello&quot;;</span>
     }
 
     @GetMapping({&quot;editeurs&quot;, &quot;index&quot;, &quot;/&quot;})
     public ModelAndView getEditeurs() {
-<span class="nc" id="L31">        ModelAndView  mav      = new ModelAndView(&quot;editeurs&quot;); // NOSONAR</span>
-<span class="nc" id="L32">        List&lt;Editeur&gt; editeurs = editeurService.recupererEditeurs();</span>
+<span class="fc" id="L31">        ModelAndView  mav      = new ModelAndView(&quot;editeurs&quot;); // NOSONAR</span>
+<span class="fc" id="L32">        List&lt;Editeur&gt; editeurs = editeurService.recupererEditeurs();</span>
 
-<span class="nc" id="L34">        mav.addObject(&quot;editeurs&quot;, editeurs);</span>
+<span class="fc" id="L34">        mav.addObject(&quot;editeurs&quot;, editeurs);</span>
 
-<span class="nc" id="L36">        return mav;</span>
+<span class="fc" id="L36">        return mav;</span>
     }
 
     @PostMapping(&quot;editeurs&quot;)
     public ModelAndView rechercherEditeurs(@RequestParam(&quot;nom&quot;) String nom) {
-<span class="nc" id="L41">        List&lt;Editeur&gt; editeurs = editeurService.recupererEditeursParNomContenant(nom);</span>
+<span class="fc" id="L41">        List&lt;Editeur&gt; editeurs = editeurService.recupererEditeursParNomContenant(nom);</span>
 
-<span class="nc" id="L43">        return new ModelAndView(&quot;editeurs&quot;)</span>
-<span class="nc" id="L44">                .addObject(&quot;editeurs&quot;, editeurs)</span>
-<span class="nc" id="L45">                .addObject(&quot;nom&quot;, nom);</span>
+<span class="fc" id="L43">        return new ModelAndView(&quot;editeurs&quot;)</span>
+<span class="fc" id="L44">                .addObject(&quot;editeurs&quot;, editeurs)</span>
+<span class="fc" id="L45">                .addObject(&quot;nom&quot;, nom);</span>
     }
 
     @GetMapping(&quot;editeur&quot;)
     public ModelAndView afficherFormulaireEditeur(@ModelAttribute Editeur editeur) {
-<span class="nc" id="L50">        return new ModelAndView(&quot;editeur&quot;);</span>
+<span class="fc" id="L50">        return new ModelAndView(&quot;editeur&quot;);</span>
     }
 
     @PostMapping(&quot;editeur&quot;)
@@ -55,13 +55,13 @@ public class EditeurMvc {
             @Valid @ModelAttribute Editeur editeur,
             BindingResult bindingResult
     ) {
-<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (bindingResult.hasErrors()) {</span>
-<span class="nc" id="L59">            return afficherFormulaireEditeur(editeur);</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (bindingResult.hasErrors()) {</span>
+<span class="fc" id="L59">            return afficherFormulaireEditeur(editeur);</span>
         }
 
-<span class="nc" id="L62">        editeurService.ajouterEditeur(editeur);</span>
+<span class="fc" id="L62">        editeurService.ajouterEditeur(editeur);</span>
 
-<span class="nc" id="L64">        return new ModelAndView(&quot;redirect:/editeurs&quot;);</span>
+<span class="fc" id="L64">        return new ModelAndView(&quot;redirect:/editeurs&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

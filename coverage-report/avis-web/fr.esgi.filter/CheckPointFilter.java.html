@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @Component
-<span class="nc" id="L10">public class CheckPointFilter implements Filter {</span>
+<span class="fc" id="L10">public class CheckPointFilter implements Filter {</span>
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -15,10 +15,10 @@ import java.util.Date;
             IOException,
             ServletException {
         // On enrichit l'objet request en ajoutant un attribut dateHeureDebut
-<span class="nc" id="L18">        Date dateHeureDebut = new Date();</span>
-<span class="nc" id="L19">        request.setAttribute(&quot;dateHeureDebut&quot;, dateHeureDebut.getTime());</span>
-<span class="nc" id="L20">        chain.doFilter(request, response);</span>
-<span class="nc" id="L21">    }</span>
+<span class="fc" id="L18">        Date dateHeureDebut = new Date();</span>
+<span class="fc" id="L19">        request.setAttribute(&quot;dateHeureDebut&quot;, dateHeureDebut.getTime());</span>
+<span class="fc" id="L20">        chain.doFilter(request, response);</span>
+<span class="fc" id="L21">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

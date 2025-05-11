@@ -19,328 +19,332 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
-    date = &quot;2025-05-10T15:36:10+0000&quot;,
+    date = &quot;2025-05-11T13:12:27+0000&quot;,
     comments = &quot;version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)&quot;
 )
 @Component
-<span class="nc" id="L26">public class JeuDtoMapperImpl implements JeuDtoMapper {</span>
+<span class="fc" id="L26">public class JeuDtoMapperImpl implements JeuDtoMapper {</span>
 
     @Override
     public Jeu toModel(JeuDto jeuDto) {
-<span class="nc bnc" id="L30" title="All 2 branches missed.">        if ( jeuDto == null ) {</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        if ( jeuDto == null ) {</span>
 <span class="nc" id="L31">            return null;</span>
         }
 
-<span class="nc" id="L34">        Jeu.JeuBuilder jeu = Jeu.builder();</span>
+<span class="fc" id="L34">        Jeu.JeuBuilder jeu = Jeu.builder();</span>
 
-<span class="nc" id="L36">        jeu.id( jeuDto.getId() );</span>
-<span class="nc" id="L37">        jeu.nom( jeuDto.getNom() );</span>
-<span class="nc" id="L38">        jeu.editeur( editeurDtoToEditeur( jeuDto.getEditeur() ) );</span>
-<span class="nc" id="L39">        jeu.genre( genreDtoToGenre( jeuDto.getGenre() ) );</span>
-<span class="nc" id="L40">        jeu.classification( classificationDtoToClassification( jeuDto.getClassification() ) );</span>
-<span class="nc" id="L41">        jeu.description( jeuDto.getDescription() );</span>
-<span class="nc" id="L42">        jeu.plateformes( plateformeDtoListToPlateformeList( jeuDto.getPlateformes() ) );</span>
+<span class="fc" id="L36">        jeu.id( jeuDto.getId() );</span>
+<span class="fc" id="L37">        jeu.nom( jeuDto.getNom() );</span>
+<span class="fc" id="L38">        jeu.editeur( editeurDtoToEditeur( jeuDto.getEditeur() ) );</span>
+<span class="fc" id="L39">        jeu.genre( genreDtoToGenre( jeuDto.getGenre() ) );</span>
+<span class="fc" id="L40">        jeu.classification( classificationDtoToClassification( jeuDto.getClassification() ) );</span>
+<span class="fc" id="L41">        jeu.description( jeuDto.getDescription() );</span>
+<span class="fc" id="L42">        jeu.dateDeSortie( jeuDto.getDateDeSortie() );</span>
+<span class="fc" id="L43">        jeu.plateformes( plateformeDtoListToPlateformeList( jeuDto.getPlateformes() ) );</span>
 
-<span class="nc" id="L44">        return jeu.build();</span>
+<span class="fc" id="L45">        return jeu.build();</span>
     }
 
     @Override
     public JeuDto toDto(Jeu jeu) {
-<span class="nc bnc" id="L49" title="All 2 branches missed.">        if ( jeu == null ) {</span>
-<span class="nc" id="L50">            return null;</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if ( jeu == null ) {</span>
+<span class="nc" id="L51">            return null;</span>
         }
 
-<span class="nc" id="L53">        List&lt;PlateformeDto&gt; plateformes = null;</span>
-<span class="nc" id="L54">        Long id = null;</span>
-<span class="nc" id="L55">        String nom = null;</span>
-<span class="nc" id="L56">        EditeurDto editeur = null;</span>
-<span class="nc" id="L57">        GenreDto genre = null;</span>
-<span class="nc" id="L58">        ClassificationDto classification = null;</span>
-<span class="nc" id="L59">        String description = null;</span>
+<span class="fc" id="L54">        List&lt;PlateformeDto&gt; plateformes = null;</span>
+<span class="fc" id="L55">        Long id = null;</span>
+<span class="fc" id="L56">        String nom = null;</span>
+<span class="fc" id="L57">        EditeurDto editeur = null;</span>
+<span class="fc" id="L58">        GenreDto genre = null;</span>
+<span class="fc" id="L59">        ClassificationDto classification = null;</span>
+<span class="fc" id="L60">        String description = null;</span>
+<span class="fc" id="L61">        LocalDate dateDeSortie = null;</span>
 
-<span class="nc" id="L61">        plateformes = plateformeListToPlateformeDtoList( jeu.getPlateformes() );</span>
-<span class="nc" id="L62">        id = jeu.getId();</span>
-<span class="nc" id="L63">        nom = jeu.getNom();</span>
-<span class="nc" id="L64">        editeur = editeurToEditeurDto( jeu.getEditeur() );</span>
-<span class="nc" id="L65">        genre = genreToGenreDto( jeu.getGenre() );</span>
-<span class="nc" id="L66">        classification = classificationToClassificationDto( jeu.getClassification() );</span>
-<span class="nc" id="L67">        description = jeu.getDescription();</span>
+<span class="fc" id="L63">        plateformes = plateformeListToPlateformeDtoList( jeu.getPlateformes() );</span>
+<span class="fc" id="L64">        id = jeu.getId();</span>
+<span class="fc" id="L65">        nom = jeu.getNom();</span>
+<span class="fc" id="L66">        editeur = editeurToEditeurDto( jeu.getEditeur() );</span>
+<span class="fc" id="L67">        genre = genreToGenreDto( jeu.getGenre() );</span>
+<span class="fc" id="L68">        classification = classificationToClassificationDto( jeu.getClassification() );</span>
+<span class="fc" id="L69">        description = jeu.getDescription();</span>
+<span class="fc" id="L70">        dateDeSortie = jeu.getDateDeSortie();</span>
 
-<span class="nc" id="L69">        LocalDate dateSortie = null;</span>
+<span class="fc" id="L72">        JeuDto jeuDto = new JeuDto( id, nom, editeur, genre, classification, description, dateDeSortie, plateformes );</span>
 
-<span class="nc" id="L71">        JeuDto jeuDto = new JeuDto( id, nom, editeur, genre, classification, description, dateSortie, plateformes );</span>
-
-<span class="nc" id="L73">        return jeuDto;</span>
+<span class="fc" id="L74">        return jeuDto;</span>
     }
 
     @Override
     public Jeu partialUpdate(JeuDto jeuDto, Jeu jeu) {
-<span class="nc bnc" id="L78" title="All 2 branches missed.">        if ( jeuDto == null ) {</span>
-<span class="nc" id="L79">            return jeu;</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if ( jeuDto == null ) {</span>
+<span class="nc" id="L80">            return jeu;</span>
         }
 
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        if ( jeuDto.getId() != null ) {</span>
-<span class="nc" id="L83">            jeu.setId( jeuDto.getId() );</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if ( jeuDto.getId() != null ) {</span>
+<span class="fc" id="L84">            jeu.setId( jeuDto.getId() );</span>
         }
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if ( jeuDto.getNom() != null ) {</span>
-<span class="nc" id="L86">            jeu.setNom( jeuDto.getNom() );</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if ( jeuDto.getNom() != null ) {</span>
+<span class="fc" id="L87">            jeu.setNom( jeuDto.getNom() );</span>
         }
-<span class="nc bnc" id="L88" title="All 2 branches missed.">        if ( jeuDto.getEditeur() != null ) {</span>
-<span class="nc bnc" id="L89" title="All 2 branches missed.">            if ( jeu.getEditeur() == null ) {</span>
-<span class="nc" id="L90">                jeu.setEditeur( new Editeur() );</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if ( jeuDto.getEditeur() != null ) {</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">            if ( jeu.getEditeur() == null ) {</span>
+<span class="fc" id="L91">                jeu.setEditeur( new Editeur() );</span>
             }
-<span class="nc" id="L92">            editeurDtoToEditeur1( jeuDto.getEditeur(), jeu.getEditeur() );</span>
+<span class="fc" id="L93">            editeurDtoToEditeur1( jeuDto.getEditeur(), jeu.getEditeur() );</span>
         }
-<span class="nc bnc" id="L94" title="All 2 branches missed.">        if ( jeuDto.getGenre() != null ) {</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">            if ( jeu.getGenre() == null ) {</span>
-<span class="nc" id="L96">                jeu.setGenre( Genre.builder().build() );</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if ( jeuDto.getGenre() != null ) {</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            if ( jeu.getGenre() == null ) {</span>
+<span class="nc" id="L97">                jeu.setGenre( Genre.builder().build() );</span>
             }
-<span class="nc" id="L98">            genreDtoToGenre1( jeuDto.getGenre(), jeu.getGenre() );</span>
+<span class="nc" id="L99">            genreDtoToGenre1( jeuDto.getGenre(), jeu.getGenre() );</span>
         }
-<span class="nc bnc" id="L100" title="All 2 branches missed.">        if ( jeuDto.getClassification() != null ) {</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">            if ( jeu.getClassification() == null ) {</span>
-<span class="nc" id="L102">                jeu.setClassification( new Classification() );</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if ( jeuDto.getClassification() != null ) {</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">            if ( jeu.getClassification() == null ) {</span>
+<span class="nc" id="L103">                jeu.setClassification( new Classification() );</span>
             }
-<span class="nc" id="L104">            classificationDtoToClassification1( jeuDto.getClassification(), jeu.getClassification() );</span>
+<span class="nc" id="L105">            classificationDtoToClassification1( jeuDto.getClassification(), jeu.getClassification() );</span>
         }
-<span class="nc bnc" id="L106" title="All 2 branches missed.">        if ( jeuDto.getDescription() != null ) {</span>
-<span class="nc" id="L107">            jeu.setDescription( jeuDto.getDescription() );</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if ( jeuDto.getDescription() != null ) {</span>
+<span class="fc" id="L108">            jeu.setDescription( jeuDto.getDescription() );</span>
         }
-<span class="nc bnc" id="L109" title="All 2 branches missed.">        if ( jeu.getPlateformes() != null ) {</span>
-<span class="nc" id="L110">            List&lt;Plateforme&gt; list = plateformeDtoListToPlateformeList( jeuDto.getPlateformes() );</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">            if ( list != null ) {</span>
-<span class="nc" id="L112">                jeu.getPlateformes().clear();</span>
-<span class="nc" id="L113">                jeu.getPlateformes().addAll( list );</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if ( jeuDto.getDateDeSortie() != null ) {</span>
+<span class="nc" id="L111">            jeu.setDateDeSortie( jeuDto.getDateDeSortie() );</span>
+        }
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        if ( jeu.getPlateformes() != null ) {</span>
+<span class="fc" id="L114">            List&lt;Plateforme&gt; list = plateformeDtoListToPlateformeList( jeuDto.getPlateformes() );</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">            if ( list != null ) {</span>
+<span class="nc" id="L116">                jeu.getPlateformes().clear();</span>
+<span class="nc" id="L117">                jeu.getPlateformes().addAll( list );</span>
             }
-<span class="nc" id="L115">        }</span>
+<span class="fc" id="L119">        }</span>
         else {
-<span class="nc" id="L117">            List&lt;Plateforme&gt; list = plateformeDtoListToPlateformeList( jeuDto.getPlateformes() );</span>
-<span class="nc bnc" id="L118" title="All 2 branches missed.">            if ( list != null ) {</span>
-<span class="nc" id="L119">                jeu.setPlateformes( list );</span>
+<span class="nc" id="L121">            List&lt;Plateforme&gt; list = plateformeDtoListToPlateformeList( jeuDto.getPlateformes() );</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">            if ( list != null ) {</span>
+<span class="nc" id="L123">                jeu.setPlateformes( list );</span>
             }
         }
 
-<span class="nc" id="L123">        return jeu;</span>
+<span class="fc" id="L127">        return jeu;</span>
     }
 
     protected Editeur editeurDtoToEditeur(EditeurDto editeurDto) {
-<span class="nc bnc" id="L127" title="All 2 branches missed.">        if ( editeurDto == null ) {</span>
-<span class="nc" id="L128">            return null;</span>
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if ( editeurDto == null ) {</span>
+<span class="nc" id="L132">            return null;</span>
         }
 
-<span class="nc" id="L131">        Editeur editeur = new Editeur();</span>
+<span class="fc" id="L135">        Editeur editeur = new Editeur();</span>
 
-<span class="nc" id="L133">        editeur.setId( editeurDto.getId() );</span>
-<span class="nc" id="L134">        editeur.setNom( editeurDto.getNom() );</span>
+<span class="fc" id="L137">        editeur.setId( editeurDto.getId() );</span>
+<span class="fc" id="L138">        editeur.setNom( editeurDto.getNom() );</span>
 
-<span class="nc" id="L136">        return editeur;</span>
+<span class="fc" id="L140">        return editeur;</span>
     }
 
     protected Genre genreDtoToGenre(GenreDto genreDto) {
-<span class="nc bnc" id="L140" title="All 2 branches missed.">        if ( genreDto == null ) {</span>
-<span class="nc" id="L141">            return null;</span>
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">        if ( genreDto == null ) {</span>
+<span class="nc" id="L145">            return null;</span>
         }
 
-<span class="nc" id="L144">        Genre.GenreBuilder genre = Genre.builder();</span>
+<span class="fc" id="L148">        Genre.GenreBuilder genre = Genre.builder();</span>
 
-<span class="nc" id="L146">        genre.id( genreDto.getId() );</span>
-<span class="nc" id="L147">        genre.nom( genreDto.getNom() );</span>
+<span class="fc" id="L150">        genre.id( genreDto.getId() );</span>
+<span class="fc" id="L151">        genre.nom( genreDto.getNom() );</span>
 
-<span class="nc" id="L149">        return genre.build();</span>
+<span class="fc" id="L153">        return genre.build();</span>
     }
 
     protected Classification classificationDtoToClassification(ClassificationDto classificationDto) {
-<span class="nc bnc" id="L153" title="All 2 branches missed.">        if ( classificationDto == null ) {</span>
-<span class="nc" id="L154">            return null;</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        if ( classificationDto == null ) {</span>
+<span class="nc" id="L158">            return null;</span>
         }
 
-<span class="nc" id="L157">        Classification classification = new Classification();</span>
+<span class="fc" id="L161">        Classification classification = new Classification();</span>
 
-<span class="nc" id="L159">        classification.setId( classificationDto.getId() );</span>
-<span class="nc" id="L160">        classification.setNom( classificationDto.getNom() );</span>
-<span class="nc" id="L161">        classification.setCouleurRGB( classificationDto.getCouleurRGB() );</span>
+<span class="fc" id="L163">        classification.setId( classificationDto.getId() );</span>
+<span class="fc" id="L164">        classification.setNom( classificationDto.getNom() );</span>
+<span class="fc" id="L165">        classification.setCouleurRGB( classificationDto.getCouleurRGB() );</span>
 
-<span class="nc" id="L163">        return classification;</span>
+<span class="fc" id="L167">        return classification;</span>
     }
 
     protected List&lt;Jeu&gt; jeuDtoListToJeuList(List&lt;JeuDto&gt; list) {
-<span class="nc bnc" id="L167" title="All 2 branches missed.">        if ( list == null ) {</span>
-<span class="nc" id="L168">            return null;</span>
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L172">            return null;</span>
         }
 
-<span class="nc" id="L171">        List&lt;Jeu&gt; list1 = new ArrayList&lt;Jeu&gt;( list.size() );</span>
-<span class="nc bnc" id="L172" title="All 2 branches missed.">        for ( JeuDto jeuDto : list ) {</span>
-<span class="nc" id="L173">            list1.add( toModel( jeuDto ) );</span>
-<span class="nc" id="L174">        }</span>
+<span class="fc" id="L175">        List&lt;Jeu&gt; list1 = new ArrayList&lt;Jeu&gt;( list.size() );</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        for ( JeuDto jeuDto : list ) {</span>
+<span class="fc" id="L177">            list1.add( toModel( jeuDto ) );</span>
+<span class="fc" id="L178">        }</span>
 
-<span class="nc" id="L176">        return list1;</span>
+<span class="fc" id="L180">        return list1;</span>
     }
 
     protected Plateforme plateformeDtoToPlateforme(PlateformeDto plateformeDto) {
-<span class="nc bnc" id="L180" title="All 2 branches missed.">        if ( plateformeDto == null ) {</span>
-<span class="nc" id="L181">            return null;</span>
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">        if ( plateformeDto == null ) {</span>
+<span class="nc" id="L185">            return null;</span>
         }
 
-<span class="nc" id="L184">        Plateforme plateforme = new Plateforme();</span>
+<span class="fc" id="L188">        Plateforme plateforme = new Plateforme();</span>
 
-<span class="nc" id="L186">        plateforme.setNom( plateformeDto.getNom() );</span>
-<span class="nc" id="L187">        plateforme.setJeux( jeuDtoListToJeuList( plateformeDto.getJeux() ) );</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">        if ( plateformeDto.getDateDeSortie() != null ) {</span>
-<span class="nc" id="L189">            plateforme.setDateDeSortie( LocalDate.parse( plateformeDto.getDateDeSortie() ) );</span>
+<span class="fc" id="L190">        plateforme.setNom( plateformeDto.getNom() );</span>
+<span class="fc" id="L191">        plateforme.setJeux( jeuDtoListToJeuList( plateformeDto.getJeux() ) );</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">        if ( plateformeDto.getDateDeSortie() != null ) {</span>
+<span class="fc" id="L193">            plateforme.setDateDeSortie( LocalDate.parse( plateformeDto.getDateDeSortie() ) );</span>
         }
 
-<span class="nc" id="L192">        return plateforme;</span>
+<span class="fc" id="L196">        return plateforme;</span>
     }
 
     protected List&lt;Plateforme&gt; plateformeDtoListToPlateformeList(List&lt;PlateformeDto&gt; list) {
-<span class="nc bnc" id="L196" title="All 2 branches missed.">        if ( list == null ) {</span>
-<span class="nc" id="L197">            return null;</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">        if ( list == null ) {</span>
+<span class="fc" id="L201">            return null;</span>
         }
 
-<span class="nc" id="L200">        List&lt;Plateforme&gt; list1 = new ArrayList&lt;Plateforme&gt;( list.size() );</span>
-<span class="nc bnc" id="L201" title="All 2 branches missed.">        for ( PlateformeDto plateformeDto : list ) {</span>
-<span class="nc" id="L202">            list1.add( plateformeDtoToPlateforme( plateformeDto ) );</span>
-<span class="nc" id="L203">        }</span>
+<span class="fc" id="L204">        List&lt;Plateforme&gt; list1 = new ArrayList&lt;Plateforme&gt;( list.size() );</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">        for ( PlateformeDto plateformeDto : list ) {</span>
+<span class="fc" id="L206">            list1.add( plateformeDtoToPlateforme( plateformeDto ) );</span>
+<span class="fc" id="L207">        }</span>
 
-<span class="nc" id="L205">        return list1;</span>
+<span class="fc" id="L209">        return list1;</span>
     }
 
     protected List&lt;JeuDto&gt; jeuListToJeuDtoList(List&lt;Jeu&gt; list) {
-<span class="nc bnc" id="L209" title="All 2 branches missed.">        if ( list == null ) {</span>
-<span class="nc" id="L210">            return null;</span>
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L214">            return null;</span>
         }
 
-<span class="nc" id="L213">        List&lt;JeuDto&gt; list1 = new ArrayList&lt;JeuDto&gt;( list.size() );</span>
-<span class="nc bnc" id="L214" title="All 2 branches missed.">        for ( Jeu jeu : list ) {</span>
-<span class="nc" id="L215">            list1.add( toDto( jeu ) );</span>
-<span class="nc" id="L216">        }</span>
+<span class="fc" id="L217">        List&lt;JeuDto&gt; list1 = new ArrayList&lt;JeuDto&gt;( list.size() );</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">        for ( Jeu jeu : list ) {</span>
+<span class="fc" id="L219">            list1.add( toDto( jeu ) );</span>
+<span class="fc" id="L220">        }</span>
 
-<span class="nc" id="L218">        return list1;</span>
+<span class="fc" id="L222">        return list1;</span>
     }
 
     protected PlateformeDto plateformeToPlateformeDto(Plateforme plateforme) {
-<span class="nc bnc" id="L222" title="All 2 branches missed.">        if ( plateforme == null ) {</span>
-<span class="nc" id="L223">            return null;</span>
+<span class="pc bpc" id="L226" title="1 of 2 branches missed.">        if ( plateforme == null ) {</span>
+<span class="nc" id="L227">            return null;</span>
         }
 
-<span class="nc" id="L226">        List&lt;JeuDto&gt; jeux = null;</span>
-<span class="nc" id="L227">        String nom = null;</span>
-<span class="nc" id="L228">        String dateDeSortie = null;</span>
+<span class="fc" id="L230">        List&lt;JeuDto&gt; jeux = null;</span>
+<span class="fc" id="L231">        String nom = null;</span>
+<span class="fc" id="L232">        String dateDeSortie = null;</span>
 
-<span class="nc" id="L230">        jeux = jeuListToJeuDtoList( plateforme.getJeux() );</span>
-<span class="nc" id="L231">        nom = plateforme.getNom();</span>
-<span class="nc bnc" id="L232" title="All 2 branches missed.">        if ( plateforme.getDateDeSortie() != null ) {</span>
-<span class="nc" id="L233">            dateDeSortie = DateTimeFormatter.ISO_LOCAL_DATE.format( plateforme.getDateDeSortie() );</span>
+<span class="fc" id="L234">        jeux = jeuListToJeuDtoList( plateforme.getJeux() );</span>
+<span class="fc" id="L235">        nom = plateforme.getNom();</span>
+<span class="pc bpc" id="L236" title="1 of 2 branches missed.">        if ( plateforme.getDateDeSortie() != null ) {</span>
+<span class="fc" id="L237">            dateDeSortie = DateTimeFormatter.ISO_LOCAL_DATE.format( plateforme.getDateDeSortie() );</span>
         }
 
-<span class="nc" id="L236">        PlateformeDto plateformeDto = new PlateformeDto( nom, dateDeSortie, jeux );</span>
+<span class="fc" id="L240">        PlateformeDto plateformeDto = new PlateformeDto( nom, dateDeSortie, jeux );</span>
 
-<span class="nc" id="L238">        return plateformeDto;</span>
+<span class="fc" id="L242">        return plateformeDto;</span>
     }
 
     protected List&lt;PlateformeDto&gt; plateformeListToPlateformeDtoList(List&lt;Plateforme&gt; list) {
-<span class="nc bnc" id="L242" title="All 2 branches missed.">        if ( list == null ) {</span>
-<span class="nc" id="L243">            return null;</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">        if ( list == null ) {</span>
+<span class="fc" id="L247">            return null;</span>
         }
 
-<span class="nc" id="L246">        List&lt;PlateformeDto&gt; list1 = new ArrayList&lt;PlateformeDto&gt;( list.size() );</span>
-<span class="nc bnc" id="L247" title="All 2 branches missed.">        for ( Plateforme plateforme : list ) {</span>
-<span class="nc" id="L248">            list1.add( plateformeToPlateformeDto( plateforme ) );</span>
-<span class="nc" id="L249">        }</span>
+<span class="fc" id="L250">        List&lt;PlateformeDto&gt; list1 = new ArrayList&lt;PlateformeDto&gt;( list.size() );</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">        for ( Plateforme plateforme : list ) {</span>
+<span class="fc" id="L252">            list1.add( plateformeToPlateformeDto( plateforme ) );</span>
+<span class="fc" id="L253">        }</span>
 
-<span class="nc" id="L251">        return list1;</span>
+<span class="fc" id="L255">        return list1;</span>
     }
 
     protected EditeurDto editeurToEditeurDto(Editeur editeur) {
-<span class="nc bnc" id="L255" title="All 2 branches missed.">        if ( editeur == null ) {</span>
-<span class="nc" id="L256">            return null;</span>
+<span class="fc bfc" id="L259" title="All 2 branches covered.">        if ( editeur == null ) {</span>
+<span class="fc" id="L260">            return null;</span>
         }
 
-<span class="nc" id="L259">        Long id = null;</span>
-<span class="nc" id="L260">        String nom = null;</span>
+<span class="fc" id="L263">        Long id = null;</span>
+<span class="fc" id="L264">        String nom = null;</span>
 
-<span class="nc" id="L262">        id = editeur.getId();</span>
-<span class="nc" id="L263">        nom = editeur.getNom();</span>
+<span class="fc" id="L266">        id = editeur.getId();</span>
+<span class="fc" id="L267">        nom = editeur.getNom();</span>
 
-<span class="nc" id="L265">        EditeurDto editeurDto = new EditeurDto( id, nom );</span>
+<span class="fc" id="L269">        EditeurDto editeurDto = new EditeurDto( id, nom );</span>
 
-<span class="nc" id="L267">        return editeurDto;</span>
+<span class="fc" id="L271">        return editeurDto;</span>
     }
 
     protected GenreDto genreToGenreDto(Genre genre) {
-<span class="nc bnc" id="L271" title="All 2 branches missed.">        if ( genre == null ) {</span>
-<span class="nc" id="L272">            return null;</span>
+<span class="pc bpc" id="L275" title="1 of 2 branches missed.">        if ( genre == null ) {</span>
+<span class="nc" id="L276">            return null;</span>
         }
 
-<span class="nc" id="L275">        Long id = null;</span>
-<span class="nc" id="L276">        String nom = null;</span>
+<span class="fc" id="L279">        Long id = null;</span>
+<span class="fc" id="L280">        String nom = null;</span>
 
-<span class="nc" id="L278">        id = genre.getId();</span>
-<span class="nc" id="L279">        nom = genre.getNom();</span>
+<span class="fc" id="L282">        id = genre.getId();</span>
+<span class="fc" id="L283">        nom = genre.getNom();</span>
 
-<span class="nc" id="L281">        GenreDto genreDto = new GenreDto( id, nom );</span>
+<span class="fc" id="L285">        GenreDto genreDto = new GenreDto( id, nom );</span>
 
-<span class="nc" id="L283">        return genreDto;</span>
+<span class="fc" id="L287">        return genreDto;</span>
     }
 
     protected ClassificationDto classificationToClassificationDto(Classification classification) {
-<span class="nc bnc" id="L287" title="All 2 branches missed.">        if ( classification == null ) {</span>
-<span class="nc" id="L288">            return null;</span>
+<span class="pc bpc" id="L291" title="1 of 2 branches missed.">        if ( classification == null ) {</span>
+<span class="nc" id="L292">            return null;</span>
         }
 
-<span class="nc" id="L291">        Long id = null;</span>
-<span class="nc" id="L292">        String nom = null;</span>
-<span class="nc" id="L293">        String couleurRGB = null;</span>
+<span class="fc" id="L295">        Long id = null;</span>
+<span class="fc" id="L296">        String nom = null;</span>
+<span class="fc" id="L297">        String couleurRGB = null;</span>
 
-<span class="nc" id="L295">        id = classification.getId();</span>
-<span class="nc" id="L296">        nom = classification.getNom();</span>
-<span class="nc" id="L297">        couleurRGB = classification.getCouleurRGB();</span>
+<span class="fc" id="L299">        id = classification.getId();</span>
+<span class="fc" id="L300">        nom = classification.getNom();</span>
+<span class="fc" id="L301">        couleurRGB = classification.getCouleurRGB();</span>
 
-<span class="nc" id="L299">        ClassificationDto classificationDto = new ClassificationDto( id, nom, couleurRGB );</span>
+<span class="fc" id="L303">        ClassificationDto classificationDto = new ClassificationDto( id, nom, couleurRGB );</span>
 
-<span class="nc" id="L301">        return classificationDto;</span>
+<span class="fc" id="L305">        return classificationDto;</span>
     }
 
     protected void editeurDtoToEditeur1(EditeurDto editeurDto, Editeur mappingTarget) {
-<span class="nc bnc" id="L305" title="All 2 branches missed.">        if ( editeurDto == null ) {</span>
-<span class="nc" id="L306">            return;</span>
+<span class="pc bpc" id="L309" title="1 of 2 branches missed.">        if ( editeurDto == null ) {</span>
+<span class="nc" id="L310">            return;</span>
         }
 
-<span class="nc bnc" id="L309" title="All 2 branches missed.">        if ( editeurDto.getId() != null ) {</span>
-<span class="nc" id="L310">            mappingTarget.setId( editeurDto.getId() );</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">        if ( editeurDto.getId() != null ) {</span>
+<span class="fc" id="L314">            mappingTarget.setId( editeurDto.getId() );</span>
         }
-<span class="nc bnc" id="L312" title="All 2 branches missed.">        if ( editeurDto.getNom() != null ) {</span>
-<span class="nc" id="L313">            mappingTarget.setNom( editeurDto.getNom() );</span>
+<span class="pc bpc" id="L316" title="1 of 2 branches missed.">        if ( editeurDto.getNom() != null ) {</span>
+<span class="fc" id="L317">            mappingTarget.setNom( editeurDto.getNom() );</span>
         }
-<span class="nc" id="L315">    }</span>
+<span class="fc" id="L319">    }</span>
 
     protected void genreDtoToGenre1(GenreDto genreDto, Genre mappingTarget) {
-<span class="nc bnc" id="L318" title="All 2 branches missed.">        if ( genreDto == null ) {</span>
-<span class="nc" id="L319">            return;</span>
+<span class="nc bnc" id="L322" title="All 2 branches missed.">        if ( genreDto == null ) {</span>
+<span class="nc" id="L323">            return;</span>
         }
 
-<span class="nc bnc" id="L322" title="All 2 branches missed.">        if ( genreDto.getId() != null ) {</span>
-<span class="nc" id="L323">            mappingTarget.setId( genreDto.getId() );</span>
+<span class="nc bnc" id="L326" title="All 2 branches missed.">        if ( genreDto.getId() != null ) {</span>
+<span class="nc" id="L327">            mappingTarget.setId( genreDto.getId() );</span>
         }
-<span class="nc bnc" id="L325" title="All 2 branches missed.">        if ( genreDto.getNom() != null ) {</span>
-<span class="nc" id="L326">            mappingTarget.setNom( genreDto.getNom() );</span>
+<span class="nc bnc" id="L329" title="All 2 branches missed.">        if ( genreDto.getNom() != null ) {</span>
+<span class="nc" id="L330">            mappingTarget.setNom( genreDto.getNom() );</span>
         }
-<span class="nc" id="L328">    }</span>
+<span class="nc" id="L332">    }</span>
 
     protected void classificationDtoToClassification1(ClassificationDto classificationDto, Classification mappingTarget) {
-<span class="nc bnc" id="L331" title="All 2 branches missed.">        if ( classificationDto == null ) {</span>
-<span class="nc" id="L332">            return;</span>
+<span class="nc bnc" id="L335" title="All 2 branches missed.">        if ( classificationDto == null ) {</span>
+<span class="nc" id="L336">            return;</span>
         }
 
-<span class="nc bnc" id="L335" title="All 2 branches missed.">        if ( classificationDto.getId() != null ) {</span>
-<span class="nc" id="L336">            mappingTarget.setId( classificationDto.getId() );</span>
+<span class="nc bnc" id="L339" title="All 2 branches missed.">        if ( classificationDto.getId() != null ) {</span>
+<span class="nc" id="L340">            mappingTarget.setId( classificationDto.getId() );</span>
         }
-<span class="nc bnc" id="L338" title="All 2 branches missed.">        if ( classificationDto.getNom() != null ) {</span>
-<span class="nc" id="L339">            mappingTarget.setNom( classificationDto.getNom() );</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">        if ( classificationDto.getNom() != null ) {</span>
+<span class="nc" id="L343">            mappingTarget.setNom( classificationDto.getNom() );</span>
         }
-<span class="nc bnc" id="L341" title="All 2 branches missed.">        if ( classificationDto.getCouleurRGB() != null ) {</span>
-<span class="nc" id="L342">            mappingTarget.setCouleurRGB( classificationDto.getCouleurRGB() );</span>
+<span class="nc bnc" id="L345" title="All 2 branches missed.">        if ( classificationDto.getCouleurRGB() != null ) {</span>
+<span class="nc" id="L346">            mappingTarget.setCouleurRGB( classificationDto.getCouleurRGB() );</span>
         }
-<span class="nc" id="L344">    }</span>
+<span class="nc" id="L348">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -26,7 +26,7 @@ public class JeuRestController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Jeu postJeu(@Valid @RequestBody JeuDto jeuDto, BindingResult bindingResult) {
-<span class="nc" id="L29">        return jeuService.ajouterJeu(jeuMapper.toModel(jeuDto));</span>
+<span class="fc" id="L29">        return jeuService.ajouterJeu(jeuMapper.toModel(jeuDto));</span>
     }
 
 }

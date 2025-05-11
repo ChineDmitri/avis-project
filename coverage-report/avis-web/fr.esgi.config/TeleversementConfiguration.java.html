@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.unit.DataSize;
 
 @Configuration
-<span class="nc" id="L10">public class TeleversementConfiguration {</span>
+<span class="fc" id="L10">public class TeleversementConfiguration {</span>
 
     @Bean(name = &quot;uploadConfig&quot;)
     MultipartConfigElement multipartConfigElement() {
-<span class="nc" id="L14">        MultipartConfigFactory factory = new MultipartConfigFactory();</span>
-<span class="nc" id="L15">        factory.setMaxFileSize(DataSize.ofMegabytes(2));</span>
-<span class="nc" id="L16">        factory.setMaxRequestSize(DataSize.ofMegabytes(3));</span>
-<span class="nc" id="L17">        return factory.createMultipartConfig();</span>
+<span class="fc" id="L14">        MultipartConfigFactory factory = new MultipartConfigFactory();</span>
+<span class="fc" id="L15">        factory.setMaxFileSize(DataSize.ofMegabytes(2));</span>
+<span class="fc" id="L16">        factory.setMaxRequestSize(DataSize.ofMegabytes(3));</span>
+<span class="fc" id="L17">        return factory.createMultipartConfig();</span>
     }
 
 }
