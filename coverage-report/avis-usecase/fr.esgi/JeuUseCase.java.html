@@ -32,21 +32,21 @@ public class JeuUseCase implements JeuService {
 
     @Override
     public CustomPagedResult&lt;Jeu&gt; recupererJeux(PaginationParams paginationParams) {
-<span class="nc" id="L35">        return jeuRepository.findAll(paginationParams);</span>
+<span class="fc" id="L35">        return jeuRepository.findAll(paginationParams);</span>
     }
 
     @Override
     public Jeu enregistrerJeu(Jeu jeu) {
-<span class="nc" id="L40">        return jeuRepository.save(jeu);</span>
+<span class="fc" id="L40">        return jeuRepository.save(jeu);</span>
     }
 
     @Override
     public String ajouterImage(Long id, InputStream is) {
-<span class="nc" id="L45">        Jeu    jeu              = jeuRepository.findById(id);</span>
-<span class="nc" id="L46">        String fileNameWithPath = fileAdapter.upload(is);</span>
-<span class="nc" id="L47">        jeu.setImage(fileNameWithPath);</span>
-<span class="nc" id="L48">        jeuRepository.save(jeu);</span>
-<span class="nc" id="L49">        return fileNameWithPath;</span>
+<span class="fc" id="L45">        Jeu    jeu              = jeuRepository.findById(id);</span>
+<span class="fc" id="L46">        String fileNameWithPath = fileAdapter.upload(is);</span>
+<span class="fc" id="L47">        jeu.setImage(fileNameWithPath);</span>
+<span class="fc" id="L48">        jeuRepository.save(jeu);</span>
+<span class="fc" id="L49">        return fileNameWithPath;</span>
 
     }
 }
