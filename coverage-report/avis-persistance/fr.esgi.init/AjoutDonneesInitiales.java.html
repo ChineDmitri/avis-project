@@ -25,7 +25,7 @@ import java.util.*;
 @AllArgsConstructor
 @Profile({&quot;DEV&quot;, &quot;PROD&quot;})
 @Transactional(readOnly = true)
-<span class="nc" id="L28">@Log4j2</span>
+<span class="fc" id="L28">@Log4j2</span>
 public class AjoutDonneesInitiales {
 
     private EditeurJpaRepository        editeurRepository;
@@ -40,77 +40,77 @@ public class AjoutDonneesInitiales {
     @PersistenceContext
     private EntityManager               entityManager;
 
-<span class="nc" id="L43">    private static Faker faker = new Faker(Locale.FRENCH);</span>
+<span class="fc" id="L43">    private static Faker faker = new Faker(Locale.FRENCH);</span>
 
     // @Override
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
     public void init() {
-<span class="nc" id="L49">        ajouterEditeurs();</span>
-<span class="nc" id="L50">        ajouterClassifications();</span>
-<span class="nc" id="L51">        ajouterGenres();</span>
-<span class="nc" id="L52">        ajouterPlateformes();</span>
-<span class="nc" id="L53">        ajouterJeux();</span>
-<span class="nc" id="L54">        ajouterAvatars();</span>
-<span class="nc" id="L55">        ajouterJoueurs(100);</span>
-<span class="nc" id="L56">        ajouterModerateur();</span>
-<span class="nc" id="L57">        ajouterAvis(200);</span>
-<span class="nc" id="L58">    }</span>
+<span class="fc" id="L49">        ajouterEditeurs();</span>
+<span class="fc" id="L50">        ajouterClassifications();</span>
+<span class="fc" id="L51">        ajouterGenres();</span>
+<span class="fc" id="L52">        ajouterPlateformes();</span>
+<span class="fc" id="L53">        ajouterJeux();</span>
+<span class="fc" id="L54">        ajouterAvatars();</span>
+<span class="fc" id="L55">        ajouterJoueurs(100);</span>
+<span class="fc" id="L56">        ajouterModerateur();</span>
+<span class="fc" id="L57">        ajouterAvis(200);</span>
+<span class="fc" id="L58">    }</span>
 
     private void ajouterAvatars() {
-<span class="nc" id="L61">        avatarRepository.save(new AvatarEntity(&quot;AvatarEntity 1&quot;));</span>
-<span class="nc" id="L62">        avatarRepository.save(new AvatarEntity(&quot;AvatarEntity 2&quot;));</span>
-<span class="nc" id="L63">    }</span>
+<span class="fc" id="L61">        avatarRepository.save(new AvatarEntity(&quot;AvatarEntity 1&quot;));</span>
+<span class="fc" id="L62">        avatarRepository.save(new AvatarEntity(&quot;AvatarEntity 2&quot;));</span>
+<span class="fc" id="L63">    }</span>
 
     private void ajouterAvis(int nbAvisAAjouter) {
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (avisRepository.count() == 0) {</span>
-<span class="nc" id="L67">            Random             random  = new Random(); //NOSONAR</span>
-<span class="nc" id="L68">            List&lt;JoueurEntity&gt; joueurs = joueurRepository.findAll();</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">            for (int i = 0; i &lt; nbAvisAAjouter; i++) {</span>
-<span class="nc" id="L70">                JoueurEntity JoueurEntity = joueurs.get(random.nextInt(joueurs.size())); // NOSONAR</span>
-<span class="nc" id="L71">                AvisEntity AvisEntity = new AvisEntity(faker.letterify(&quot;????????&quot;), // NOSONAR</span>
-<span class="nc" id="L72">                                                       jeuRepository.findGamesRandomlySorted()</span>
-<span class="nc" id="L73">                                                                    .get(0),</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        if (avisRepository.count() == 0) {</span>
+<span class="fc" id="L67">            Random             random  = new Random(); //NOSONAR</span>
+<span class="fc" id="L68">            List&lt;JoueurEntity&gt; joueurs = joueurRepository.findAll();</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            for (int i = 0; i &lt; nbAvisAAjouter; i++) {</span>
+<span class="fc" id="L70">                JoueurEntity JoueurEntity = joueurs.get(random.nextInt(joueurs.size())); // NOSONAR</span>
+<span class="fc" id="L71">                AvisEntity AvisEntity = new AvisEntity(faker.letterify(&quot;????????&quot;), // NOSONAR</span>
+<span class="fc" id="L72">                                                       jeuRepository.findGamesRandomlySorted()</span>
+<span class="fc" id="L73">                                                                    .get(0),</span>
                                                        JoueurEntity);
-<span class="nc" id="L75">                AvisEntity.setNote(random.nextFloat(21));</span>
-<span class="nc" id="L76">                JoueurEntity.getAvis()</span>
-<span class="nc" id="L77">                            .add(AvisEntity);</span>
-<span class="nc" id="L78">                avisRepository.save(AvisEntity);</span>
+<span class="fc" id="L75">                AvisEntity.setNote(random.nextFloat(21));</span>
+<span class="fc" id="L76">                JoueurEntity.getAvis()</span>
+<span class="fc" id="L77">                            .add(AvisEntity);</span>
+<span class="fc" id="L78">                avisRepository.save(AvisEntity);</span>
             }
         }
-<span class="nc" id="L81">    }</span>
+<span class="fc" id="L81">    }</span>
 
     private void ajouterJoueurs(int nbJoueursAAjouter) {
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (joueurRepository.count() == 0) {</span>
-<span class="nc" id="L85">            Calendar calendar = Calendar.getInstance();</span>
-<span class="nc" id="L86">            int      compteur = 0;</span>
-<span class="nc bnc" id="L87" title="All 2 branches missed.">            while (compteur &lt; nbJoueursAAjouter) {</span>
-<span class="nc" id="L88">                compteur++;</span>
-<span class="nc" id="L89">                calendar.set(1940, 1, 1);</span>
-<span class="nc" id="L90">                Date dateDebut = calendar.getTime();</span>
-<span class="nc" id="L91">                calendar = Calendar.getInstance();</span>
-<span class="nc" id="L92">                calendar.set(2003, 1, 1);</span>
-<span class="nc" id="L93">                Date dateFin = calendar.getTime();</span>
-<span class="nc" id="L94">                Date dateAleatoire = faker.date()</span>
-<span class="nc" id="L95">                                          .between(dateDebut, dateFin);</span>
-<span class="nc" id="L96">                calendar.setTime(dateAleatoire);</span>
-<span class="nc" id="L97">            }</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">        if (joueurRepository.count() == 0) {</span>
+<span class="fc" id="L85">            Calendar calendar = Calendar.getInstance();</span>
+<span class="fc" id="L86">            int      compteur = 0;</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">            while (compteur &lt; nbJoueursAAjouter) {</span>
+<span class="fc" id="L88">                compteur++;</span>
+<span class="fc" id="L89">                calendar.set(1940, 1, 1);</span>
+<span class="fc" id="L90">                Date dateDebut = calendar.getTime();</span>
+<span class="fc" id="L91">                calendar = Calendar.getInstance();</span>
+<span class="fc" id="L92">                calendar.set(2003, 1, 1);</span>
+<span class="fc" id="L93">                Date dateFin = calendar.getTime();</span>
+<span class="fc" id="L94">                Date dateAleatoire = faker.date()</span>
+<span class="fc" id="L95">                                          .between(dateDebut, dateFin);</span>
+<span class="fc" id="L96">                calendar.setTime(dateAleatoire);</span>
+<span class="fc" id="L97">            }</span>
 
-<span class="nc" id="L99">            joueurRepository.save(JoueurEntity.builder()</span>
-<span class="nc" id="L100">                                              .pseudo(&quot;test&quot;)</span>
-<span class="nc" id="L101">                                              .motDePasse(&quot;anniversaire&quot;)</span>
-<span class="nc" id="L102">                                              .email(&quot;test@m2iformation.fr&quot;)</span>
-<span class="nc" id="L103">                                              .dateDeNaissance(LocalDate.of(1999,</span>
-<span class="nc" id="L104">                                                                            LocalDate.now()</span>
-<span class="nc" id="L105">                                                                                     .getMonthValue(),</span>
-<span class="nc" id="L106">                                                                            LocalDate.now()</span>
-<span class="nc" id="L107">                                                                                     .getDayOfMonth()))</span>
-<span class="nc" id="L108">                                              .build());</span>
+<span class="fc" id="L99">            joueurRepository.save(JoueurEntity.builder()</span>
+<span class="fc" id="L100">                                              .pseudo(&quot;test&quot;)</span>
+<span class="fc" id="L101">                                              .motDePasse(&quot;anniversaire&quot;)</span>
+<span class="fc" id="L102">                                              .email(&quot;test@m2iformation.fr&quot;)</span>
+<span class="fc" id="L103">                                              .dateDeNaissance(LocalDate.of(1999,</span>
+<span class="fc" id="L104">                                                                            LocalDate.now()</span>
+<span class="fc" id="L105">                                                                                     .getMonthValue(),</span>
+<span class="fc" id="L106">                                                                            LocalDate.now()</span>
+<span class="fc" id="L107">                                                                                     .getDayOfMonth()))</span>
+<span class="fc" id="L108">                                              .build());</span>
         }
-<span class="nc" id="L110">    }</span>
+<span class="fc" id="L110">    }</span>
 
     private void ajouterModerateur() {
-<span class="nc" id="L113">    }</span>
+<span class="fc" id="L113">    }</span>
 
     //    @Transactional(readOnly = true)
     //    void afficherStatistiques() {
@@ -132,225 +132,225 @@ public class AjoutDonneesInitiales {
     //    }
 
     private void ajouterJeux() {
-<span class="nc bnc" id="L135" title="All 2 branches missed.">        if (jeuRepository.count() == 0) {</span>
-<span class="nc" id="L136">            EditeurEntity nintendo         = editeurRepository.findByNom(&quot;Nintendo&quot;); //NOSONAR</span>
-<span class="nc" id="L137">            EditeurEntity ubisoft          = editeurRepository.findByNom(&quot;Ubisoft&quot;); //NOSONAR</span>
-<span class="nc" id="L138">            EditeurEntity riot             = editeurRepository.findByNom(&quot;Riot Games&quot;); //NOSONAR</span>
-<span class="nc" id="L139">            EditeurEntity ankama           = editeurRepository.findByNom(&quot;Ankama&quot;); //NOSONAR</span>
-<span class="nc" id="L140">            EditeurEntity bioWare          = editeurRepository.findByNom(&quot;BioWare&quot;); //NOSONAR</span>
-<span class="nc" id="L141">            EditeurEntity cdProjeckRed     = editeurRepository.findByNom(&quot;CD Projekt Red&quot;); //NOSONAR</span>
-<span class="nc" id="L142">            EditeurEntity blizzard         = editeurRepository.findByNom(&quot;Blizzard&quot;); //NOSONAR</span>
-<span class="nc" id="L143">            EditeurEntity fromSoftware     = editeurRepository.findByNom(&quot;FromSoftware&quot;); //NOSONAR</span>
-<span class="nc" id="L144">            EditeurEntity naughtyDog       = editeurRepository.findByNom(&quot;Naughty Dog&quot;); //NOSONAR</span>
-<span class="nc" id="L145">            EditeurEntity hazelightStudios = editeurRepository.findByNom(&quot;Hazelight Studios&quot;); //NOSONAR</span>
-<span class="nc" id="L146">            EditeurEntity idSoftware       = editeurRepository.findByNom(&quot;idSoftware&quot;); //NOSONAR</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        if (jeuRepository.count() == 0) {</span>
+<span class="fc" id="L136">            EditeurEntity nintendo         = editeurRepository.findByNom(&quot;Nintendo&quot;); //NOSONAR</span>
+<span class="fc" id="L137">            EditeurEntity ubisoft          = editeurRepository.findByNom(&quot;Ubisoft&quot;); //NOSONAR</span>
+<span class="fc" id="L138">            EditeurEntity riot             = editeurRepository.findByNom(&quot;Riot Games&quot;); //NOSONAR</span>
+<span class="fc" id="L139">            EditeurEntity ankama           = editeurRepository.findByNom(&quot;Ankama&quot;); //NOSONAR</span>
+<span class="fc" id="L140">            EditeurEntity bioWare          = editeurRepository.findByNom(&quot;BioWare&quot;); //NOSONAR</span>
+<span class="fc" id="L141">            EditeurEntity cdProjeckRed     = editeurRepository.findByNom(&quot;CD Projekt Red&quot;); //NOSONAR</span>
+<span class="fc" id="L142">            EditeurEntity blizzard         = editeurRepository.findByNom(&quot;Blizzard&quot;); //NOSONAR</span>
+<span class="fc" id="L143">            EditeurEntity fromSoftware     = editeurRepository.findByNom(&quot;FromSoftware&quot;); //NOSONAR</span>
+<span class="fc" id="L144">            EditeurEntity naughtyDog       = editeurRepository.findByNom(&quot;Naughty Dog&quot;); //NOSONAR</span>
+<span class="fc" id="L145">            EditeurEntity hazelightStudios = editeurRepository.findByNom(&quot;Hazelight Studios&quot;); //NOSONAR</span>
+<span class="fc" id="L146">            EditeurEntity idSoftware       = editeurRepository.findByNom(&quot;idSoftware&quot;); //NOSONAR</span>
 
-<span class="nc" id="L148">            GenreEntity moba = genreRepository.findByNom(&quot;MOBA (Multiplayer online battle arena)&quot;);</span>
-<span class="nc" id="L149">            GenreEntity rpg  = genreRepository.findByNom(&quot;RPG (Role-playing game))&quot;);</span>
+<span class="fc" id="L148">            GenreEntity moba = genreRepository.findByNom(&quot;MOBA (Multiplayer online battle arena)&quot;);</span>
+<span class="fc" id="L149">            GenreEntity rpg  = genreRepository.findByNom(&quot;RPG (Role-playing game))&quot;);</span>
 
-<span class="nc" id="L151">            JeuEntity JeuEntity = new JeuEntity(&quot;Animal Crossing New Horizons&quot;, LocalDate.of(2020, 3, 20), nintendo);</span>
-<span class="nc" id="L152">            JeuEntity.setPlateformes(Arrays.asList(plateformeRepository.findAll()</span>
-<span class="nc" id="L153">                                                                       .get(0),</span>
-<span class="nc" id="L154">                                                   plateformeRepository.findAll()</span>
-<span class="nc" id="L155">                                                                       .get(1)));</span>
-<span class="nc" id="L156">            jeuRepository.save(JeuEntity);</span>
+<span class="fc" id="L151">            JeuEntity JeuEntity = new JeuEntity(&quot;Animal Crossing New Horizons&quot;, LocalDate.of(2020, 3, 20), nintendo);</span>
+<span class="fc" id="L152">            JeuEntity.setPlateformes(Arrays.asList(plateformeRepository.findAll()</span>
+<span class="fc" id="L153">                                                                       .get(0),</span>
+<span class="fc" id="L154">                                                   plateformeRepository.findAll()</span>
+<span class="fc" id="L155">                                                                       .get(1)));</span>
+<span class="fc" id="L156">            jeuRepository.save(JeuEntity);</span>
 
-<span class="nc" id="L158">            jeuRepository.save(new JeuEntity(&quot;Zelda Tears of the Kingdom&quot;, LocalDate.of(2023, 5, 12), nintendo));</span>
-<span class="nc" id="L159">            jeuRepository.save(new JeuEntity(&quot;Assassin's Creed Valhalla&quot;, LocalDate.of(2020, 11, 10), ubisoft));</span>
+<span class="fc" id="L158">            jeuRepository.save(new JeuEntity(&quot;Zelda Tears of the Kingdom&quot;, LocalDate.of(2023, 5, 12), nintendo));</span>
+<span class="fc" id="L159">            jeuRepository.save(new JeuEntity(&quot;Assassin's Creed Valhalla&quot;, LocalDate.of(2020, 11, 10), ubisoft));</span>
 
-<span class="nc" id="L161">            jeuRepository.save(new JeuEntity(&quot;Warframe&quot;));</span>
-<span class="nc" id="L162">            jeuRepository.save(new JeuEntity(&quot;Final Fantasy VIII&quot;));</span>
-<span class="nc" id="L163">            jeuRepository.save(new JeuEntity(&quot;Monster Hunter:World&quot;));</span>
-<span class="nc" id="L164">            jeuRepository.save(new JeuEntity(&quot;Xenoblade Chronicles&quot;));</span>
-<span class="nc" id="L165">            jeuRepository.save(new JeuEntity(&quot;Nier:Automata&quot;));</span>
-<span class="nc" id="L166">            jeuRepository.save(new JeuEntity(&quot;Lost Ark&quot;));</span>
-<span class="nc" id="L167">            jeuRepository.save(new JeuEntity(&quot;Aion&quot;));</span>
-<span class="nc" id="L168">            jeuRepository.save(new JeuEntity(&quot;Métin 2&quot;));</span>
-<span class="nc" id="L169">            jeuRepository.save(new JeuEntity(&quot;Tera&quot;));</span>
-<span class="nc" id="L170">            jeuRepository.save(new JeuEntity(&quot;Tunic&quot;));</span>
-<span class="nc" id="L171">            jeuRepository.save(new JeuEntity(&quot;Satisfactory&quot;));</span>
-<span class="nc" id="L172">            jeuRepository.save(new JeuEntity(&quot;Valorant&quot;));</span>
-<span class="nc" id="L173">            jeuRepository.save(new JeuEntity(&quot;Octopath Travellers&quot;));</span>
-<span class="nc" id="L174">            jeuRepository.save(new JeuEntity(&quot;Minecraft&quot;));</span>
-<span class="nc" id="L175">            jeuRepository.save(new JeuEntity(&quot;Outer Wild&quot;));</span>
-<span class="nc" id="L176">            jeuRepository.save(new JeuEntity(&quot;Strays&quot;));</span>
-<span class="nc" id="L177">            jeuRepository.save(new JeuEntity(&quot;Nier:Replicant&quot;));</span>
+<span class="fc" id="L161">            jeuRepository.save(new JeuEntity(&quot;Warframe&quot;));</span>
+<span class="fc" id="L162">            jeuRepository.save(new JeuEntity(&quot;Final Fantasy VIII&quot;));</span>
+<span class="fc" id="L163">            jeuRepository.save(new JeuEntity(&quot;Monster Hunter:World&quot;));</span>
+<span class="fc" id="L164">            jeuRepository.save(new JeuEntity(&quot;Xenoblade Chronicles&quot;));</span>
+<span class="fc" id="L165">            jeuRepository.save(new JeuEntity(&quot;Nier:Automata&quot;));</span>
+<span class="fc" id="L166">            jeuRepository.save(new JeuEntity(&quot;Lost Ark&quot;));</span>
+<span class="fc" id="L167">            jeuRepository.save(new JeuEntity(&quot;Aion&quot;));</span>
+<span class="fc" id="L168">            jeuRepository.save(new JeuEntity(&quot;Métin 2&quot;));</span>
+<span class="fc" id="L169">            jeuRepository.save(new JeuEntity(&quot;Tera&quot;));</span>
+<span class="fc" id="L170">            jeuRepository.save(new JeuEntity(&quot;Tunic&quot;));</span>
+<span class="fc" id="L171">            jeuRepository.save(new JeuEntity(&quot;Satisfactory&quot;));</span>
+<span class="fc" id="L172">            jeuRepository.save(new JeuEntity(&quot;Valorant&quot;));</span>
+<span class="fc" id="L173">            jeuRepository.save(new JeuEntity(&quot;Octopath Travellers&quot;));</span>
+<span class="fc" id="L174">            jeuRepository.save(new JeuEntity(&quot;Minecraft&quot;));</span>
+<span class="fc" id="L175">            jeuRepository.save(new JeuEntity(&quot;Outer Wild&quot;));</span>
+<span class="fc" id="L176">            jeuRepository.save(new JeuEntity(&quot;Strays&quot;));</span>
+<span class="fc" id="L177">            jeuRepository.save(new JeuEntity(&quot;Nier:Replicant&quot;));</span>
 
-<span class="nc" id="L179">            jeuRepository.save(new JeuEntity(&quot;The last of us part II&quot;, editeurRepository.findByNom(&quot;Naughty Dog&quot;)));</span>
-<span class="nc" id="L180">            jeuRepository.save(new JeuEntity(&quot;GTA V&quot;, editeurRepository.findByNom(&quot;Rockstar&quot;)));</span>
-<span class="nc" id="L181">            jeuRepository.save(new JeuEntity(&quot;Splinter cell&quot;, editeurRepository.findByNom(&quot;Ubisoft&quot;)));</span>
+<span class="fc" id="L179">            jeuRepository.save(new JeuEntity(&quot;The last of us part II&quot;, editeurRepository.findByNom(&quot;Naughty Dog&quot;)));</span>
+<span class="fc" id="L180">            jeuRepository.save(new JeuEntity(&quot;GTA V&quot;, editeurRepository.findByNom(&quot;Rockstar&quot;)));</span>
+<span class="fc" id="L181">            jeuRepository.save(new JeuEntity(&quot;Splinter cell&quot;, editeurRepository.findByNom(&quot;Ubisoft&quot;)));</span>
 
-<span class="nc" id="L183">            jeuRepository.save(new JeuEntity(&quot;Mario Kart 8 &quot;, &quot;JeuEntity de course&quot;, LocalDate.of(2014, 5, 29),</span>
-<span class="nc" id="L184">                                             editeurRepository.findByNom(&quot;Nintendo&quot;)));</span>
-<span class="nc" id="L185">            jeuRepository.save(new JeuEntity(&quot;FIFA 2022&quot;, &quot;JeuEntity de simulation de football&quot;, LocalDate.of(2021, 9, 27),</span>
-<span class="nc" id="L186">                                             editeurRepository.findByNom(&quot;Electronic Arts&quot;)));</span>
+<span class="fc" id="L183">            jeuRepository.save(new JeuEntity(&quot;Mario Kart 8 &quot;, &quot;JeuEntity de course&quot;, LocalDate.of(2014, 5, 29),</span>
+<span class="fc" id="L184">                                             editeurRepository.findByNom(&quot;Nintendo&quot;)));</span>
+<span class="fc" id="L185">            jeuRepository.save(new JeuEntity(&quot;FIFA 2022&quot;, &quot;JeuEntity de simulation de football&quot;, LocalDate.of(2021, 9, 27),</span>
+<span class="fc" id="L186">                                             editeurRepository.findByNom(&quot;Electronic Arts&quot;)));</span>
 
-<span class="nc" id="L188">            jeuRepository.save(new JeuEntity(&quot;League Of Legends&quot;, LocalDate.of(2009, 10, 27), riot, moba));</span>
-<span class="nc" id="L189">            jeuRepository.save(new JeuEntity(&quot;Dofus&quot;, LocalDate.of(2004, 9, 1), ankama, rpg));</span>
+<span class="fc" id="L188">            jeuRepository.save(new JeuEntity(&quot;League Of Legends&quot;, LocalDate.of(2009, 10, 27), riot, moba));</span>
+<span class="fc" id="L189">            jeuRepository.save(new JeuEntity(&quot;Dofus&quot;, LocalDate.of(2004, 9, 1), ankama, rpg));</span>
 
-<span class="nc" id="L191">            jeuRepository.save(new JeuEntity(&quot;Call of Duty&quot;, editeurRepository.findByNom(&quot;Activision&quot;)));</span>
-<span class="nc" id="L192">            jeuRepository.save(new JeuEntity(&quot;EVE&quot;, editeurRepository.findByNom(&quot;CCP&quot;)));</span>
-<span class="nc" id="L193">            jeuRepository.save(new JeuEntity(&quot;The Elder Scrolls : Skyrim&quot;, editeurRepository.findByNom(&quot;Bethesda&quot;)));</span>
+<span class="fc" id="L191">            jeuRepository.save(new JeuEntity(&quot;Call of Duty&quot;, editeurRepository.findByNom(&quot;Activision&quot;)));</span>
+<span class="fc" id="L192">            jeuRepository.save(new JeuEntity(&quot;EVE&quot;, editeurRepository.findByNom(&quot;CCP&quot;)));</span>
+<span class="fc" id="L193">            jeuRepository.save(new JeuEntity(&quot;The Elder Scrolls : Skyrim&quot;, editeurRepository.findByNom(&quot;Bethesda&quot;)));</span>
 
-<span class="nc" id="L195">            jeuRepository.save(new JeuEntity(&quot;Dragon Age: Inquisition&quot;, LocalDate.of(2014, 11, 21), bioWare));</span>
-<span class="nc" id="L196">            jeuRepository.save(new JeuEntity(&quot;The Witcher 3: Wild Hunt&quot;, LocalDate.of(2015, 5, 24), cdProjeckRed));</span>
-<span class="nc" id="L197">            jeuRepository.save(new JeuEntity(&quot;Overwatch&quot;, LocalDate.of(2016, 11, 21), blizzard));</span>
-<span class="nc" id="L198">            jeuRepository.save(new JeuEntity(&quot;The Legend of Zelda: Breath of the Wild&quot;, LocalDate.of(2017, 3, 3), nintendo));</span>
-<span class="nc" id="L199">            jeuRepository.save(new JeuEntity(&quot;God of War&quot;, LocalDate.of(2018, 4, 4), ubisoft));</span>
-<span class="nc" id="L200">            jeuRepository.save(new JeuEntity(&quot;Sekiro: Shadows Die Twice&quot;, LocalDate.of(2019, 3, 22), fromSoftware));</span>
-<span class="nc" id="L201">            jeuRepository.save(new JeuEntity(&quot;The Last of Us Part II&quot;, LocalDate.of(2020, 6, 19), naughtyDog));</span>
-<span class="nc" id="L202">            jeuRepository.save(new JeuEntity(&quot;It Takes Two&quot;, LocalDate.of(2021, 11, 4), hazelightStudios));</span>
-<span class="nc" id="L203">            jeuRepository.save(new JeuEntity(&quot;Elden Ring&quot;, LocalDate.of(2022, 2, 25), fromSoftware));</span>
+<span class="fc" id="L195">            jeuRepository.save(new JeuEntity(&quot;Dragon Age: Inquisition&quot;, LocalDate.of(2014, 11, 21), bioWare));</span>
+<span class="fc" id="L196">            jeuRepository.save(new JeuEntity(&quot;The Witcher 3: Wild Hunt&quot;, LocalDate.of(2015, 5, 24), cdProjeckRed));</span>
+<span class="fc" id="L197">            jeuRepository.save(new JeuEntity(&quot;Overwatch&quot;, LocalDate.of(2016, 11, 21), blizzard));</span>
+<span class="fc" id="L198">            jeuRepository.save(new JeuEntity(&quot;The Legend of Zelda: Breath of the Wild&quot;, LocalDate.of(2017, 3, 3), nintendo));</span>
+<span class="fc" id="L199">            jeuRepository.save(new JeuEntity(&quot;God of War&quot;, LocalDate.of(2018, 4, 4), ubisoft));</span>
+<span class="fc" id="L200">            jeuRepository.save(new JeuEntity(&quot;Sekiro: Shadows Die Twice&quot;, LocalDate.of(2019, 3, 22), fromSoftware));</span>
+<span class="fc" id="L201">            jeuRepository.save(new JeuEntity(&quot;The Last of Us Part II&quot;, LocalDate.of(2020, 6, 19), naughtyDog));</span>
+<span class="fc" id="L202">            jeuRepository.save(new JeuEntity(&quot;It Takes Two&quot;, LocalDate.of(2021, 11, 4), hazelightStudios));</span>
+<span class="fc" id="L203">            jeuRepository.save(new JeuEntity(&quot;Elden Ring&quot;, LocalDate.of(2022, 2, 25), fromSoftware));</span>
 
-<span class="nc" id="L205">            jeuRepository.save(new JeuEntity(&quot;Doom eternal&quot;, LocalDate.of(2020, 3, 20), idSoftware));</span>
+<span class="fc" id="L205">            jeuRepository.save(new JeuEntity(&quot;Doom eternal&quot;, LocalDate.of(2020, 3, 20), idSoftware));</span>
 
-<span class="nc" id="L207">            jeuRepository.save(new JeuEntity(&quot;Palworld&quot;, LocalDate.of(2024, 1, 19), idSoftware));</span>
+<span class="fc" id="L207">            jeuRepository.save(new JeuEntity(&quot;Palworld&quot;, LocalDate.of(2024, 1, 19), idSoftware));</span>
 
-<span class="nc" id="L209">            jeuRepository.save(new JeuEntity(&quot;Pikmin&quot;, LocalDate.of(2001, 10, 26), editeurRepository.findByNom(&quot;Nintendo&quot;)));</span>
+<span class="fc" id="L209">            jeuRepository.save(new JeuEntity(&quot;Pikmin&quot;, LocalDate.of(2001, 10, 26), editeurRepository.findByNom(&quot;Nintendo&quot;)));</span>
 
-<span class="nc" id="L211">            jeuRepository.save(new JeuEntity(&quot;Halo 5&quot;, LocalDate.of(2015, 10, 27), editeurRepository.findByNom(&quot;Microsoft&quot;)));</span>
+<span class="fc" id="L211">            jeuRepository.save(new JeuEntity(&quot;Halo 5&quot;, LocalDate.of(2015, 10, 27), editeurRepository.findByNom(&quot;Microsoft&quot;)));</span>
         }
-<span class="nc" id="L213">    }</span>
+<span class="fc" id="L213">    }</span>
 
     private void ajouterPlateformes() {
-<span class="nc bnc" id="L216" title="All 2 branches missed.">        if (plateformeRepository.count() == 0) {</span>
-<span class="nc" id="L217">            plateformeRepository.save(new PlateformeEntity(&quot;Amstrad CPC&quot;));</span>
-<span class="nc" id="L218">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo Wii&quot;));</span>
-<span class="nc" id="L219">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo Wii U&quot;));</span>
-<span class="nc" id="L220">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo Switch&quot;));</span>
-<span class="nc" id="L221">            plateformeRepository.save(new PlateformeEntity(&quot;Windows&quot;));</span>
-<span class="nc" id="L222">            plateformeRepository.save(new PlateformeEntity(&quot;MacOS&quot;));</span>
-<span class="nc" id="L223">            plateformeRepository.save(new PlateformeEntity(&quot;Steam&quot;));</span>
-<span class="nc" id="L224">            plateformeRepository.save(new PlateformeEntity(&quot;Neo-Geo&quot;));</span>
-<span class="nc" id="L225">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 1&quot;));</span>
-<span class="nc" id="L226">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 2&quot;));</span>
-<span class="nc" id="L227">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 3&quot;));</span>
-<span class="nc" id="L228">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 4&quot;));</span>
-<span class="nc" id="L229">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 5&quot;));</span>
-<span class="nc" id="L230">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation Vita&quot;));</span>
-<span class="nc" id="L231">            plateformeRepository.save(new PlateformeEntity(&quot;PSP&quot;));</span>
-<span class="nc" id="L232">            plateformeRepository.save(new PlateformeEntity(&quot;Sega Dreamcast&quot;));</span>
-<span class="nc" id="L233">            plateformeRepository.save(new PlateformeEntity(&quot;Sega Mastersystem&quot;));</span>
-<span class="nc" id="L234">            plateformeRepository.save(new PlateformeEntity(&quot;Sega Saturn&quot;));</span>
-<span class="nc" id="L235">            plateformeRepository.save(new PlateformeEntity(&quot;Xbox One&quot;));</span>
-<span class="nc" id="L236">            plateformeRepository.save(new PlateformeEntity(&quot;Xbox One Series&quot;));</span>
-<span class="nc" id="L237">            plateformeRepository.save(new PlateformeEntity(&quot;Xbox 360&quot;));</span>
-<span class="nc" id="L238">            plateformeRepository.save(new PlateformeEntity(&quot;Amiga&quot;));</span>
-<span class="nc" id="L239">            plateformeRepository.save(new PlateformeEntity(&quot;Android&quot;));</span>
-<span class="nc" id="L240">            plateformeRepository.save(new PlateformeEntity(&quot;Atari 8-bit&quot;));</span>
-<span class="nc" id="L241">            plateformeRepository.save(new PlateformeEntity(&quot;Atari Jaguar&quot;));</span>
-<span class="nc" id="L242">            plateformeRepository.save(new PlateformeEntity(&quot;Commodore 64&quot;));</span>
-<span class="nc" id="L243">            plateformeRepository.save(new PlateformeEntity(&quot;Game Boy&quot;));</span>
-<span class="nc" id="L244">            plateformeRepository.save(new PlateformeEntity(&quot;Game Boy Color&quot;));</span>
-<span class="nc" id="L245">            plateformeRepository.save(new PlateformeEntity(&quot;Game Boy Advance&quot;));</span>
-<span class="nc" id="L246">            plateformeRepository.save(new PlateformeEntity(&quot;Game Boy Advance SP&quot;));</span>
-<span class="nc" id="L247">            plateformeRepository.save(new PlateformeEntity(&quot;NES&quot;));</span>
-<span class="nc" id="L248">            plateformeRepository.save(new PlateformeEntity(&quot;PC-Engine&quot;));</span>
-<span class="nc" id="L249">            plateformeRepository.save(new PlateformeEntity(&quot;SNES&quot;));</span>
-<span class="nc" id="L250">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo 3DS&quot;));</span>
-<span class="nc" id="L251">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo 64&quot;));</span>
-<span class="nc" id="L252">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo DS&quot;));</span>
-<span class="nc" id="L253">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo Gamecube&quot;));</span>
+<span class="pc bpc" id="L216" title="1 of 2 branches missed.">        if (plateformeRepository.count() == 0) {</span>
+<span class="fc" id="L217">            plateformeRepository.save(new PlateformeEntity(&quot;Amstrad CPC&quot;));</span>
+<span class="fc" id="L218">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo Wii&quot;));</span>
+<span class="fc" id="L219">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo Wii U&quot;));</span>
+<span class="fc" id="L220">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo Switch&quot;));</span>
+<span class="fc" id="L221">            plateformeRepository.save(new PlateformeEntity(&quot;Windows&quot;));</span>
+<span class="fc" id="L222">            plateformeRepository.save(new PlateformeEntity(&quot;MacOS&quot;));</span>
+<span class="fc" id="L223">            plateformeRepository.save(new PlateformeEntity(&quot;Steam&quot;));</span>
+<span class="fc" id="L224">            plateformeRepository.save(new PlateformeEntity(&quot;Neo-Geo&quot;));</span>
+<span class="fc" id="L225">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 1&quot;));</span>
+<span class="fc" id="L226">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 2&quot;));</span>
+<span class="fc" id="L227">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 3&quot;));</span>
+<span class="fc" id="L228">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 4&quot;));</span>
+<span class="fc" id="L229">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation 5&quot;));</span>
+<span class="fc" id="L230">            plateformeRepository.save(new PlateformeEntity(&quot;PlayStation Vita&quot;));</span>
+<span class="fc" id="L231">            plateformeRepository.save(new PlateformeEntity(&quot;PSP&quot;));</span>
+<span class="fc" id="L232">            plateformeRepository.save(new PlateformeEntity(&quot;Sega Dreamcast&quot;));</span>
+<span class="fc" id="L233">            plateformeRepository.save(new PlateformeEntity(&quot;Sega Mastersystem&quot;));</span>
+<span class="fc" id="L234">            plateformeRepository.save(new PlateformeEntity(&quot;Sega Saturn&quot;));</span>
+<span class="fc" id="L235">            plateformeRepository.save(new PlateformeEntity(&quot;Xbox One&quot;));</span>
+<span class="fc" id="L236">            plateformeRepository.save(new PlateformeEntity(&quot;Xbox One Series&quot;));</span>
+<span class="fc" id="L237">            plateformeRepository.save(new PlateformeEntity(&quot;Xbox 360&quot;));</span>
+<span class="fc" id="L238">            plateformeRepository.save(new PlateformeEntity(&quot;Amiga&quot;));</span>
+<span class="fc" id="L239">            plateformeRepository.save(new PlateformeEntity(&quot;Android&quot;));</span>
+<span class="fc" id="L240">            plateformeRepository.save(new PlateformeEntity(&quot;Atari 8-bit&quot;));</span>
+<span class="fc" id="L241">            plateformeRepository.save(new PlateformeEntity(&quot;Atari Jaguar&quot;));</span>
+<span class="fc" id="L242">            plateformeRepository.save(new PlateformeEntity(&quot;Commodore 64&quot;));</span>
+<span class="fc" id="L243">            plateformeRepository.save(new PlateformeEntity(&quot;Game Boy&quot;));</span>
+<span class="fc" id="L244">            plateformeRepository.save(new PlateformeEntity(&quot;Game Boy Color&quot;));</span>
+<span class="fc" id="L245">            plateformeRepository.save(new PlateformeEntity(&quot;Game Boy Advance&quot;));</span>
+<span class="fc" id="L246">            plateformeRepository.save(new PlateformeEntity(&quot;Game Boy Advance SP&quot;));</span>
+<span class="fc" id="L247">            plateformeRepository.save(new PlateformeEntity(&quot;NES&quot;));</span>
+<span class="fc" id="L248">            plateformeRepository.save(new PlateformeEntity(&quot;PC-Engine&quot;));</span>
+<span class="fc" id="L249">            plateformeRepository.save(new PlateformeEntity(&quot;SNES&quot;));</span>
+<span class="fc" id="L250">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo 3DS&quot;));</span>
+<span class="fc" id="L251">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo 64&quot;));</span>
+<span class="fc" id="L252">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo DS&quot;));</span>
+<span class="fc" id="L253">            plateformeRepository.save(new PlateformeEntity(&quot;Nintendo Gamecube&quot;));</span>
         }
-<span class="nc" id="L255">    }</span>
+<span class="fc" id="L255">    }</span>
 
     private void ajouterGenres() {
-<span class="nc bnc" id="L258" title="All 2 branches missed.">        if (genreRepository.count() == 0) {</span>
-<span class="nc" id="L259">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L260">                                            .nom(&quot;FPS (First person shooter)&quot;)</span>
-<span class="nc" id="L261">                                            .build());</span>
-<span class="nc" id="L262">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L263">                                            .nom(&quot;TS (real-time strategy)&quot;)</span>
-<span class="nc" id="L264">                                            .build());</span>
-<span class="nc" id="L265">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L266">                                            .nom(&quot;RPG (Role-playing game)&quot;)</span>
-<span class="nc" id="L267">                                            .build());</span>
-<span class="nc" id="L268">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L269">                                            .nom(&quot;Simulation&quot;)</span>
-<span class="nc" id="L270">                                            .build());</span>
-<span class="nc" id="L271">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L272">                                            .nom(&quot;Gestion&quot;)</span>
-<span class="nc" id="L273">                                            .build());</span>
-<span class="nc" id="L274">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L275">                                            .nom(&quot;TPS (Third person shooter)&quot;)</span>
-<span class="nc" id="L276">                                            .build());</span>
-<span class="nc" id="L277">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L278">                                            .nom(&quot;Digital collectible card game&quot;)</span>
-<span class="nc" id="L279">                                            .build());</span>
-<span class="nc" id="L280">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L281">                                            .nom(&quot;MOBA (Multiplayer online battle arena)&quot;)</span>
-<span class="nc" id="L282">                                            .build());</span>
-<span class="nc" id="L283">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L284">                                            .nom(&quot;Hack n Slash&quot;)</span>
-<span class="nc" id="L285">                                            .build());</span>
-<span class="nc" id="L286">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L287">                                            .nom(&quot;Action/Aventure&quot;)</span>
-<span class="nc" id="L288">                                            .build());</span>
-<span class="nc" id="L289">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L290">                                            .nom(&quot;Point and click&quot;)</span>
-<span class="nc" id="L291">                                            .build());</span>
-<span class="nc" id="L292">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L293">                                            .nom(&quot;Plates-formes&quot;)</span>
-<span class="nc" id="L294">                                            .build());</span>
-<span class="nc" id="L295">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L296">                                            .nom(&quot;4X (eXplore, eXpand, eXploit and eXterminate)&quot;)</span>
-<span class="nc" id="L297">                                            .build());</span>
-<span class="nc" id="L298">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L299">                                            .nom(&quot;Tactical RPG&quot;)</span>
-<span class="nc" id="L300">                                            .build());</span>
-<span class="nc" id="L301">            genreRepository.save(GenreEntity.builder()</span>
-<span class="nc" id="L302">                                            .nom(&quot;Action RPG&quot;)</span>
-<span class="nc" id="L303">                                            .build());</span>
+<span class="pc bpc" id="L258" title="1 of 2 branches missed.">        if (genreRepository.count() == 0) {</span>
+<span class="fc" id="L259">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L260">                                            .nom(&quot;FPS (First person shooter)&quot;)</span>
+<span class="fc" id="L261">                                            .build());</span>
+<span class="fc" id="L262">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L263">                                            .nom(&quot;TS (real-time strategy)&quot;)</span>
+<span class="fc" id="L264">                                            .build());</span>
+<span class="fc" id="L265">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L266">                                            .nom(&quot;RPG (Role-playing game)&quot;)</span>
+<span class="fc" id="L267">                                            .build());</span>
+<span class="fc" id="L268">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L269">                                            .nom(&quot;Simulation&quot;)</span>
+<span class="fc" id="L270">                                            .build());</span>
+<span class="fc" id="L271">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L272">                                            .nom(&quot;Gestion&quot;)</span>
+<span class="fc" id="L273">                                            .build());</span>
+<span class="fc" id="L274">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L275">                                            .nom(&quot;TPS (Third person shooter)&quot;)</span>
+<span class="fc" id="L276">                                            .build());</span>
+<span class="fc" id="L277">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L278">                                            .nom(&quot;Digital collectible card game&quot;)</span>
+<span class="fc" id="L279">                                            .build());</span>
+<span class="fc" id="L280">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L281">                                            .nom(&quot;MOBA (Multiplayer online battle arena)&quot;)</span>
+<span class="fc" id="L282">                                            .build());</span>
+<span class="fc" id="L283">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L284">                                            .nom(&quot;Hack n Slash&quot;)</span>
+<span class="fc" id="L285">                                            .build());</span>
+<span class="fc" id="L286">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L287">                                            .nom(&quot;Action/Aventure&quot;)</span>
+<span class="fc" id="L288">                                            .build());</span>
+<span class="fc" id="L289">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L290">                                            .nom(&quot;Point and click&quot;)</span>
+<span class="fc" id="L291">                                            .build());</span>
+<span class="fc" id="L292">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L293">                                            .nom(&quot;Plates-formes&quot;)</span>
+<span class="fc" id="L294">                                            .build());</span>
+<span class="fc" id="L295">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L296">                                            .nom(&quot;4X (eXplore, eXpand, eXploit and eXterminate)&quot;)</span>
+<span class="fc" id="L297">                                            .build());</span>
+<span class="fc" id="L298">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L299">                                            .nom(&quot;Tactical RPG&quot;)</span>
+<span class="fc" id="L300">                                            .build());</span>
+<span class="fc" id="L301">            genreRepository.save(GenreEntity.builder()</span>
+<span class="fc" id="L302">                                            .nom(&quot;Action RPG&quot;)</span>
+<span class="fc" id="L303">                                            .build());</span>
         }
-<span class="nc" id="L305">    }</span>
+<span class="fc" id="L305">    }</span>
 
     @Transactional(readOnly = true)
     void ajouterClassifications() {
-<span class="nc bnc" id="L309" title="All 2 branches missed.">        if (classificationRepository.count() == 0) {</span>
-<span class="nc" id="L310">            classificationRepository.save(new ClassificationEntity(&quot;PG 3&quot;, &quot;0000FF&quot;));</span>
-<span class="nc" id="L311">            classificationRepository.save(new ClassificationEntity(&quot;PG 7&quot;, &quot;00FF00&quot;));</span>
-<span class="nc" id="L312">            classificationRepository.save(new ClassificationEntity(&quot;PG 12&quot;, &quot;FF0000&quot;));</span>
-<span class="nc" id="L313">            classificationRepository.save(new ClassificationEntity(&quot;PG 16&quot;, &quot;FFFF00&quot;));</span>
-<span class="nc" id="L314">            classificationRepository.save(new ClassificationEntity(&quot;PG 18&quot;, &quot;00FFFF&quot;));</span>
-<span class="nc" id="L315">            classificationRepository.save(new ClassificationEntity(&quot;Aucune&quot;, &quot;FFFFFF&quot;));</span>
+<span class="pc bpc" id="L309" title="1 of 2 branches missed.">        if (classificationRepository.count() == 0) {</span>
+<span class="fc" id="L310">            classificationRepository.save(new ClassificationEntity(&quot;PG 3&quot;, &quot;0000FF&quot;));</span>
+<span class="fc" id="L311">            classificationRepository.save(new ClassificationEntity(&quot;PG 7&quot;, &quot;00FF00&quot;));</span>
+<span class="fc" id="L312">            classificationRepository.save(new ClassificationEntity(&quot;PG 12&quot;, &quot;FF0000&quot;));</span>
+<span class="fc" id="L313">            classificationRepository.save(new ClassificationEntity(&quot;PG 16&quot;, &quot;FFFF00&quot;));</span>
+<span class="fc" id="L314">            classificationRepository.save(new ClassificationEntity(&quot;PG 18&quot;, &quot;00FFFF&quot;));</span>
+<span class="fc" id="L315">            classificationRepository.save(new ClassificationEntity(&quot;Aucune&quot;, &quot;FFFFFF&quot;));</span>
         }
-<span class="nc" id="L317">    }</span>
+<span class="fc" id="L317">    }</span>
 
 
     private void ajouterEditeurs() {
-<span class="nc bnc" id="L321" title="All 2 branches missed.">        if (editeurRepository.count() == 0) {</span>
-<span class="nc" id="L322">            editeurRepository.save(new EditeurEntity(&quot;Activision&quot;));</span>
-<span class="nc" id="L323">            editeurRepository.save(new EditeurEntity(&quot;Amazon Games&quot;));</span>
-<span class="nc" id="L324">            editeurRepository.save(new EditeurEntity(&quot;Ankama&quot;));</span>
-<span class="nc" id="L325">            editeurRepository.save(new EditeurEntity(&quot;Bandai Namco&quot;));</span>
-<span class="nc" id="L326">            editeurRepository.save(new EditeurEntity(&quot;Bethesda&quot;));</span>
-<span class="nc" id="L327">            editeurRepository.save(new EditeurEntity(&quot;BioWare&quot;));</span>
-<span class="nc" id="L328">            editeurRepository.save(new EditeurEntity(&quot;Blizzard&quot;));</span>
-<span class="nc" id="L329">            editeurRepository.save(new EditeurEntity(&quot;Capcom&quot;));</span>
-<span class="nc" id="L330">            editeurRepository.save(new EditeurEntity(&quot;CCP&quot;));</span>
-<span class="nc" id="L331">            editeurRepository.save(new EditeurEntity(&quot;CD Projekt Red&quot;));</span>
-<span class="nc" id="L332">            editeurRepository.save(new EditeurEntity(&quot;Davilex&quot;));</span>
-<span class="nc" id="L333">            editeurRepository.save(new EditeurEntity(&quot;Digital Extreme&quot;));</span>
-<span class="nc" id="L334">            editeurRepository.save(new EditeurEntity(&quot;Electronic Arts&quot;));</span>
-<span class="nc" id="L335">            editeurRepository.save(new EditeurEntity(&quot;Epic Games&quot;));</span>
-<span class="nc" id="L336">            editeurRepository.save(new EditeurEntity(&quot;FromSoftware&quot;));</span>
-<span class="nc" id="L337">            editeurRepository.save(new EditeurEntity(&quot;Hazelight Studios&quot;));</span>
-<span class="nc" id="L338">            editeurRepository.save(new EditeurEntity(&quot;idSoftware&quot;));</span>
-<span class="nc" id="L339">            editeurRepository.save(new EditeurEntity(&quot;Microsoft&quot;));</span>
-<span class="nc" id="L340">            editeurRepository.save(new EditeurEntity(&quot;MonolithSoftware&quot;));</span>
-<span class="nc" id="L341">            editeurRepository.save(new EditeurEntity(&quot;Naughty Dog&quot;));</span>
-<span class="nc" id="L342">            editeurRepository.save(new EditeurEntity(&quot;Nintendo&quot;));</span>
-<span class="nc" id="L343">            editeurRepository.save(new EditeurEntity(&quot;Riot Games&quot;));</span>
-<span class="nc" id="L344">            editeurRepository.save(new EditeurEntity(&quot;Rockstar&quot;));</span>
-<span class="nc" id="L345">            editeurRepository.save(new EditeurEntity(&quot;Sega&quot;));</span>
-<span class="nc" id="L346">            editeurRepository.save(new EditeurEntity(&quot;Square Enix&quot;));</span>
-<span class="nc" id="L347">            editeurRepository.save(new EditeurEntity(&quot;Tencent&quot;));</span>
-<span class="nc" id="L348">            editeurRepository.save(new EditeurEntity(&quot;Ubisoft&quot;));</span>
-<span class="nc" id="L349">            editeurRepository.save(new EditeurEntity(&quot;Ultra Software&quot;));</span>
-<span class="nc" id="L350">            editeurRepository.save(new EditeurEntity(&quot;Valve&quot;));</span>
-<span class="nc" id="L351">            editeurRepository.save(new EditeurEntity(&quot;Wildcard&quot;));</span>
+<span class="pc bpc" id="L321" title="1 of 2 branches missed.">        if (editeurRepository.count() == 0) {</span>
+<span class="fc" id="L322">            editeurRepository.save(new EditeurEntity(&quot;Activision&quot;));</span>
+<span class="fc" id="L323">            editeurRepository.save(new EditeurEntity(&quot;Amazon Games&quot;));</span>
+<span class="fc" id="L324">            editeurRepository.save(new EditeurEntity(&quot;Ankama&quot;));</span>
+<span class="fc" id="L325">            editeurRepository.save(new EditeurEntity(&quot;Bandai Namco&quot;));</span>
+<span class="fc" id="L326">            editeurRepository.save(new EditeurEntity(&quot;Bethesda&quot;));</span>
+<span class="fc" id="L327">            editeurRepository.save(new EditeurEntity(&quot;BioWare&quot;));</span>
+<span class="fc" id="L328">            editeurRepository.save(new EditeurEntity(&quot;Blizzard&quot;));</span>
+<span class="fc" id="L329">            editeurRepository.save(new EditeurEntity(&quot;Capcom&quot;));</span>
+<span class="fc" id="L330">            editeurRepository.save(new EditeurEntity(&quot;CCP&quot;));</span>
+<span class="fc" id="L331">            editeurRepository.save(new EditeurEntity(&quot;CD Projekt Red&quot;));</span>
+<span class="fc" id="L332">            editeurRepository.save(new EditeurEntity(&quot;Davilex&quot;));</span>
+<span class="fc" id="L333">            editeurRepository.save(new EditeurEntity(&quot;Digital Extreme&quot;));</span>
+<span class="fc" id="L334">            editeurRepository.save(new EditeurEntity(&quot;Electronic Arts&quot;));</span>
+<span class="fc" id="L335">            editeurRepository.save(new EditeurEntity(&quot;Epic Games&quot;));</span>
+<span class="fc" id="L336">            editeurRepository.save(new EditeurEntity(&quot;FromSoftware&quot;));</span>
+<span class="fc" id="L337">            editeurRepository.save(new EditeurEntity(&quot;Hazelight Studios&quot;));</span>
+<span class="fc" id="L338">            editeurRepository.save(new EditeurEntity(&quot;idSoftware&quot;));</span>
+<span class="fc" id="L339">            editeurRepository.save(new EditeurEntity(&quot;Microsoft&quot;));</span>
+<span class="fc" id="L340">            editeurRepository.save(new EditeurEntity(&quot;MonolithSoftware&quot;));</span>
+<span class="fc" id="L341">            editeurRepository.save(new EditeurEntity(&quot;Naughty Dog&quot;));</span>
+<span class="fc" id="L342">            editeurRepository.save(new EditeurEntity(&quot;Nintendo&quot;));</span>
+<span class="fc" id="L343">            editeurRepository.save(new EditeurEntity(&quot;Riot Games&quot;));</span>
+<span class="fc" id="L344">            editeurRepository.save(new EditeurEntity(&quot;Rockstar&quot;));</span>
+<span class="fc" id="L345">            editeurRepository.save(new EditeurEntity(&quot;Sega&quot;));</span>
+<span class="fc" id="L346">            editeurRepository.save(new EditeurEntity(&quot;Square Enix&quot;));</span>
+<span class="fc" id="L347">            editeurRepository.save(new EditeurEntity(&quot;Tencent&quot;));</span>
+<span class="fc" id="L348">            editeurRepository.save(new EditeurEntity(&quot;Ubisoft&quot;));</span>
+<span class="fc" id="L349">            editeurRepository.save(new EditeurEntity(&quot;Ultra Software&quot;));</span>
+<span class="fc" id="L350">            editeurRepository.save(new EditeurEntity(&quot;Valve&quot;));</span>
+<span class="fc" id="L351">            editeurRepository.save(new EditeurEntity(&quot;Wildcard&quot;));</span>
         }
-<span class="nc" id="L353">    }</span>
+<span class="fc" id="L353">    }</span>
 }
 
 
