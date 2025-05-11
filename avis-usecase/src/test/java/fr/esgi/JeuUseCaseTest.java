@@ -1,95 +1,146 @@
 package fr.esgi;
 
-import fr.esgi.adapter.page.PageAdapter;
-import fr.esgi.model.*;
+import fr.esgi.model.Jeu;
+import fr.esgi.model.Editeur;
+import fr.esgi.model.page.CustomPagedResult;
+import fr.esgi.model.page.PaginationParams;
 import fr.esgi.port.JeuRepository;
+import fr.esgi.port.decorator.FileUploaderDecorator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class JeuUseCaseTest {
+
     @Mock
-    JeuRepository jeuRepository;
+    private JeuRepository jeuRepository;
+
     @Mock
-    PageAdapter   pageAdapter;
+    private FileUploaderDecorator fileAdapter;
+
     @InjectMocks
-    JeuUseCase    jeuUseCase;
+    private JeuUseCase jeuUseCase;
+
+    private Jeu testJeu;
+    private PaginationParams testPaginationParams;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
+        // Create test data
+        Editeur editeur = new Editeur();
+        editeur.setId(1L);
+        editeur.setNom("Ubisoft");
+
+        testJeu = Jeu.builder()
+                .id(1L)
+                .nom("Assassin's Creed")
+                .editeur(editeur)
+                .description("Un jeu d'action aventure")
+                .dateDeSortie(LocalDate.of(2023, 5, 10))
+                .image("default.jpg")
+                .prix(59.99f)
+                .build();
+
+        testPaginationParams = new PaginationParams(0, 10);
     }
 
     @Test
-    void testAjouterJeu() throws
-                                 Exception {
-        when(jeuRepository.save(any(Jeu.class))).thenReturn(new Jeu(Long.valueOf(1),
-                                                                    "nom",
-                                                                    new Editeur(Long.valueOf(1), "nom", Collections.emptyList()),
-                                                                    new Genre(Long.valueOf(1), "nom", Collections.emptyList()),
-                                                                    new Classification("nom", "couleurRGB"),
-                                                                    "description",
-                                                                    LocalDate.of(2025, Month.MARCH, 18),
-                                                                    List.of(new Plateforme("nom")),
-                                                                    "image",
-                                                                    0f));
+    void ajouterJeu_shouldSaveAndReturnJeu() {
+        // Arrange
+        when(jeuRepository.save(testJeu)).thenReturn(testJeu);
 
-        Jeu result = jeuUseCase.ajouterJeu(new Jeu(Long.valueOf(1),
-                                                   "nom",
-                                                   new Editeur(Long.valueOf(1), "nom", Collections.emptyList()),
-                                                   new Genre(Long.valueOf(1), "nom", Collections.emptyList()),
-                                                   new Classification("nom", "couleurRGB"),
-                                                   "description",
-                                                   LocalDate.of(2025, Month.MARCH, 18),
-                                                   List.of(new Plateforme("nom")),
-                                                   "image",
-                                                   0f));
-        assertEquals(new Jeu(Long.valueOf(1),
-                             "nom",
-                             new Editeur(Long.valueOf(1), "nom", Collections.emptyList()),
-                             new Genre(Long.valueOf(1), "nom", Collections.emptyList()),
-                             new Classification("nom", "couleurRGB"),
-                             "description",
-                             LocalDate.of(2025, Month.MARCH, 18),
-                             List.of(new Plateforme("nom")),
-                             "image",
-                             0f), result);
+        // Act
+        Jeu result = jeuUseCase.ajouterJeu(testJeu);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(testJeu.getId(), result.getId());
+        assertEquals(testJeu.getNom(), result.getNom());
+        verify(jeuRepository, times(1)).save(testJeu);
     }
 
     @Test
-    void testRecupererJeu() throws
-                                   Exception {
-        when(jeuRepository.findById(anyLong())).thenReturn(new Jeu(Long.valueOf(1),
-                                                                   "nom",
-                                                                   new Editeur(Long.valueOf(1), "nom", Collections.emptyList()),
-                                                                   new Genre(Long.valueOf(1), "nom", Collections.emptyList()),
-                                                                   new Classification("nom", "couleurRGB"),
-                                                                   "description",
-                                                                   LocalDate.of(2025, Month.MARCH, 18),
-                                                                   List.of(new Plateforme("nom")),
-                                                                   "image",
-                                                                   0f));
+    void recupererJeu_shouldReturnJeuById() {
+        // Arrange
+        when(jeuRepository.findById(1L)).thenReturn(testJeu);
 
-        Jeu result = jeuUseCase.recupererJeu(Long.valueOf(1));
-        assertEquals(new Jeu(Long.valueOf(1),
-                             "nom",
-                             new Editeur(Long.valueOf(1), "nom", Collections.emptyList()),
-                             new Genre(Long.valueOf(1), "nom", Collections.emptyList()),
-                             new Classification("nom", "couleurRGB"),
-                             "description",
-                             LocalDate.of(2025, Month.MARCH, 18),
-                             List.of(new Plateforme("nom")),
-                             "image",
-                             0f), result);
+        // Act
+        Jeu result = jeuUseCase.recupererJeu(1L);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+        assertEquals("Assassin's Creed", result.getNom());
+        verify(jeuRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void recupererJeux_shouldReturnPagedResults() {
+        // Arrange
+        List<Jeu> jeux = Arrays.asList(testJeu);
+        CustomPagedResult<Jeu> expectedResult = new CustomPagedResult<>(jeux, 0, 100, 1);
+
+        when(jeuRepository.findAll(testPaginationParams)).thenReturn(expectedResult);
+
+        // Act
+        CustomPagedResult<Jeu> result = jeuUseCase.recupererJeux(testPaginationParams);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.getTotalElements());
+        assertEquals(1, result.getContent().size());
+        assertEquals("Assassin's Creed", result.getContent().get(0).getNom());
+        verify(jeuRepository, times(1)).findAll(testPaginationParams);
+    }
+
+    @Test
+    void enregistrerJeu_shouldSaveAndReturnJeu() {
+        // Arrange
+        when(jeuRepository.save(testJeu)).thenReturn(testJeu);
+
+        // Act
+        Jeu result = jeuUseCase.enregistrerJeu(testJeu);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(testJeu.getId(), result.getId());
+        assertEquals(testJeu.getNom(), result.getNom());
+        verify(jeuRepository, times(1)).save(testJeu);
+    }
+
+    @Test
+    void ajouterImage_shouldUploadImageAndUpdateJeu() {
+        // Arrange
+        Long jeuId = 1L;
+        InputStream imageStream = new ByteArrayInputStream("test image content".getBytes());
+        String expectedImagePath = "/uploads/image.jpg";
+
+        when(jeuRepository.findById(jeuId)).thenReturn(testJeu);
+        when(fileAdapter.upload(imageStream)).thenReturn(expectedImagePath);
+
+        // Act
+        String result = jeuUseCase.ajouterImage(jeuId, imageStream);
+
+        // Assert
+        assertEquals(expectedImagePath, result);
+        assertEquals(expectedImagePath, testJeu.getImage());
+
+        // Verify interactions
+        verify(jeuRepository).findById(jeuId);
+        verify(fileAdapter).upload(imageStream);
+        verify(jeuRepository).save(testJeu);
     }
 }
