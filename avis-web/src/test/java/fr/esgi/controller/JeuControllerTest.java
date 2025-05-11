@@ -2,7 +2,6 @@ package fr.esgi.controller;
 
 import fr.esgi.adapter.page.PageAdapter;
 import fr.esgi.api.JeuService;
-import fr.esgi.controller.JeuController;
 import fr.esgi.exception.TechnicalException;
 import fr.esgi.model.Jeu;
 import fr.esgi.model.page.CustomPagedResult;
@@ -30,6 +29,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static fr.esgi.utils.avisWebUtils.createJeu;
 
 class JeuControllerTest {
 
@@ -66,7 +66,8 @@ class JeuControllerTest {
 
     @Test
     void testGetTeleversement() {
-        Jeu jeu = new Jeu(1L, "nom", null, null, null, "description", LocalDate.now(), List.of(), "image", 0f);
+
+        final Jeu jeu = createJeu();
         when(jeuService.recupererJeu(1L)).thenReturn(jeu);
 
         ModelAndView result = jeuController.getTeleversement(1L);

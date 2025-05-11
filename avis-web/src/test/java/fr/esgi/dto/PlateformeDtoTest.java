@@ -7,10 +7,10 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlateformeDtoTest {
+class PlateformeDtoTest {
 
     @Test
-    public void testConstructorAndGetters() {
+    void testConstructorAndGetters() {
         // ARRANGE
         final JeuDto jeu1 = new JeuDto(1L, "Game1", null, null, null, "Description1", null, null);
         final JeuDto jeu2 = new JeuDto(2L, "Game2", null, null, null, "Description2", null, null);
@@ -23,7 +23,7 @@ public class PlateformeDtoTest {
     }
 
     @Test
-    public void testEqualityAndHashCode() {
+    void testEqualityAndHashCode() {
         // ARRANGE
        final JeuDto jeu2 = new JeuDto(2L, "Game2", null, null, null, "Description2", null, null);
        final JeuDto jeu1 = new JeuDto(1L, "Game1", null, null, null, "Description1", null, null);
@@ -36,18 +36,18 @@ public class PlateformeDtoTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         // ARRANGE
         final JeuDto jeu1 = new JeuDto(1L, "Game1", null, null, null, "Description1", null, null);
         final JeuDto jeu2 = new JeuDto(2L, "Game2", null, null, null, "Description2", null, null);
         final PlateformeDto dto = new PlateformeDto("PC", "2023-05-10", Arrays.asList(jeu1, jeu2));
 
         // ASSERT
-        assertEquals("PlateformeDto(nom=PC, dateDeSortie=2023-05-10, jeux=[JeuDto(id=1, nom=Game1, editeur=null, genre=null, classification=null, description=Description1, dateSortie=null, plateformes=null), JeuDto(id=2, nom=Game2, editeur=null, genre=null, classification=null, description=Description2, dateSortie=null, plateformes=null)])", dto.toString());
+        assertEquals("PlateformeDto(nom=PC, dateDeSortie=2023-05-10, jeux=[JeuDto(id=1, nom=Game1, editeur=null, genre=null, classification=null, description=Description1, dateDeSortie=null, plateformes=null), JeuDto(id=2, nom=Game2, editeur=null, genre=null, classification=null, description=Description2, dateDeSortie=null, plateformes=null)])", dto.toString());
     }
 
     @Test
-    public void testSerialization() throws IOException, ClassNotFoundException {
+    void testSerialization() throws IOException, ClassNotFoundException {
         // ARRANGE
         final JeuDto jeu1 = new JeuDto(1L, "Game1", null, null, null, "Description1", null, null);
         final JeuDto jeu2 = new JeuDto(2L, "Game2", null, null, null, "Description2", null, null);
