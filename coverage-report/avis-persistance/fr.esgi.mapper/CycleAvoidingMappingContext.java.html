@@ -3,17 +3,17 @@
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-<span class="nc" id="L6">public class CycleAvoidingMappingContext {</span>
+<span class="fc" id="L6">public class CycleAvoidingMappingContext {</span>
 
-<span class="nc" id="L8">    private final Map&lt;Object, Object&gt; knownInstances = new IdentityHashMap&lt;&gt;();</span>
+<span class="fc" id="L8">    private final Map&lt;Object, Object&gt; knownInstances = new IdentityHashMap&lt;&gt;();</span>
 
     @SuppressWarnings(&quot;unchecked&quot;)
     public &lt;T&gt; T getMappedInstance(Object source, Class&lt;T&gt; targetType) {
-<span class="nc" id="L12">        return (T) knownInstances.get(source);</span>
+<span class="fc" id="L12">        return (T) knownInstances.get(source);</span>
     }
 
     public void storeMappedInstance(Object source, Object target) {
-<span class="nc" id="L16">        knownInstances.put(source, target);</span>
-<span class="nc" id="L17">    }</span>
+<span class="fc" id="L16">        knownInstances.put(source, target);</span>
+<span class="fc" id="L17">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -21,33 +21,33 @@ import java.util.stream.Collectors;
      */
     public Pageable toSpringPageable(PaginationParams params) {
         // Convert offset/limit to page/size
-<span class="nc bnc" id="L24" title="All 2 branches missed.">        int pageNumber = params.getLimit() &gt; 0 ? params.getOffset() / params.getLimit() : 0;</span>
-<span class="nc bnc" id="L25" title="All 2 branches missed.">        return PageRequest.of(pageNumber, params.getLimit() &gt; 0 ? params.getLimit() : 10);</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        int pageNumber = params.getLimit() &gt; 0 ? params.getOffset() / params.getLimit() : 0;</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        return PageRequest.of(pageNumber, params.getLimit() &gt; 0 ? params.getLimit() : 10);</span>
     }
 
     /**
      * Converts custom PaginationParams to Spring Pageable with sorting
      */
     public Pageable toSpringPageable(PaginationParams params, Sort sort) {
-<span class="nc bnc" id="L32" title="All 2 branches missed.">        int pageNumber = params.getLimit() &gt; 0 ? params.getOffset() / params.getLimit() : 0;</span>
-<span class="nc bnc" id="L33" title="All 2 branches missed.">        return PageRequest.of(pageNumber, params.getLimit() &gt; 0 ? params.getLimit() : 10, sort);</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        int pageNumber = params.getLimit() &gt; 0 ? params.getOffset() / params.getLimit() : 0;</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        return PageRequest.of(pageNumber, params.getLimit() &gt; 0 ? params.getLimit() : 10, sort);</span>
     }
 
     /**
      * Converts Spring Page to custom CustomPagedResult with mapping function
      */
     public &lt;T, R&gt; CustomPagedResult&lt;R&gt; fromSpringPage(Page&lt;T&gt; springPage, Function&lt;T, R&gt; mapper) {
-<span class="nc" id="L40">        List&lt;R&gt; content = springPage.getContent()</span>
-<span class="nc" id="L41">                                    .stream()</span>
-<span class="nc" id="L42">                                    .map(mapper)</span>
-<span class="nc" id="L43">                                    .toList();</span>
+<span class="fc" id="L40">        List&lt;R&gt; content = springPage.getContent()</span>
+<span class="fc" id="L41">                                    .stream()</span>
+<span class="fc" id="L42">                                    .map(mapper)</span>
+<span class="fc" id="L43">                                    .toList();</span>
 
-<span class="nc" id="L45">        return new CustomPagedResult&lt;&gt;(</span>
+<span class="fc" id="L45">        return new CustomPagedResult&lt;&gt;(</span>
                 content,
-<span class="nc" id="L47">                (int) springPage.getPageable()</span>
-<span class="nc" id="L48">                                .getOffset(),</span>
-<span class="nc" id="L49">                springPage.getSize(),</span>
-<span class="nc" id="L50">                springPage.getTotalElements()</span>
+<span class="fc" id="L47">                (int) springPage.getPageable()</span>
+<span class="fc" id="L48">                                .getOffset(),</span>
+<span class="fc" id="L49">                springPage.getSize(),</span>
+<span class="fc" id="L50">                springPage.getTotalElements()</span>
         );
     }
 
@@ -55,9 +55,9 @@ import java.util.stream.Collectors;
      * Converts Pageable to PaginationParams
      */
     public PaginationParams toPaginationParams(Pageable pageable) {
-<span class="nc" id="L58">        return new PaginationParams(</span>
-<span class="nc" id="L59">                (int) pageable.getOffset(),</span>
-<span class="nc" id="L60">                pageable.getPageSize()</span>
+<span class="fc" id="L58">        return new PaginationParams(</span>
+<span class="fc" id="L59">                (int) pageable.getOffset(),</span>
+<span class="fc" id="L60">                pageable.getPageSize()</span>
         );
     }
 }

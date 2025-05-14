@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
-    date = &quot;2025-05-11T21:52:20+0000&quot;,
+    date = &quot;2025-05-14T14:19:12+0000&quot;,
     comments = &quot;version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)&quot;
 )
 @Component
@@ -33,40 +33,40 @@ import org.springframework.stereotype.Component;
 
     @Override
     public Avis entityToDomain(AvisEntity avisEntity) {
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        if ( avisEntity == null ) {</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if ( avisEntity == null ) {</span>
 <span class="nc" id="L37">            return null;</span>
         }
 
-<span class="nc" id="L40">        Avis avis = new Avis();</span>
+<span class="fc" id="L40">        Avis avis = new Avis();</span>
 
-<span class="nc" id="L42">        avis.setId( avisEntity.getId() );</span>
-<span class="nc" id="L43">        avis.setDescription( avisEntity.getDescription() );</span>
-<span class="nc" id="L44">        avis.setJeu( jeuEntityToJeu( avisEntity.getJeu() ) );</span>
-<span class="nc" id="L45">        avis.setJoueur( joueurMapper.entityToDomain( avisEntity.getJoueur() ) );</span>
-<span class="nc" id="L46">        avis.setNote( avisEntity.getNote() );</span>
-<span class="nc" id="L47">        avis.setDateDEnvoi( avisEntity.getDateDEnvoi() );</span>
-<span class="nc" id="L48">        avis.setModerateur( moderateurEntityToModerateur( avisEntity.getModerateur() ) );</span>
+<span class="fc" id="L42">        avis.setId( avisEntity.getId() );</span>
+<span class="fc" id="L43">        avis.setDescription( avisEntity.getDescription() );</span>
+<span class="fc" id="L44">        avis.setJeu( jeuEntityToJeu( avisEntity.getJeu() ) );</span>
+<span class="fc" id="L45">        avis.setJoueur( joueurMapper.entityToDomain( avisEntity.getJoueur() ) );</span>
+<span class="fc" id="L46">        avis.setNote( avisEntity.getNote() );</span>
+<span class="fc" id="L47">        avis.setDateDEnvoi( avisEntity.getDateDEnvoi() );</span>
+<span class="fc" id="L48">        avis.setModerateur( moderateurEntityToModerateur( avisEntity.getModerateur() ) );</span>
 
-<span class="nc" id="L50">        return avis;</span>
+<span class="fc" id="L50">        return avis;</span>
     }
 
     @Override
     public AvisEntity domainToEntity(Avis avis) {
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        if ( avis == null ) {</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if ( avis == null ) {</span>
 <span class="nc" id="L56">            return null;</span>
         }
 
-<span class="nc" id="L59">        AvisEntity avisEntity = new AvisEntity();</span>
+<span class="fc" id="L59">        AvisEntity avisEntity = new AvisEntity();</span>
 
-<span class="nc" id="L61">        avisEntity.setId( avis.getId() );</span>
-<span class="nc" id="L62">        avisEntity.setDescription( avis.getDescription() );</span>
-<span class="nc" id="L63">        avisEntity.setJeu( jeuToJeuEntity( avis.getJeu() ) );</span>
-<span class="nc" id="L64">        avisEntity.setJoueur( joueurMapper.domainToEntity( avis.getJoueur() ) );</span>
-<span class="nc" id="L65">        avisEntity.setNote( avis.getNote() );</span>
-<span class="nc" id="L66">        avisEntity.setDateDEnvoi( avis.getDateDEnvoi() );</span>
-<span class="nc" id="L67">        avisEntity.setModerateur( moderateurToModerateurEntity( avis.getModerateur() ) );</span>
+<span class="fc" id="L61">        avisEntity.setId( avis.getId() );</span>
+<span class="fc" id="L62">        avisEntity.setDescription( avis.getDescription() );</span>
+<span class="fc" id="L63">        avisEntity.setJeu( jeuToJeuEntity( avis.getJeu() ) );</span>
+<span class="fc" id="L64">        avisEntity.setJoueur( joueurMapper.domainToEntity( avis.getJoueur() ) );</span>
+<span class="fc" id="L65">        avisEntity.setNote( avis.getNote() );</span>
+<span class="fc" id="L66">        avisEntity.setDateDEnvoi( avis.getDateDEnvoi() );</span>
+<span class="fc" id="L67">        avisEntity.setModerateur( moderateurToModerateurEntity( avis.getModerateur() ) );</span>
 
-<span class="nc" id="L69">        return avisEntity;</span>
+<span class="fc" id="L69">        return avisEntity;</span>
     }
 
     protected List&lt;Jeu&gt; jeuEntityListToJeuList(List&lt;JeuEntity&gt; list) {
@@ -83,8 +83,8 @@ import org.springframework.stereotype.Component;
     }
 
     protected Editeur editeurEntityToEditeur(EditeurEntity editeurEntity) {
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        if ( editeurEntity == null ) {</span>
-<span class="nc" id="L87">            return null;</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if ( editeurEntity == null ) {</span>
+<span class="fc" id="L87">            return null;</span>
         }
 
 <span class="nc" id="L90">        Editeur editeur = new Editeur();</span>
@@ -97,8 +97,8 @@ import org.springframework.stereotype.Component;
     }
 
     protected Genre genreEntityToGenre(GenreEntity genreEntity) {
-<span class="nc bnc" id="L100" title="All 2 branches missed.">        if ( genreEntity == null ) {</span>
-<span class="nc" id="L101">            return null;</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if ( genreEntity == null ) {</span>
+<span class="fc" id="L101">            return null;</span>
         }
 
 <span class="nc" id="L104">        Genre.GenreBuilder genre = Genre.builder();</span>
@@ -111,8 +111,8 @@ import org.springframework.stereotype.Component;
     }
 
     protected Classification classificationEntityToClassification(ClassificationEntity classificationEntity) {
-<span class="nc bnc" id="L114" title="All 2 branches missed.">        if ( classificationEntity == null ) {</span>
-<span class="nc" id="L115">            return null;</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        if ( classificationEntity == null ) {</span>
+<span class="fc" id="L115">            return null;</span>
         }
 
 <span class="nc" id="L118">        Classification classification = new Classification();</span>
@@ -141,8 +141,8 @@ import org.springframework.stereotype.Component;
     }
 
     protected List&lt;Plateforme&gt; plateformeEntityListToPlateformeList(List&lt;PlateformeEntity&gt; list) {
-<span class="nc bnc" id="L144" title="All 2 branches missed.">        if ( list == null ) {</span>
-<span class="nc" id="L145">            return null;</span>
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">        if ( list == null ) {</span>
+<span class="fc" id="L145">            return null;</span>
         }
 
 <span class="nc" id="L148">        List&lt;Plateforme&gt; list1 = new ArrayList&lt;Plateforme&gt;( list.size() );</span>
@@ -154,45 +154,45 @@ import org.springframework.stereotype.Component;
     }
 
     protected Jeu jeuEntityToJeu(JeuEntity jeuEntity) {
-<span class="nc bnc" id="L157" title="All 2 branches missed.">        if ( jeuEntity == null ) {</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        if ( jeuEntity == null ) {</span>
 <span class="nc" id="L158">            return null;</span>
         }
 
-<span class="nc" id="L161">        Jeu.JeuBuilder jeu = Jeu.builder();</span>
+<span class="fc" id="L161">        Jeu.JeuBuilder jeu = Jeu.builder();</span>
 
-<span class="nc" id="L163">        jeu.id( jeuEntity.getId() );</span>
-<span class="nc" id="L164">        jeu.nom( jeuEntity.getNom() );</span>
-<span class="nc" id="L165">        jeu.editeur( editeurEntityToEditeur( jeuEntity.getEditeur() ) );</span>
-<span class="nc" id="L166">        jeu.genre( genreEntityToGenre( jeuEntity.getGenre() ) );</span>
-<span class="nc" id="L167">        jeu.classification( classificationEntityToClassification( jeuEntity.getClassification() ) );</span>
-<span class="nc" id="L168">        jeu.description( jeuEntity.getDescription() );</span>
-<span class="nc" id="L169">        jeu.dateDeSortie( jeuEntity.getDateDeSortie() );</span>
-<span class="nc" id="L170">        jeu.plateformes( plateformeEntityListToPlateformeList( jeuEntity.getPlateformes() ) );</span>
-<span class="nc" id="L171">        jeu.image( jeuEntity.getImage() );</span>
-<span class="nc" id="L172">        jeu.prix( jeuEntity.getPrix() );</span>
+<span class="fc" id="L163">        jeu.id( jeuEntity.getId() );</span>
+<span class="fc" id="L164">        jeu.nom( jeuEntity.getNom() );</span>
+<span class="fc" id="L165">        jeu.editeur( editeurEntityToEditeur( jeuEntity.getEditeur() ) );</span>
+<span class="fc" id="L166">        jeu.genre( genreEntityToGenre( jeuEntity.getGenre() ) );</span>
+<span class="fc" id="L167">        jeu.classification( classificationEntityToClassification( jeuEntity.getClassification() ) );</span>
+<span class="fc" id="L168">        jeu.description( jeuEntity.getDescription() );</span>
+<span class="fc" id="L169">        jeu.dateDeSortie( jeuEntity.getDateDeSortie() );</span>
+<span class="fc" id="L170">        jeu.plateformes( plateformeEntityListToPlateformeList( jeuEntity.getPlateformes() ) );</span>
+<span class="fc" id="L171">        jeu.image( jeuEntity.getImage() );</span>
+<span class="fc" id="L172">        jeu.prix( jeuEntity.getPrix() );</span>
 
-<span class="nc" id="L174">        return jeu.build();</span>
+<span class="fc" id="L174">        return jeu.build();</span>
     }
 
     protected Moderateur moderateurEntityToModerateur(ModerateurEntity moderateurEntity) {
-<span class="nc bnc" id="L178" title="All 2 branches missed.">        if ( moderateurEntity == null ) {</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">        if ( moderateurEntity == null ) {</span>
 <span class="nc" id="L179">            return null;</span>
         }
 
-<span class="nc" id="L182">        Moderateur.ModerateurBuilder&lt;?, ?&gt; moderateur = Moderateur.builder();</span>
+<span class="fc" id="L182">        Moderateur.ModerateurBuilder&lt;?, ?&gt; moderateur = Moderateur.builder();</span>
 
-<span class="nc" id="L184">        moderateur.id( moderateurEntity.getId() );</span>
-<span class="nc" id="L185">        moderateur.pseudo( moderateurEntity.getPseudo() );</span>
-<span class="nc" id="L186">        moderateur.motDePasse( moderateurEntity.getMotDePasse() );</span>
-<span class="nc" id="L187">        moderateur.email( moderateurEntity.getEmail() );</span>
-<span class="nc" id="L188">        moderateur.numeroDeTelephone( moderateurEntity.getNumeroDeTelephone() );</span>
+<span class="fc" id="L184">        moderateur.id( moderateurEntity.getId() );</span>
+<span class="fc" id="L185">        moderateur.pseudo( moderateurEntity.getPseudo() );</span>
+<span class="fc" id="L186">        moderateur.motDePasse( moderateurEntity.getMotDePasse() );</span>
+<span class="fc" id="L187">        moderateur.email( moderateurEntity.getEmail() );</span>
+<span class="fc" id="L188">        moderateur.numeroDeTelephone( moderateurEntity.getNumeroDeTelephone() );</span>
 
-<span class="nc" id="L190">        return moderateur.build();</span>
+<span class="fc" id="L190">        return moderateur.build();</span>
     }
 
     protected List&lt;JeuEntity&gt; jeuListToJeuEntityList(List&lt;Jeu&gt; list) {
-<span class="nc bnc" id="L194" title="All 2 branches missed.">        if ( list == null ) {</span>
-<span class="nc" id="L195">            return null;</span>
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">        if ( list == null ) {</span>
+<span class="fc" id="L195">            return null;</span>
         }
 
 <span class="nc" id="L198">        List&lt;JeuEntity&gt; list1 = new ArrayList&lt;JeuEntity&gt;( list.size() );</span>
@@ -204,22 +204,22 @@ import org.springframework.stereotype.Component;
     }
 
     protected EditeurEntity editeurToEditeurEntity(Editeur editeur) {
-<span class="nc bnc" id="L207" title="All 2 branches missed.">        if ( editeur == null ) {</span>
+<span class="pc bpc" id="L207" title="1 of 2 branches missed.">        if ( editeur == null ) {</span>
 <span class="nc" id="L208">            return null;</span>
         }
 
-<span class="nc" id="L211">        EditeurEntity editeurEntity = new EditeurEntity();</span>
+<span class="fc" id="L211">        EditeurEntity editeurEntity = new EditeurEntity();</span>
 
-<span class="nc" id="L213">        editeurEntity.setId( editeur.getId() );</span>
-<span class="nc" id="L214">        editeurEntity.setNom( editeur.getNom() );</span>
-<span class="nc" id="L215">        editeurEntity.setJeux( jeuListToJeuEntityList( editeur.getJeux() ) );</span>
+<span class="fc" id="L213">        editeurEntity.setId( editeur.getId() );</span>
+<span class="fc" id="L214">        editeurEntity.setNom( editeur.getNom() );</span>
+<span class="fc" id="L215">        editeurEntity.setJeux( jeuListToJeuEntityList( editeur.getJeux() ) );</span>
 
-<span class="nc" id="L217">        return editeurEntity;</span>
+<span class="fc" id="L217">        return editeurEntity;</span>
     }
 
     protected GenreEntity genreToGenreEntity(Genre genre) {
-<span class="nc bnc" id="L221" title="All 2 branches missed.">        if ( genre == null ) {</span>
-<span class="nc" id="L222">            return null;</span>
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">        if ( genre == null ) {</span>
+<span class="fc" id="L222">            return null;</span>
         }
 
 <span class="nc" id="L225">        GenreEntity.GenreEntityBuilder genreEntity = GenreEntity.builder();</span>
@@ -232,8 +232,8 @@ import org.springframework.stereotype.Component;
     }
 
     protected ClassificationEntity classificationToClassificationEntity(Classification classification) {
-<span class="nc bnc" id="L235" title="All 2 branches missed.">        if ( classification == null ) {</span>
-<span class="nc" id="L236">            return null;</span>
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">        if ( classification == null ) {</span>
+<span class="fc" id="L236">            return null;</span>
         }
 
 <span class="nc" id="L239">        ClassificationEntity classificationEntity = new ClassificationEntity();</span>
@@ -262,8 +262,8 @@ import org.springframework.stereotype.Component;
     }
 
     protected List&lt;PlateformeEntity&gt; plateformeListToPlateformeEntityList(List&lt;Plateforme&gt; list) {
-<span class="nc bnc" id="L265" title="All 2 branches missed.">        if ( list == null ) {</span>
-<span class="nc" id="L266">            return null;</span>
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">        if ( list == null ) {</span>
+<span class="fc" id="L266">            return null;</span>
         }
 
 <span class="nc" id="L269">        List&lt;PlateformeEntity&gt; list1 = new ArrayList&lt;PlateformeEntity&gt;( list.size() );</span>
@@ -275,40 +275,40 @@ import org.springframework.stereotype.Component;
     }
 
     protected JeuEntity jeuToJeuEntity(Jeu jeu) {
-<span class="nc bnc" id="L278" title="All 2 branches missed.">        if ( jeu == null ) {</span>
+<span class="pc bpc" id="L278" title="1 of 2 branches missed.">        if ( jeu == null ) {</span>
 <span class="nc" id="L279">            return null;</span>
         }
 
-<span class="nc" id="L282">        JeuEntity jeuEntity = new JeuEntity();</span>
+<span class="fc" id="L282">        JeuEntity.JeuEntityBuilder&lt;?, ?&gt; jeuEntity = JeuEntity.builder();</span>
 
-<span class="nc" id="L284">        jeuEntity.setId( jeu.getId() );</span>
-<span class="nc" id="L285">        jeuEntity.setNom( jeu.getNom() );</span>
-<span class="nc" id="L286">        jeuEntity.setEditeur( editeurToEditeurEntity( jeu.getEditeur() ) );</span>
-<span class="nc" id="L287">        jeuEntity.setGenre( genreToGenreEntity( jeu.getGenre() ) );</span>
-<span class="nc" id="L288">        jeuEntity.setClassification( classificationToClassificationEntity( jeu.getClassification() ) );</span>
-<span class="nc" id="L289">        jeuEntity.setDescription( jeu.getDescription() );</span>
-<span class="nc" id="L290">        jeuEntity.setDateDeSortie( jeu.getDateDeSortie() );</span>
-<span class="nc" id="L291">        jeuEntity.setPlateformes( plateformeListToPlateformeEntityList( jeu.getPlateformes() ) );</span>
-<span class="nc" id="L292">        jeuEntity.setImage( jeu.getImage() );</span>
-<span class="nc" id="L293">        jeuEntity.setPrix( jeu.getPrix() );</span>
+<span class="fc" id="L284">        jeuEntity.id( jeu.getId() );</span>
+<span class="fc" id="L285">        jeuEntity.nom( jeu.getNom() );</span>
+<span class="fc" id="L286">        jeuEntity.editeur( editeurToEditeurEntity( jeu.getEditeur() ) );</span>
+<span class="fc" id="L287">        jeuEntity.genre( genreToGenreEntity( jeu.getGenre() ) );</span>
+<span class="fc" id="L288">        jeuEntity.classification( classificationToClassificationEntity( jeu.getClassification() ) );</span>
+<span class="fc" id="L289">        jeuEntity.description( jeu.getDescription() );</span>
+<span class="fc" id="L290">        jeuEntity.dateDeSortie( jeu.getDateDeSortie() );</span>
+<span class="fc" id="L291">        jeuEntity.plateformes( plateformeListToPlateformeEntityList( jeu.getPlateformes() ) );</span>
+<span class="fc" id="L292">        jeuEntity.image( jeu.getImage() );</span>
+<span class="fc" id="L293">        jeuEntity.prix( jeu.getPrix() );</span>
 
-<span class="nc" id="L295">        return jeuEntity;</span>
+<span class="fc" id="L295">        return jeuEntity.build();</span>
     }
 
     protected ModerateurEntity moderateurToModerateurEntity(Moderateur moderateur) {
-<span class="nc bnc" id="L299" title="All 2 branches missed.">        if ( moderateur == null ) {</span>
+<span class="pc bpc" id="L299" title="1 of 2 branches missed.">        if ( moderateur == null ) {</span>
 <span class="nc" id="L300">            return null;</span>
         }
 
-<span class="nc" id="L303">        ModerateurEntity.ModerateurEntityBuilder&lt;?, ?&gt; moderateurEntity = ModerateurEntity.builder();</span>
+<span class="fc" id="L303">        ModerateurEntity.ModerateurEntityBuilder&lt;?, ?&gt; moderateurEntity = ModerateurEntity.builder();</span>
 
-<span class="nc" id="L305">        moderateurEntity.id( moderateur.getId() );</span>
-<span class="nc" id="L306">        moderateurEntity.pseudo( moderateur.getPseudo() );</span>
-<span class="nc" id="L307">        moderateurEntity.motDePasse( moderateur.getMotDePasse() );</span>
-<span class="nc" id="L308">        moderateurEntity.email( moderateur.getEmail() );</span>
-<span class="nc" id="L309">        moderateurEntity.numeroDeTelephone( moderateur.getNumeroDeTelephone() );</span>
+<span class="fc" id="L305">        moderateurEntity.id( moderateur.getId() );</span>
+<span class="fc" id="L306">        moderateurEntity.pseudo( moderateur.getPseudo() );</span>
+<span class="fc" id="L307">        moderateurEntity.motDePasse( moderateur.getMotDePasse() );</span>
+<span class="fc" id="L308">        moderateurEntity.email( moderateur.getEmail() );</span>
+<span class="fc" id="L309">        moderateurEntity.numeroDeTelephone( moderateur.getNumeroDeTelephone() );</span>
 
-<span class="nc" id="L311">        return moderateurEntity.build();</span>
+<span class="fc" id="L311">        return moderateurEntity.build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

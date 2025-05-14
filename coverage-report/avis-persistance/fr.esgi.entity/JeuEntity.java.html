@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @DynamicUpdate
 @DynamicInsert
+@SuperBuilder
 @Table(indexes = @Index(name=&quot;Jeu_Nom_Index&quot;, columnList = &quot;nom&quot;))
 public class JeuEntity {
 
@@ -53,25 +55,25 @@ public class JeuEntity {
 
     private float prix;
 
-    public JeuEntity(String nom) {
-<span class="fc" id="L57">        super();</span>
-<span class="fc" id="L58">        this.nom = nom;</span>
-<span class="fc" id="L59">    }</span>
+    public JeuEntity(final String nom) {
+<span class="fc" id="L59">        super();</span>
+<span class="fc" id="L60">        this.nom = nom;</span>
+<span class="fc" id="L61">    }</span>
 
-    public JeuEntity(String nom, LocalDate dateDeSortie, EditeurEntity editeur) {
-<span class="fc" id="L62">        this(nom, editeur);</span>
-<span class="fc" id="L63">        this.dateDeSortie = dateDeSortie;</span>
-<span class="fc" id="L64">    }</span>
+    public JeuEntity(final String nom, final LocalDate dateDeSortie, final EditeurEntity editeur) {
+<span class="fc" id="L64">        this(nom, editeur);</span>
+<span class="fc" id="L65">        this.dateDeSortie = dateDeSortie;</span>
+<span class="fc" id="L66">    }</span>
 
-    public JeuEntity(String nom, String description, LocalDate dateSortie, EditeurEntity editeur) {
-<span class="fc" id="L67">        this(nom, dateSortie, editeur);</span>
-<span class="fc" id="L68">        this.description = description;</span>
-<span class="fc" id="L69">    }</span>
+    public JeuEntity(final String nom, final String description, final LocalDate dateSortie, final EditeurEntity editeur) {
+<span class="fc" id="L69">        this(nom, dateSortie, editeur);</span>
+<span class="fc" id="L70">        this.description = description;</span>
+<span class="fc" id="L71">    }</span>
 
-    public JeuEntity(String nom, LocalDate dateSortie, EditeurEntity editeur, GenreEntity genre) {
-<span class="fc" id="L72">        this(nom, null, dateSortie, editeur);</span>
-<span class="fc" id="L73">        this.genre = genre;</span>
-<span class="fc" id="L74">    }</span>
+    public JeuEntity(final String nom, final LocalDate dateSortie, final EditeurEntity editeur, final GenreEntity genre) {
+<span class="fc" id="L74">        this(nom, null, dateSortie, editeur);</span>
+<span class="fc" id="L75">        this.genre = genre;</span>
+<span class="fc" id="L76">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

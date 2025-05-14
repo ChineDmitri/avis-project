@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
-    date = &quot;2025-05-11T21:52:19+0000&quot;,
+    date = &quot;2025-05-14T14:19:13+0000&quot;,
     comments = &quot;version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)&quot;
 )
 @Component
@@ -33,40 +33,40 @@ import org.springframework.stereotype.Component;
 
     @Override
     public Joueur entityToDomain(JoueurEntity joueurEntity) {
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        if ( joueurEntity == null ) {</span>
-<span class="nc" id="L37">            return null;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if ( joueurEntity == null ) {</span>
+<span class="fc" id="L37">            return null;</span>
         }
 
-<span class="nc" id="L40">        Joueur.JoueurBuilder&lt;?, ?&gt; joueur = Joueur.builder();</span>
+<span class="fc" id="L40">        Joueur.JoueurBuilder&lt;?, ?&gt; joueur = Joueur.builder();</span>
 
-<span class="nc" id="L42">        joueur.id( joueurEntity.getId() );</span>
-<span class="nc" id="L43">        joueur.pseudo( joueurEntity.getPseudo() );</span>
-<span class="nc" id="L44">        joueur.motDePasse( joueurEntity.getMotDePasse() );</span>
-<span class="nc" id="L45">        joueur.email( joueurEntity.getEmail() );</span>
-<span class="nc" id="L46">        joueur.dateDeNaissance( joueurEntity.getDateDeNaissance() );</span>
-<span class="nc" id="L47">        joueur.avis( avisEntityListToAvisList( joueurEntity.getAvis() ) );</span>
-<span class="nc" id="L48">        joueur.avatar( avatarEntityToAvatar( joueurEntity.getAvatar() ) );</span>
+<span class="fc" id="L42">        joueur.id( joueurEntity.getId() );</span>
+<span class="fc" id="L43">        joueur.pseudo( joueurEntity.getPseudo() );</span>
+<span class="fc" id="L44">        joueur.motDePasse( joueurEntity.getMotDePasse() );</span>
+<span class="fc" id="L45">        joueur.email( joueurEntity.getEmail() );</span>
+<span class="fc" id="L46">        joueur.dateDeNaissance( joueurEntity.getDateDeNaissance() );</span>
+<span class="fc" id="L47">        joueur.avis( avisEntityListToAvisList( joueurEntity.getAvis() ) );</span>
+<span class="fc" id="L48">        joueur.avatar( avatarEntityToAvatar( joueurEntity.getAvatar() ) );</span>
 
-<span class="nc" id="L50">        return joueur.build();</span>
+<span class="fc" id="L50">        return joueur.build();</span>
     }
 
     @Override
     public JoueurEntity domainToEntity(Joueur joueur) {
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        if ( joueur == null ) {</span>
-<span class="nc" id="L56">            return null;</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if ( joueur == null ) {</span>
+<span class="fc" id="L56">            return null;</span>
         }
 
-<span class="nc" id="L59">        JoueurEntity.JoueurEntityBuilder&lt;?, ?&gt; joueurEntity = JoueurEntity.builder();</span>
+<span class="fc" id="L59">        JoueurEntity.JoueurEntityBuilder&lt;?, ?&gt; joueurEntity = JoueurEntity.builder();</span>
 
-<span class="nc" id="L61">        joueurEntity.id( joueur.getId() );</span>
-<span class="nc" id="L62">        joueurEntity.pseudo( joueur.getPseudo() );</span>
-<span class="nc" id="L63">        joueurEntity.motDePasse( joueur.getMotDePasse() );</span>
-<span class="nc" id="L64">        joueurEntity.email( joueur.getEmail() );</span>
-<span class="nc" id="L65">        joueurEntity.dateDeNaissance( joueur.getDateDeNaissance() );</span>
-<span class="nc" id="L66">        joueurEntity.avis( avisListToAvisEntityList( joueur.getAvis() ) );</span>
-<span class="nc" id="L67">        joueurEntity.avatar( avatarToAvatarEntity( joueur.getAvatar() ) );</span>
+<span class="fc" id="L61">        joueurEntity.id( joueur.getId() );</span>
+<span class="fc" id="L62">        joueurEntity.pseudo( joueur.getPseudo() );</span>
+<span class="fc" id="L63">        joueurEntity.motDePasse( joueur.getMotDePasse() );</span>
+<span class="fc" id="L64">        joueurEntity.email( joueur.getEmail() );</span>
+<span class="fc" id="L65">        joueurEntity.dateDeNaissance( joueur.getDateDeNaissance() );</span>
+<span class="fc" id="L66">        joueurEntity.avis( avisListToAvisEntityList( joueur.getAvis() ) );</span>
+<span class="fc" id="L67">        joueurEntity.avatar( avatarToAvatarEntity( joueur.getAvatar() ) );</span>
 
-<span class="nc" id="L69">        return joueurEntity.build();</span>
+<span class="fc" id="L69">        return joueurEntity.build();</span>
     }
 
     protected List&lt;Jeu&gt; jeuEntityListToJeuList(List&lt;JeuEntity&gt; list) {
@@ -209,30 +209,30 @@ import org.springframework.stereotype.Component;
     }
 
     protected List&lt;Avis&gt; avisEntityListToAvisList(List&lt;AvisEntity&gt; list) {
-<span class="nc bnc" id="L212" title="All 2 branches missed.">        if ( list == null ) {</span>
-<span class="nc" id="L213">            return null;</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        if ( list == null ) {</span>
+<span class="fc" id="L213">            return null;</span>
         }
 
-<span class="nc" id="L216">        List&lt;Avis&gt; list1 = new ArrayList&lt;Avis&gt;( list.size() );</span>
-<span class="nc bnc" id="L217" title="All 2 branches missed.">        for ( AvisEntity avisEntity : list ) {</span>
+<span class="fc" id="L216">        List&lt;Avis&gt; list1 = new ArrayList&lt;Avis&gt;( list.size() );</span>
+<span class="pc bpc" id="L217" title="1 of 2 branches missed.">        for ( AvisEntity avisEntity : list ) {</span>
 <span class="nc" id="L218">            list1.add( avisEntityToAvis( avisEntity ) );</span>
 <span class="nc" id="L219">        }</span>
 
-<span class="nc" id="L221">        return list1;</span>
+<span class="fc" id="L221">        return list1;</span>
     }
 
     protected Avatar avatarEntityToAvatar(AvatarEntity avatarEntity) {
-<span class="nc bnc" id="L225" title="All 2 branches missed.">        if ( avatarEntity == null ) {</span>
-<span class="nc" id="L226">            return null;</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">        if ( avatarEntity == null ) {</span>
+<span class="fc" id="L226">            return null;</span>
         }
 
-<span class="nc" id="L229">        Avatar avatar = new Avatar();</span>
+<span class="fc" id="L229">        Avatar avatar = new Avatar();</span>
 
-<span class="nc" id="L231">        avatar.setId( avatarEntity.getId() );</span>
-<span class="nc" id="L232">        avatar.setNom( avatarEntity.getNom() );</span>
-<span class="nc" id="L233">        avatar.setJoueur( entityToDomain( avatarEntity.getJoueur() ) );</span>
+<span class="fc" id="L231">        avatar.setId( avatarEntity.getId() );</span>
+<span class="fc" id="L232">        avatar.setNom( avatarEntity.getNom() );</span>
+<span class="fc" id="L233">        avatar.setJoueur( entityToDomain( avatarEntity.getJoueur() ) );</span>
 
-<span class="nc" id="L235">        return avatar;</span>
+<span class="fc" id="L235">        return avatar;</span>
     }
 
     protected List&lt;JeuEntity&gt; jeuListToJeuEntityList(List&lt;Jeu&gt; list) {
@@ -324,20 +324,20 @@ import org.springframework.stereotype.Component;
 <span class="nc" id="L324">            return null;</span>
         }
 
-<span class="nc" id="L327">        JeuEntity jeuEntity = new JeuEntity();</span>
+<span class="nc" id="L327">        JeuEntity.JeuEntityBuilder&lt;?, ?&gt; jeuEntity = JeuEntity.builder();</span>
 
-<span class="nc" id="L329">        jeuEntity.setId( jeu.getId() );</span>
-<span class="nc" id="L330">        jeuEntity.setNom( jeu.getNom() );</span>
-<span class="nc" id="L331">        jeuEntity.setEditeur( editeurToEditeurEntity( jeu.getEditeur() ) );</span>
-<span class="nc" id="L332">        jeuEntity.setGenre( genreToGenreEntity( jeu.getGenre() ) );</span>
-<span class="nc" id="L333">        jeuEntity.setClassification( classificationToClassificationEntity( jeu.getClassification() ) );</span>
-<span class="nc" id="L334">        jeuEntity.setDescription( jeu.getDescription() );</span>
-<span class="nc" id="L335">        jeuEntity.setDateDeSortie( jeu.getDateDeSortie() );</span>
-<span class="nc" id="L336">        jeuEntity.setPlateformes( plateformeListToPlateformeEntityList( jeu.getPlateformes() ) );</span>
-<span class="nc" id="L337">        jeuEntity.setImage( jeu.getImage() );</span>
-<span class="nc" id="L338">        jeuEntity.setPrix( jeu.getPrix() );</span>
+<span class="nc" id="L329">        jeuEntity.id( jeu.getId() );</span>
+<span class="nc" id="L330">        jeuEntity.nom( jeu.getNom() );</span>
+<span class="nc" id="L331">        jeuEntity.editeur( editeurToEditeurEntity( jeu.getEditeur() ) );</span>
+<span class="nc" id="L332">        jeuEntity.genre( genreToGenreEntity( jeu.getGenre() ) );</span>
+<span class="nc" id="L333">        jeuEntity.classification( classificationToClassificationEntity( jeu.getClassification() ) );</span>
+<span class="nc" id="L334">        jeuEntity.description( jeu.getDescription() );</span>
+<span class="nc" id="L335">        jeuEntity.dateDeSortie( jeu.getDateDeSortie() );</span>
+<span class="nc" id="L336">        jeuEntity.plateformes( plateformeListToPlateformeEntityList( jeu.getPlateformes() ) );</span>
+<span class="nc" id="L337">        jeuEntity.image( jeu.getImage() );</span>
+<span class="nc" id="L338">        jeuEntity.prix( jeu.getPrix() );</span>
 
-<span class="nc" id="L340">        return jeuEntity;</span>
+<span class="nc" id="L340">        return jeuEntity.build();</span>
     }
 
     protected ModerateurEntity moderateurToModerateurEntity(Moderateur moderateur) {
@@ -375,30 +375,30 @@ import org.springframework.stereotype.Component;
     }
 
     protected List&lt;AvisEntity&gt; avisListToAvisEntityList(List&lt;Avis&gt; list) {
-<span class="nc bnc" id="L378" title="All 2 branches missed.">        if ( list == null ) {</span>
+<span class="pc bpc" id="L378" title="1 of 2 branches missed.">        if ( list == null ) {</span>
 <span class="nc" id="L379">            return null;</span>
         }
 
-<span class="nc" id="L382">        List&lt;AvisEntity&gt; list1 = new ArrayList&lt;AvisEntity&gt;( list.size() );</span>
-<span class="nc bnc" id="L383" title="All 2 branches missed.">        for ( Avis avis : list ) {</span>
+<span class="fc" id="L382">        List&lt;AvisEntity&gt; list1 = new ArrayList&lt;AvisEntity&gt;( list.size() );</span>
+<span class="pc bpc" id="L383" title="1 of 2 branches missed.">        for ( Avis avis : list ) {</span>
 <span class="nc" id="L384">            list1.add( avisToAvisEntity( avis ) );</span>
 <span class="nc" id="L385">        }</span>
 
-<span class="nc" id="L387">        return list1;</span>
+<span class="fc" id="L387">        return list1;</span>
     }
 
     protected AvatarEntity avatarToAvatarEntity(Avatar avatar) {
-<span class="nc bnc" id="L391" title="All 2 branches missed.">        if ( avatar == null ) {</span>
-<span class="nc" id="L392">            return null;</span>
+<span class="fc bfc" id="L391" title="All 2 branches covered.">        if ( avatar == null ) {</span>
+<span class="fc" id="L392">            return null;</span>
         }
 
-<span class="nc" id="L395">        AvatarEntity avatarEntity = new AvatarEntity();</span>
+<span class="fc" id="L395">        AvatarEntity avatarEntity = new AvatarEntity();</span>
 
-<span class="nc" id="L397">        avatarEntity.setId( avatar.getId() );</span>
-<span class="nc" id="L398">        avatarEntity.setNom( avatar.getNom() );</span>
-<span class="nc" id="L399">        avatarEntity.setJoueur( domainToEntity( avatar.getJoueur() ) );</span>
+<span class="fc" id="L397">        avatarEntity.setId( avatar.getId() );</span>
+<span class="fc" id="L398">        avatarEntity.setNom( avatar.getNom() );</span>
+<span class="fc" id="L399">        avatarEntity.setJoueur( domainToEntity( avatar.getJoueur() ) );</span>
 
-<span class="nc" id="L401">        return avatarEntity;</span>
+<span class="fc" id="L401">        return avatarEntity;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

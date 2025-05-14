@@ -37,26 +37,26 @@ public class EditorRepositoryAdapter implements EditeurRepository {
 
     @Override
     public List&lt;Editeur&gt; findByNomContainingIgnoreCase(String nom) {
-<span class="nc" id="L40">        return editeurJpaRepository.findByNomContainingIgnoreCase(nom)</span>
-<span class="nc" id="L41">                                   .stream()</span>
-<span class="nc" id="L42">                                   .map(e -&gt; editeurMapper.entityToDomain(</span>
+<span class="fc" id="L40">        return editeurJpaRepository.findByNomContainingIgnoreCase(nom)</span>
+<span class="fc" id="L41">                                   .stream()</span>
+<span class="fc" id="L42">                                   .map(e -&gt; editeurMapper.entityToDomain(</span>
                                                 e,
                                                 new CycleAvoidingMappingContext()
                                         )
                                    )
-<span class="nc" id="L47">                                   .toList();</span>
+<span class="fc" id="L47">                                   .toList();</span>
     }
 
     @Override
     public Editeur findByNom(String nom) {
-<span class="nc" id="L52">        EditeurEntity entity = editeurJpaRepository.findByNom(nom);</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">        return entity != null ? editeurMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) : null;</span>
+<span class="fc" id="L52">        EditeurEntity entity = editeurJpaRepository.findByNom(nom);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        return entity != null ? editeurMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) : null;</span>
     }
 
     @Override
     public Optional&lt;Editeur&gt; findByNomIgnoreCase(String nom) {
-<span class="nc" id="L58">        return editeurJpaRepository.findByNomIgnoreCase(nom)</span>
-<span class="nc" id="L59">                                   .map(e -&gt; editeurMapper.entityToDomain(</span>
+<span class="fc" id="L58">        return editeurJpaRepository.findByNomIgnoreCase(nom)</span>
+<span class="fc" id="L59">                                   .map(e -&gt; editeurMapper.entityToDomain(</span>
                                                 e,
                                                 new CycleAvoidingMappingContext()
                                         )
@@ -65,27 +65,27 @@ public class EditorRepositoryAdapter implements EditeurRepository {
 
     @Override
     public Editeur save(Editeur editeur) {
-<span class="nc" id="L68">        EditeurEntity entity      = editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext());</span>
-<span class="nc" id="L69">        EditeurEntity savedEntity = editeurJpaRepository.save(entity);</span>
-<span class="nc" id="L70">        return editeurMapper.entityToDomain(savedEntity, new CycleAvoidingMappingContext());</span>
+<span class="fc" id="L68">        EditeurEntity entity      = editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext());</span>
+<span class="fc" id="L69">        EditeurEntity savedEntity = editeurJpaRepository.save(entity);</span>
+<span class="fc" id="L70">        return editeurMapper.entityToDomain(savedEntity, new CycleAvoidingMappingContext());</span>
     }
 
     @Override
     public List&lt;Editeur&gt; findAll() {
-<span class="nc" id="L75">        return editeurJpaRepository.findAll()</span>
-<span class="nc" id="L76">                                   .stream()</span>
-<span class="nc" id="L77">                                   .map(editeurEntity -&gt; editeurMapper.entityToDomain(</span>
+<span class="fc" id="L75">        return editeurJpaRepository.findAll()</span>
+<span class="fc" id="L76">                                   .stream()</span>
+<span class="fc" id="L77">                                   .map(editeurEntity -&gt; editeurMapper.entityToDomain(</span>
                                                 editeurEntity,
                                                 new CycleAvoidingMappingContext()
                                         )
                                    )
-<span class="nc" id="L82">                                   .toList();</span>
+<span class="fc" id="L82">                                   .toList();</span>
     }
 
     @Override
     public Optional&lt;Editeur&gt; findById(Long id) {
-<span class="nc" id="L87">        return editeurJpaRepository.findById(id)</span>
-<span class="nc" id="L88">                                   .map(editeurEntity -&gt; editeurMapper.entityToDomain(</span>
+<span class="fc" id="L87">        return editeurJpaRepository.findById(id)</span>
+<span class="fc" id="L88">                                   .map(editeurEntity -&gt; editeurMapper.entityToDomain(</span>
                                                 editeurEntity,
                                                 new CycleAvoidingMappingContext()
                                         )
@@ -94,12 +94,12 @@ public class EditorRepositoryAdapter implements EditeurRepository {
 
     @Override
     public boolean existsById(Long id) {
-<span class="nc" id="L97">        return editeurJpaRepository.existsById(id);</span>
+<span class="fc" id="L97">        return editeurJpaRepository.existsById(id);</span>
     }
 
     @Override
     public void deleteById(Long id) {
-<span class="nc" id="L102">        editeurJpaRepository.deleteById(id);</span>
-<span class="nc" id="L103">    }</span>
+<span class="fc" id="L102">        editeurJpaRepository.deleteById(id);</span>
+<span class="fc" id="L103">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

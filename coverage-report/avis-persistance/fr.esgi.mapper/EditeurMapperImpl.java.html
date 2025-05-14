@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
-    date = &quot;2025-05-11T21:52:19+0000&quot;,
+    date = &quot;2025-05-14T14:19:13+0000&quot;,
     comments = &quot;version: 1.6.3, compiler: javac, environment: Java 21.0.7 (Eclipse Adoptium)&quot;
 )
 @Component
@@ -15,30 +15,30 @@ import org.springframework.stereotype.Component;
 
     @Override
     public Editeur entityToDomain(EditeurEntity editeurEntity, CycleAvoidingMappingContext context) {
-<span class="nc bnc" id="L18" title="All 2 branches missed.">        if ( editeurEntity == null ) {</span>
-<span class="nc" id="L19">            return null;</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">        if ( editeurEntity == null ) {</span>
+<span class="fc" id="L19">            return null;</span>
         }
 
-<span class="nc" id="L22">        Editeur editeur = new Editeur();</span>
+<span class="fc" id="L22">        Editeur editeur = new Editeur();</span>
 
-<span class="nc" id="L24">        editeur.setId( editeurEntity.getId() );</span>
-<span class="nc" id="L25">        editeur.setNom( editeurEntity.getNom() );</span>
+<span class="fc" id="L24">        editeur.setId( editeurEntity.getId() );</span>
+<span class="fc" id="L25">        editeur.setNom( editeurEntity.getNom() );</span>
 
-<span class="nc" id="L27">        return editeur;</span>
+<span class="fc" id="L27">        return editeur;</span>
     }
 
     @Override
     public EditeurEntity domainToEntity(Editeur editeur, CycleAvoidingMappingContext context) {
-<span class="nc bnc" id="L32" title="All 2 branches missed.">        if ( editeur == null ) {</span>
-<span class="nc" id="L33">            return null;</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if ( editeur == null ) {</span>
+<span class="fc" id="L33">            return null;</span>
         }
 
-<span class="nc" id="L36">        EditeurEntity editeurEntity = new EditeurEntity();</span>
+<span class="fc" id="L36">        EditeurEntity editeurEntity = new EditeurEntity();</span>
 
-<span class="nc" id="L38">        editeurEntity.setId( editeur.getId() );</span>
-<span class="nc" id="L39">        editeurEntity.setNom( editeur.getNom() );</span>
+<span class="fc" id="L38">        editeurEntity.setId( editeur.getId() );</span>
+<span class="fc" id="L39">        editeurEntity.setNom( editeur.getNom() );</span>
 
-<span class="nc" id="L41">        return editeurEntity;</span>
+<span class="fc" id="L41">        return editeurEntity;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

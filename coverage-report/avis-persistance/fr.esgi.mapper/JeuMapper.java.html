@@ -22,22 +22,22 @@ public interface JeuMapper {
     @Named(&quot;mapEditeurAvoidingCycle&quot;)
     default Editeur mapEditeurAvoidingCycle(EditeurEntity editeurEntity,
                                             @Context CycleAvoidingMappingContext context) {
-<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (editeurEntity == null) {</span>
-<span class="nc" id="L26">            return null;</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (editeurEntity == null) {</span>
+<span class="fc" id="L26">            return null;</span>
         }
 
-<span class="nc" id="L29">        Editeur existing = context.getMappedInstance(editeurEntity, Editeur.class);</span>
-<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (existing != null) {</span>
-<span class="nc" id="L31">            return existing;</span>
+<span class="fc" id="L29">        Editeur existing = context.getMappedInstance(editeurEntity, Editeur.class);</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (existing != null) {</span>
+<span class="fc" id="L31">            return existing;</span>
         }
 
-<span class="nc" id="L34">        Editeur editeur = new Editeur(); // or use a proper constructor</span>
-<span class="nc" id="L35">        context.storeMappedInstance(editeurEntity, editeur);</span>
+<span class="fc" id="L34">        Editeur editeur = new Editeur(); // or use a proper constructor</span>
+<span class="fc" id="L35">        context.storeMappedInstance(editeurEntity, editeur);</span>
 
-<span class="nc" id="L37">        editeur.setId(editeurEntity.getId());</span>
-<span class="nc" id="L38">        editeur.setNom(editeurEntity.getNom());</span>
+<span class="fc" id="L37">        editeur.setId(editeurEntity.getId());</span>
+<span class="fc" id="L38">        editeur.setNom(editeurEntity.getNom());</span>
         // ignore games here or map manually if needed
-<span class="nc" id="L40">        return editeur;</span>
+<span class="fc" id="L40">        return editeur;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -22,32 +22,32 @@ public class AvisRepositoryAdapter implements AvisRepository {
 
     @Override
     public Avis save(Avis avis) {
-<span class="nc" id="L25">        AvisEntity entity      = avisMapper.domainToEntity(avis);</span>
-<span class="nc" id="L26">        AvisEntity savedEntity = avisJpaRepository.save(entity);</span>
-<span class="nc" id="L27">        return avisMapper.entityToDomain(savedEntity);</span>
+<span class="fc" id="L25">        AvisEntity entity      = avisMapper.domainToEntity(avis);</span>
+<span class="fc" id="L26">        AvisEntity savedEntity = avisJpaRepository.save(entity);</span>
+<span class="fc" id="L27">        return avisMapper.entityToDomain(savedEntity);</span>
     }
 
     @Override
     public List&lt;Avis&gt; findAll() {
-<span class="nc" id="L32">        return avisJpaRepository.findAll().stream()</span>
-<span class="nc" id="L33">                                .map(avisMapper::entityToDomain)</span>
-<span class="nc" id="L34">                                .toList();</span>
+<span class="fc" id="L32">        return avisJpaRepository.findAll().stream()</span>
+<span class="fc" id="L33">                                .map(avisMapper::entityToDomain)</span>
+<span class="fc" id="L34">                                .toList();</span>
     }
 
     @Override
     public Optional&lt;Avis&gt; findById(Long id) {
-<span class="nc" id="L39">        return avisJpaRepository.findById(id)</span>
-<span class="nc" id="L40">                                .map(avisMapper::entityToDomain);</span>
+<span class="fc" id="L39">        return avisJpaRepository.findById(id)</span>
+<span class="fc" id="L40">                                .map(avisMapper::entityToDomain);</span>
     }
 
     @Override
     public boolean existsById(Long id) {
-<span class="nc" id="L45">        return avisJpaRepository.existsById(id);</span>
+<span class="fc" id="L45">        return avisJpaRepository.existsById(id);</span>
     }
 
     @Override
     public void deleteById(Long id) {
-<span class="nc" id="L50">        avisJpaRepository.deleteById(id);</span>
-<span class="nc" id="L51">    }</span>
+<span class="fc" id="L50">        avisJpaRepository.deleteById(id);</span>
+<span class="fc" id="L51">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

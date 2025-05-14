@@ -19,37 +19,37 @@ public class PlateformeRepositoryAdapter implements PlateformeRepository {
 
     @Override
     public List&lt;Plateforme&gt; findByNomContaining(String filtre) {
-<span class="nc" id="L22">        return plateformeJpaRepository.findByNomContaining(filtre)</span>
-<span class="nc" id="L23">                                      .stream()</span>
-<span class="nc" id="L24">                                      .map(p -&gt; plateformeMapper.entityToDomain(p, new CycleAvoidingMappingContext()))</span>
-<span class="nc" id="L25">                                      .toList();</span>
+<span class="fc" id="L22">        return plateformeJpaRepository.findByNomContaining(filtre)</span>
+<span class="fc" id="L23">                                      .stream()</span>
+<span class="fc" id="L24">                                      .map(p -&gt; plateformeMapper.entityToDomain(p, new CycleAvoidingMappingContext()))</span>
+<span class="fc" id="L25">                                      .toList();</span>
     }
 
     @Override
     public Plateforme findByNom(String nom) {
-<span class="nc" id="L30">        return plateformeMapper.entityToDomain(plateformeJpaRepository.findByNom(nom),</span>
+<span class="fc" id="L30">        return plateformeMapper.entityToDomain(plateformeJpaRepository.findByNom(nom),</span>
                                                new CycleAvoidingMappingContext());
     }
 
     @Override
     public void delete(Plateforme plateforme) {
-<span class="nc" id="L36">        plateformeJpaRepository.delete(plateformeMapper.domainToEntity(plateforme,</span>
+<span class="fc" id="L36">        plateformeJpaRepository.delete(plateformeMapper.domainToEntity(plateforme,</span>
                                                                        new CycleAvoidingMappingContext()));
-<span class="nc" id="L38">    }</span>
+<span class="fc" id="L38">    }</span>
 
     @Override
     public Plateforme save(Plateforme plateforme) {
-<span class="nc" id="L42">        return plateformeMapper.entityToDomain(plateformeJpaRepository.save(plateformeMapper.domainToEntity(plateforme,</span>
+<span class="fc" id="L42">        return plateformeMapper.entityToDomain(plateformeJpaRepository.save(plateformeMapper.domainToEntity(plateforme,</span>
                                                                                                             new CycleAvoidingMappingContext())),
                                                new CycleAvoidingMappingContext());
     }
 
     @Override
     public List&lt;Plateforme&gt; findAll() {
-<span class="nc" id="L49">        return plateformeJpaRepository.findAll()</span>
-<span class="nc" id="L50">                                      .stream()</span>
-<span class="nc" id="L51">                                      .map(p -&gt; plateformeMapper.entityToDomain(p, new CycleAvoidingMappingContext()))</span>
-<span class="nc" id="L52">                                      .toList();</span>
+<span class="fc" id="L49">        return plateformeJpaRepository.findAll()</span>
+<span class="fc" id="L50">                                      .stream()</span>
+<span class="fc" id="L51">                                      .map(p -&gt; plateformeMapper.entityToDomain(p, new CycleAvoidingMappingContext()))</span>
+<span class="fc" id="L52">                                      .toList();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
