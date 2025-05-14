@@ -16,7 +16,6 @@ public class Joueur extends Utilisateur {
 
     private LocalDate dateDeNaissance;
 
-    // Hypothèse de Nicolas : il ne sait pas comment initialiser la liste d'avis
     @Builder.Default
     private List<Avis> avis = new ArrayList<>();
 

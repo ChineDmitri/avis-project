@@ -23,7 +23,6 @@ public class JoueurEntity extends UtilisateurEntity {
 
     private LocalDate dateDeNaissance;
 
-    // Hypothèse de Nicolas : il ne sait pas comment initialiser la liste d'avis
     @Builder.Default
     @OneToMany(mappedBy = "joueur", fetch = FetchType.EAGER)
     private List<AvisEntity> avis = new ArrayList<>();

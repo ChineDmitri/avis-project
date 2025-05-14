@@ -21,7 +21,7 @@ public class avisWebUtils {
         final PlateformeDto plateforme1 = new PlateformeDto("PC", "12/12/2001", new ArrayList<>());
         final PlateformeDto plateforme2 = new PlateformeDto("Xbox", "11/11/2001", new ArrayList<>());
         return new JeuDto(1L, "GameName", editeur, genre, classification, "Game Description",
-                LocalDate.now(), Arrays.asList(plateforme1, plateforme2));
+                LocalDate.of(2025, 5, 13), Arrays.asList(plateforme1, plateforme2));
     }
 
     public static Jeu createJeu() {
