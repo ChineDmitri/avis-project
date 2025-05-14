@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @DynamicUpdate
 @DynamicInsert
+@SuperBuilder
 @Table(indexes = @Index(name="Jeu_Nom_Index", columnList = "nom"))
 public class JeuEntity {
 
@@ -53,22 +55,22 @@ public class JeuEntity {
 
     private float prix;
 
-    public JeuEntity(String nom) {
+    public JeuEntity(final String nom) {
         super();
         this.nom = nom;
     }
 
-    public JeuEntity(String nom, LocalDate dateDeSortie, EditeurEntity editeur) {
+    public JeuEntity(final String nom, final LocalDate dateDeSortie, final EditeurEntity editeur) {
         this(nom, editeur);
         this.dateDeSortie = dateDeSortie;
     }
 
-    public JeuEntity(String nom, String description, LocalDate dateSortie, EditeurEntity editeur) {
+    public JeuEntity(final String nom, final String description, final LocalDate dateSortie, final EditeurEntity editeur) {
         this(nom, dateSortie, editeur);
         this.description = description;
     }
 
-    public JeuEntity(String nom, LocalDate dateSortie, EditeurEntity editeur, GenreEntity genre) {
+    public JeuEntity(final String nom, final LocalDate dateSortie, final EditeurEntity editeur, final GenreEntity genre) {
         this(nom, null, dateSortie, editeur);
         this.genre = genre;
     }

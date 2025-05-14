@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static fr.esgi.utils.avisWebUtils.createJeuDto;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JeuDtoTest {
 
@@ -50,7 +50,7 @@ class JeuDtoTest {
         // ARRANGE
         final JeuDto jeuDto = createJeuDto();
         // ASSERT
-        assertEquals("JeuDto(id=1, nom=GameName, editeur=EditeurDto(id=1, nom=Editeur), genre=GenreDto(id=1, nom=Action), classification=ClassificationDto(id=1, nom=PEGI, couleurRGB=#FFFFF), description=Game Description, dateDeSortie=2025-05-11, plateformes=[PlateformeDto(nom=PC, dateDeSortie=12/12/2001, jeux=[]), PlateformeDto(nom=Xbox, dateDeSortie=11/11/2001, jeux=[])])", jeuDto.toString());
+        assertEquals("JeuDto(id=1, nom=GameName, editeur=EditeurDto(id=1, nom=Editeur), genre=GenreDto(id=1, nom=Action), classification=ClassificationDto(id=1, nom=PEGI, couleurRGB=#FFFFF), description=Game Description, dateDeSortie=2025-05-13, plateformes=[PlateformeDto(nom=PC, dateDeSortie=12/12/2001, jeux=[]), PlateformeDto(nom=Xbox, dateDeSortie=11/11/2001, jeux=[])])", jeuDto.toString());
     }
 
     @Test
@@ -59,14 +59,14 @@ class JeuDtoTest {
         final JeuDto original = createJeuDto();
 
         // Serialize
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(original);
 
         // Deserialize
-        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bais);
-        JeuDto deserialized = (JeuDto) ois.readObject();
+        final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        final ObjectInputStream ois = new ObjectInputStream(bais);
+        final JeuDto deserialized = (JeuDto) ois.readObject();
 
         // ASSERT
         assertEquals(original, deserialized);

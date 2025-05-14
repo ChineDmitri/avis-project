@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -33,7 +32,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     private PageAdapter      pageAdapter;
 
     @Override
-    public Jeu findById(Long id) {
+    public Jeu findById(final Long id) {
         return jeuJpaRepository.findById(id)
                                .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                                .orElse(null);
@@ -48,7 +47,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public CustomPagedResult<Jeu> findAll(PaginationParams paginationParams) {
+    public CustomPagedResult<Jeu> findAll(final PaginationParams paginationParams) {
         System.out.println("jeuMapper = " + jeuMapper);
 
         return pageAdapter.fromSpringPage(
@@ -61,35 +60,36 @@ public class JeuRepositoryAdapter implements JeuRepository {
 
 
     @Override
-    public Jeu findFirstByNom(String nom) {
-        JeuEntity entity = jeuJpaRepository.findFirstByNom(nom);
+    public Jeu findFirstByNom(final String nom) {
+        final JeuEntity entity = jeuJpaRepository.findFirstByNom(nom);
         return entity != null ? jeuMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) : null;
     }
 
     @Override
-    public List<Jeu> findByEditeur(Editeur editeur) {
-        List<JeuEntity> entities = jeuJpaRepository.findByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
+    public List<Jeu> findByEditeur(final Editeur editeur) {
+        final List<JeuEntity> entities = jeuJpaRepository.findByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
         return entities.stream()
                        .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                        .toList();
     }
 
     @Override
-    public List<Jeu> findByEditeurNom(String nom) {
-        List<JeuEntity> entities = jeuJpaRepository.findByEditeurNom(nom);
+    public List<Jeu> findByEditeurNom(final String nom) {
+        final List<JeuEntity> entities = jeuJpaRepository.findByEditeurNom(nom);
         return entities.stream()
                        .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
                        .toList();
     }
 
     @Override
-    public List<Jeu> findByEditeurAndGenre(Editeur editeur, Genre genre) {
-        List<JeuEntity> entities = jeuJpaRepository.findByEditeurAndGenre(editeurMapper.domainToEntity(
+    public List<Jeu> findByEditeurAndGenre(final Editeur editeur, final Genre genre) {
+        final List<JeuEntity> entities = jeuJpaRepository.findByEditeurAndGenre(editeurMapper.domainToEntity(
                                                                                   editeur,
                                                                                   new CycleAvoidingMappingContext()
                                                                           ),
                                                                           GenreEntity.builder()
                                                                                      .id(genre.getId())
+                                                                                     .nom(genre.getNom())
                                                                                      .build());
         return entities.stream()
                        .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
@@ -97,8 +97,8 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findTop5ByEditeurOrderByDateDeSortieDesc(Editeur editeur) {
-        List<JeuEntity> entities = jeuJpaRepository.findTop5ByEditeurOrderByDateDeSortieDesc(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
+    public List<Jeu> findTop5ByEditeurOrderByDateDeSortieDesc(final Editeur editeur) {
+        final List<JeuEntity> entities = jeuJpaRepository.findTop5ByEditeurOrderByDateDeSortieDesc(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
 
         return entities.stream()
                        .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
@@ -106,8 +106,8 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findByEditeurAndGenreAndClassificationNom(Editeur editeur, Genre genre, String nom) {
-        List<JeuEntity> entities = jeuJpaRepository.findByEditeurAndGenreAndClassificationNom(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()),
+    public List<Jeu> findByEditeurAndGenreAndClassificationNom(final Editeur editeur, final Genre genre, final String nom) {
+        final List<JeuEntity> entities = jeuJpaRepository.findByEditeurAndGenreAndClassificationNom(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()),
                                                                                               GenreEntity.builder()
                                                                                                          .id(genre.getId())
                                                                                                          .build(),
@@ -119,11 +119,12 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findByGenre(Genre genre) {
-        GenreEntity genreEntity = GenreEntity.builder()
+    public List<Jeu> findByGenre(final Genre genre) {
+        final GenreEntity genreEntity = GenreEntity.builder()
                                              .id(genre.getId())
+                                             .nom(genre.getNom())
                                              .build();
-        List<JeuEntity> entities = jeuJpaRepository.findByGenre(genreEntity);
+        final List<JeuEntity> entities = jeuJpaRepository.findByGenre(genreEntity);
 
         return entities.stream()
                        .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
@@ -131,7 +132,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findByGenreNom(String nom) {
+    public List<Jeu> findByGenreNom(final String nom) {
         return jeuJpaRepository.findByGenreNom(nom)
                                .stream()
                                .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
@@ -139,7 +140,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findByNomLike(String nom) {
+    public List<Jeu> findByNomLike(final String nom) {
         return jeuJpaRepository.findByNomLike(nom)
                                .stream()
                                .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
@@ -147,7 +148,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findByNomLikeAndDateDeSortieBetween(String nom, LocalDate dateDebut, LocalDate dateFin) {
+    public List<Jeu> findByNomLikeAndDateDeSortieBetween(final String nom, final LocalDate dateDebut, final LocalDate dateFin) {
         return jeuJpaRepository.findByNomLikeAndDateDeSortieBetween(nom, dateDebut, dateFin)
                                .stream()
                                .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
@@ -155,7 +156,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findByEditeurAndNomLikeAndDateDeSortieBetween(Editeur editeur, String nom, LocalDate dateDebut, LocalDate dateFin) {
+    public List<Jeu> findByEditeurAndNomLikeAndDateDeSortieBetween(final Editeur editeur, final String nom, final LocalDate dateDebut, final LocalDate dateFin) {
         return jeuJpaRepository.findByEditeurAndNomLikeAndDateDeSortieBetween(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()),
                                                                               nom,
                                                                               dateDebut,
@@ -166,7 +167,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findAllByPlateformesContaining(Plateforme plateforme) {
+    public List<Jeu> findAllByPlateformesContaining(final Plateforme plateforme) {
         return jeuJpaRepository.findAllByPlateformesContaining(plateformeMapper.domainToEntity(plateforme,
                                                                                                new CycleAvoidingMappingContext()))
                                .stream()
@@ -175,7 +176,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findByPlateformesNom(String nom) {
+    public List<Jeu> findByPlateformesNom(final String nom) {
         return jeuJpaRepository.findByPlateformesNom(nom)
                                .stream()
                                .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
@@ -183,13 +184,13 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public Optional<Jeu> findByNom(String nom) {
+    public Optional<Jeu> findByNom(final String nom) {
         return jeuJpaRepository.findByNom(nom)
                                .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()));
     }
 
     @Override
-    public List<Jeu> findByNomEndingWith(String filtre) {
+    public List<Jeu> findByNomEndingWith(final String filtre) {
         return jeuJpaRepository.findByNomEndingWith(filtre)
                                .stream()
                                .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
@@ -197,28 +198,28 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public boolean existsByNom(String nom) {
+    public boolean existsByNom(final String nom) {
         return jeuJpaRepository.existsByNom(nom);
     }
 
     @Override
-    public long countByEditeur(Editeur editeur) {
+    public long countByEditeur(final Editeur editeur) {
         return jeuJpaRepository.countByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
     }
 
     @Override
-    public Jeu save(Jeu jeu) {
-        JeuEntity je = jeuJpaRepository.save(jeuMapper.domainToEntity(jeu, new CycleAvoidingMappingContext()));
+    public Jeu save(final Jeu jeu) {
+        final JeuEntity je = jeuJpaRepository.save(jeuMapper.domainToEntity(jeu, new CycleAvoidingMappingContext()));
         return jeuMapper.entityToDomain(je, new CycleAvoidingMappingContext());
     }
 
     @Override
-    public long deleteByEditeur(Editeur editeur) {
+    public long deleteByEditeur(final Editeur editeur) {
         return jeuJpaRepository.deleteByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
     }
 
     @Override
-    public List<Jeu> findByPlateformes(Plateforme plateforme) {
+    public List<Jeu> findByPlateformes(final Plateforme plateforme) {
         return jeuJpaRepository.findByPlateformes(plateformeMapper.domainToEntity(plateforme,
                                                                                   new CycleAvoidingMappingContext()))
                                .stream()
@@ -227,7 +228,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public List<Jeu> findByDateDeSortieBetweenAndGenreAndImageNotNull(LocalDate dateDeSortieStart, LocalDate dateDeSortieEnd, Genre genre) {
+    public List<Jeu> findByDateDeSortieBetweenAndGenreAndImageNotNull(final LocalDate dateDeSortieStart, final LocalDate dateDeSortieEnd, final Genre genre) {
         return jeuJpaRepository.findByDateDeSortieBetweenAndGenreAndImageNotNull(dateDeSortieStart,
                                                                                  dateDeSortieEnd,
                                                                                  GenreEntity.builder()
@@ -239,7 +240,7 @@ public class JeuRepositoryAdapter implements JeuRepository {
     }
 
     @Override
-    public Optional<Jeu> findByNomIgnoreCase(String nom) {
+    public Optional<Jeu> findByNomIgnoreCase(final String nom) {
         return jeuJpaRepository.findByNomIgnoreCase(nom)
                                .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()));
     }
