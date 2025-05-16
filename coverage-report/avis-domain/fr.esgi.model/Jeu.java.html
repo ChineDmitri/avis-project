@@ -9,7 +9,7 @@
     @AllArgsConstructor
     @Data
     @Builder
-    public class Jeu  {
+    public class Jeu extends Media {
 
         private Long id;
 
@@ -53,5 +53,20 @@
 <span class="fc" id="L53">            this.genre = genre;</span>
 <span class="fc" id="L54">        }</span>
 
+        @Override
+        public String getFullDescription() {
+<span class="nc" id="L58">            return &quot;Jeu{&quot; +</span>
+                    &quot;id=&quot; + id +
+                    &quot;, nom='&quot; + nom + '\'' +
+                    &quot;, editeur=&quot; + editeur +
+                    &quot;, genre=&quot; + genre +
+                    &quot;, classification=&quot; + classification +
+                    &quot;, description='&quot; + description + '\'' +
+                    &quot;, dateDeSortie=&quot; + dateDeSortie +
+                    &quot;, plateformes=&quot; + plateformes +
+                    &quot;, image='&quot; + image + '\'' +
+                    &quot;, prix=&quot; + prix +
+                    '}';
+        }
     }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
