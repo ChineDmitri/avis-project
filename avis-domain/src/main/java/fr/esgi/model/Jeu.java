@@ -9,7 +9,7 @@
     @AllArgsConstructor
     @Data
     @Builder
-    public class Jeu  {
+    public class Jeu extends Media {
 
         private Long id;
 
@@ -53,4 +53,19 @@
             this.genre = genre;
         }
 
+        @Override
+        public String getFullDescription() {
+            return "Jeu{" +
+                    "id=" + id +
+                    ", nom='" + nom + '\'' +
+                    ", editeur=" + editeur +
+                    ", genre=" + genre +
+                    ", classification=" + classification +
+                    ", description='" + description + '\'' +
+                    ", dateDeSortie=" + dateDeSortie +
+                    ", plateformes=" + plateformes +
+                    ", image='" + image + '\'' +
+                    ", prix=" + prix +
+                    '}';
+        }
     }
