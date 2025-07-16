@@ -13,7 +13,6 @@
 
         private Long id;
 
-        @NonNull
         private String nom;
 
         private Editeur editeur;

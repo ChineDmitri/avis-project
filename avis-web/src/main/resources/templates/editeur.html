@@ -2,19 +2,194 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ajouter un Editeur</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .form-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+        .form-floating > .form-control:focus ~ label {
+            color: #0d6efd;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+        }
+        .error-message {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .success-card {
+            background: linear-gradient(135deg, #d1e7dd 0%, #a3cfbb 100%);
+            border-left: 4px solid #198754;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-light">
 <div th:replace="~{entete}"></div>
-<h1>Ajouter un Editeur</h1>
-<form action="editeur" th:object="${editeur}" method="post">
-    <label for="nom">Nom</label>
-    <!-- Le marqueur field fait référence au nom de l'attribut nom de la classe Editeur -->
-    <input type="text" th:field="*{nom}" id="nom"/>
-    <span th:if="${#fields.hasErrors('nom')}" th:errorclass="erreur" th:errors="*{nom}"></span>
-    <br>
-    <label>&nbsp;</label><input type="submit" value="Ajouter">
-</form>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="text-center mb-4">
+                <h1 class="display-6 text-primary">
+                    <i class="fas fa-plus-circle me-3"></i>Ajouter un Éditeur
+                </h1>
+                <p class="text-muted">Créez un nouvel éditeur de jeux vidéo</p>
+            </div>
+
+            <!-- Formulaire d'ajout -->
+            <div class="card form-card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-building me-2"></i>Informations de l'éditeur
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form action="editeur" th:object="${editeur}" method="post" novalidate>
+                        <div class="mb-4">
+                            <div class="form-floating">
+                                <input type="text" 
+                                       class="form-control form-control-lg" 
+                                       th:field="*{nom}" 
+                                       id="nom" 
+                                       placeholder="Nom de l'éditeur"
+                                       th:classappend="${#fields.hasErrors('nom')} ? 'is-invalid' : ''"
+                                       required>
+                                <label for="nom">
+                                    <i class="fas fa-building me-2"></i>Nom de l'éditeur
+                                </label>
+                                <div th:if="${#fields.hasErrors('nom')}" class="invalid-feedback">
+                                    <i class="fas fa-exclamation-triangle me-1"></i>
+                                    <span th:errors="*{nom}"></span>
+                                </div>
+                            </div>
+                            
+                            <!-- Message d'aide -->
+                            <div class="form-text">
+                                <i class="fas fa-info-circle text-primary me-1"></i>
+                                Saisissez le nom complet de l'éditeur (ex: Electronic Arts, Ubisoft, Activision)
+                            </div>
+                        </div>
+
+                        <!-- Boutons d'action -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg btn-submit">
+                                <i class="fas fa-plus me-2"></i>Ajouter l'éditeur
+                            </button>
+                            <a href="editeurs" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Card d'informations -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body">
+                    <h6 class="text-primary mb-3">
+                        <i class="fas fa-lightbulb me-2"></i>Conseils
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Utilisez le nom officiel et complet de l'éditeur
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Vérifiez que l'éditeur n'existe pas déjà dans la liste
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Les noms doivent être uniques dans le système
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Exemples d'éditeurs populaires -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="fas fa-star me-2"></i>Exemples d'éditeurs populaires
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">Electronic Arts</span>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">Ubisoft</span>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">Activision Blizzard</span>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">Sony Interactive</span>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">Nintendo</span>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">Microsoft Game Studios</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Validation en temps réel
+    const nomInput = document.getElementById('nom');
+    const form = document.querySelector('form');
+    
+    nomInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        
+        // Supprime les classes de validation précédentes
+        this.classList.remove('is-valid', 'is-invalid');
+        
+        if (value.length >= 2) {
+            this.classList.add('is-valid');
+        } else if (value.length > 0) {
+            this.classList.add('is-invalid');
+        }
+    });
+
+    // Animation de soumission
+    form.addEventListener('submit', function(e) {
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Ajout en cours...';
+        submitBtn.disabled = true;
+    });
+
+    // Focus automatique sur le champ nom
+    nomInput.focus();
+});
+</script>
 </body>
 </html>

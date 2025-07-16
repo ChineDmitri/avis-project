@@ -2,87 +2,314 @@
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Statistiques</title>
+    <style>
+        .stat-card {
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .table-responsive {
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .badge-info {
+            background-color: #17a2b8;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-light">
 <div th:replace="~{entete}"></div>
-<h1>Statistiques</h1>
-<div>Date et heure : <span th:text="${currentTime}"></span></div>
-<div><span>Nb de sessions ouvertes : </span><span th:text="${stats.sessionOpenCount}"></span></div>
-<div><span>Nb de sessions fermées : </span><span th:text="${stats.sessionCloseCount}"></span><div>
-<div><span>Nb de flush : </span><span th:text="${stats.flushCount}"></span></div>
-<div><span>Nb de connexions obtenues : </span><span th:text="${stats.connectCount}"></span></div>
-<div><span>Nb de requêtes préparées envoyées : </span><span th:text="${stats.prepareStatementCount}"></span></div>
-    <br>
-<div><span>Nb d'accès au cache de 2nd niveau : </span><span th:text="${stats.secondLevelCacheHitCount}"/></div>
-    <div><span>Nb de misses au cache de 2nd niveau : </span><span th:text="${stats.secondLevelCacheMissCount}"/></div>
-    <div><span>Nb de puts au cache de 2nd niveau : </span><span th:text="${stats.secondLevelCachePutCount}"/></div>
-    <div>Activision présent dans le cache de 2nd niveau : <span th:text="${cachedData}"/></div></di>
-    <br>
-    <h2>Cache de requêtes</h2>
-    <div>Hits : <span th:text="${stats.queryCacheHitCount}"/></div>
-    <div>Misses : <span th:text="${stats.queryCacheMissCount}"/></div>
-    <div>Puts : <span th:text="${stats.queryCachePutCount}"/></div>
-    <br>
-    <h2>Collections</h2>
-    <div>Fetches : <span th:text="${stats.collectionFetchCount}"/></div>
-    <div>Loads : <span th:text="${stats.collectionLoadCount}"/></div>
-    <div>Updates : <span th:text="${stats.collectionUpdateCount}"/></div>
-    <div>Recreates : <span th:text="${stats.collectionRecreateCount}"/></div>
-    <div>Removes : <span th:text="${stats.collectionRemoveCount}"/></div>
-    <br>
-    <h2>Opérations sur les Entités</h2>
-    <div>Fetches : <span th:text="${stats.entityFetchCount}"/></div>
-    <div>Loads : <span th:text="${stats.entityLoadCount}"/></div>
-    <div>Inserts : <span th:text="${stats.entityInsertCount}"/></div>
-    <div>Updates : <span th:text="${stats.entityUpdateCount}"/></div>
-    <div>Deletes : <span th:text="${stats.entityDeleteCount}"/></div>
-    <br>
-    <h2>Entités</h2>
-    <table>
-        <tr>
-            <td>Entité</td>
-            <td>Fetches</td>
-            <td>Loads</td>
-            <td>Inserts</td>
-            <td>Updates</td>
-            <td>Deletes</td>
-            <td>Optimistic Failures</td>
-        </tr>
-    <tr th:each="entityName:${entityNames}">
-        <td th:text="${entityName}"></td>
-        <td th:text="${stats.getEntityStatistics(entityName).fetchCount}"></td>
-        <td th:text="${stats.getEntityStatistics(entityName).loadCount}"></td>
-        <td th:text="${stats.getEntityStatistics(entityName).insertCount}"></td>
-        <td th:text="${stats.getEntityStatistics(entityName).updateCount}"></td>
-        <td th:text="${stats.getEntityStatistics(entityName).deleteCount}"></td>
-        <td th:text="${stats.getEntityStatistics(entityName).optimisticFailureCount}"></td>
-    </tr>
-    </table>
-    <br>
-    <h2>Requêtes</h2>
-    <div>Nb de requêtes exécutées : <span th:text="${stats.queryExecutionCount}"/></div>
-<table>
-    <tr>
-        <td>Requête</td>
-        <td>Nombre d'exécutions</td>
-        <td>Temps moyen d'exécution</td>
-        <td>Temps min</td>
-        <td>Temps max</td>
-        <td>Cache hit count</td>
-        <td>Row count</td>
-    </tr>
-    <tr th:each="query:${queries}">
-        <td th:text="${query}"></td>
-        <td th:text="${stats.getQueryStatistics(query).executionCount}"></td>
-        <td th:text="${stats.getQueryStatistics(query).executionAvgTime}"></td>
-        <td th:text="${(stats.getQueryStatistics(query).executionMinTime<1000000000)?stats.getQueryStatistics(query).executionMinTime:'indéfini'}"></td>
-        <td th:text="${stats.getQueryStatistics(query).executionMaxTime}"></td>
-        <td th:text="${stats.getQueryStatistics(query).cacheHitCount}"></td>
-        <td th:text="${stats.getQueryStatistics(query).getExecutionRowCount()}"></td>
-        <td></td>
-    </tr>
-</table>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="display-6 text-primary">
+                    <i class="fas fa-chart-line me-3"></i>Statistiques de Performance
+                </h1>
+                <div class="text-muted">
+                    <i class="fas fa-clock me-2"></i>
+                    <span th:text="${currentTime}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sessions et Connexions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="h5 text-secondary mb-3">
+                <i class="fas fa-plug me-2"></i>Sessions et Connexions
+            </h3>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-door-open text-success mb-2" style="font-size: 2rem;"></i>
+                    <div class="stat-number text-success" th:text="${stats.sessionOpenCount}">0</div>
+                    <small class="text-muted">Sessions ouvertes</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-door-closed text-danger mb-2" style="font-size: 2rem;"></i>
+                    <div class="stat-number text-danger" th:text="${stats.sessionCloseCount}">0</div>
+                    <small class="text-muted">Sessions fermées</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-sync text-warning mb-2" style="font-size: 2rem;"></i>
+                    <div class="stat-number text-warning" th:text="${stats.flushCount}">0</div>
+                    <small class="text-muted">Flush</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-link text-info mb-2" style="font-size: 2rem;"></i>
+                    <div class="stat-number text-info" th:text="${stats.connectCount}">0</div>
+                    <small class="text-muted">Connexions obtenues</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cache de 2nd niveau -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="h5 text-secondary mb-3">
+                <i class="fas fa-database me-2"></i>Cache de 2nd niveau
+            </h3>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-bullseye text-success mb-2" style="font-size: 2rem;"></i>
+                    <div class="stat-number text-success" th:text="${stats.secondLevelCacheHitCount}">0</div>
+                    <small class="text-muted">Hits</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-times-circle text-danger mb-2" style="font-size: 2rem;"></i>
+                    <div class="stat-number text-danger" th:text="${stats.secondLevelCacheMissCount}">0</div>
+                    <small class="text-muted">Misses</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-plus-circle text-primary mb-2" style="font-size: 2rem;"></i>
+                    <div class="stat-number text-primary" th:text="${stats.secondLevelCachePutCount}">0</div>
+                    <small class="text-muted">Puts</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card stat-card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-gamepad text-info mb-2" style="font-size: 2rem;"></i>
+                    <div class="badge badge-info w-100 p-2" th:text="${cachedData}">N/A</div>
+                    <small class="text-muted">Activision en cache</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cache de requêtes et Collections -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-search me-2"></i>Cache de requêtes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="stat-number text-success" th:text="${stats.queryCacheHitCount}">0</div>
+                            <small class="text-muted">Hits</small>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-number text-danger" th:text="${stats.queryCacheMissCount}">0</div>
+                            <small class="text-muted">Misses</small>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-number text-primary" th:text="${stats.queryCachePutCount}">0</div>
+                            <small class="text-muted">Puts</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-layer-group me-2"></i>Collections</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <small class="text-muted">Fetches:</small>
+                            <strong class="d-block" th:text="${stats.collectionFetchCount}">0</strong>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <small class="text-muted">Loads:</small>
+                            <strong class="d-block" th:text="${stats.collectionLoadCount}">0</strong>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <small class="text-muted">Updates:</small>
+                            <strong class="d-block" th:text="${stats.collectionUpdateCount}">0</strong>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <small class="text-muted">Recreates:</small>
+                            <strong class="d-block" th:text="${stats.collectionRecreateCount}">0</strong>
+                        </div>
+                        <div class="col-12">
+                            <small class="text-muted">Removes:</small>
+                            <strong class="d-block" th:text="${stats.collectionRemoveCount}">0</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Opérations sur les Entités -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-warning text-white">
+                    <h5 class="mb-0"><i class="fas fa-cube me-2"></i>Opérations sur les Entités</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md mb-3">
+                            <div class="stat-number text-info" th:text="${stats.entityFetchCount}">0</div>
+                            <small class="text-muted">Fetches</small>
+                        </div>
+                        <div class="col-md mb-3">
+                            <div class="stat-number text-primary" th:text="${stats.entityLoadCount}">0</div>
+                            <small class="text-muted">Loads</small>
+                        </div>
+                        <div class="col-md mb-3">
+                            <div class="stat-number text-success" th:text="${stats.entityInsertCount}">0</div>
+                            <small class="text-muted">Inserts</small>
+                        </div>
+                        <div class="col-md mb-3">
+                            <div class="stat-number text-warning" th:text="${stats.entityUpdateCount}">0</div>
+                            <small class="text-muted">Updates</small>
+                        </div>
+                        <div class="col-md mb-3">
+                            <div class="stat-number text-danger" th:text="${stats.entityDeleteCount}">0</div>
+                            <small class="text-muted">Deletes</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tableaux des Entités et Requêtes -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="fas fa-cubes me-2"></i>Détails par Entité</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Entité</th>
+                                    <th scope="col">Fetches</th>
+                                    <th scope="col">Loads</th>
+                                    <th scope="col">Inserts</th>
+                                    <th scope="col">Updates</th>
+                                    <th scope="col">Deletes</th>
+                                    <th scope="col">Échecs Optimistes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="entityName:${entityNames}">
+                                    <td class="fw-bold" th:text="${entityName}"></td>
+                                    <td><span class="badge bg-info" th:text="${stats.getEntityStatistics(entityName).fetchCount}">0</span></td>
+                                    <td><span class="badge bg-primary" th:text="${stats.getEntityStatistics(entityName).loadCount}">0</span></td>
+                                    <td><span class="badge bg-success" th:text="${stats.getEntityStatistics(entityName).insertCount}">0</span></td>
+                                    <td><span class="badge bg-warning" th:text="${stats.getEntityStatistics(entityName).updateCount}">0</span></td>
+                                    <td><span class="badge bg-danger" th:text="${stats.getEntityStatistics(entityName).deleteCount}">0</span></td>
+                                    <td><span class="badge bg-dark" th:text="${stats.getEntityStatistics(entityName).optimisticFailureCount}">0</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques des Requêtes -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-code me-2"></i>Requêtes</h5>
+                    <span class="badge bg-light text-dark">
+                        <i class="fas fa-chart-line me-1"></i>
+                        <span th:text="${stats.queryExecutionCount}">0</span> exécutions
+                    </span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col" style="min-width: 300px;">Requête</th>
+                                    <th scope="col">Exécutions</th>
+                                    <th scope="col">Temps Moyen</th>
+                                    <th scope="col">Temps Min</th>
+                                    <th scope="col">Temps Max</th>
+                                    <th scope="col">Cache Hits</th>
+                                    <th scope="col">Lignes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="query:${queries}">
+                                    <td>
+                                        <code class="text-break" th:text="${query}" style="font-size: 0.85em;"></code>
+                                    </td>
+                                    <td><span class="badge bg-primary" th:text="${stats.getQueryStatistics(query).executionCount}">0</span></td>
+                                    <td><span class="text-info fw-bold" th:text="${stats.getQueryStatistics(query).executionAvgTime + ' ms'}">0 ms</span></td>
+                                    <td th:text="${(stats.getQueryStatistics(query).executionMinTime<1000000000)?stats.getQueryStatistics(query).executionMinTime + ' ms':'indéfini'}">-</td>
+                                    <td th:text="${stats.getQueryStatistics(query).executionMaxTime + ' ms'}">0 ms</td>
+                                    <td><span class="badge bg-success" th:text="${stats.getQueryStatistics(query).cacheHitCount}">0</span></td>
+                                    <td><span class="badge bg-secondary" th:text="${stats.getQueryStatistics(query).getExecutionRowCount()}">0</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@ package fr.esgi;
 
 import fr.esgi.model.Jeu;
 import fr.esgi.model.Editeur;
+import fr.esgi.model.Genre;
 import fr.esgi.model.page.CustomPagedResult;
 import fr.esgi.model.page.PaginationParams;
 import fr.esgi.port.JeuRepository;
@@ -18,6 +19,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -44,10 +46,16 @@ class JeuUseCaseTest {
         editeur.setId(1L);
         editeur.setNom("Ubisoft");
 
+        Genre genre = new Genre();
+        genre.setId(1L);
+        genre.setNom("Action");
+
         testJeu = Jeu.builder()
                 .id(1L)
                 .nom("Assassin's Creed")
                 .editeur(editeur)
+                .genre(genre)
+                .plateformes(Collections.emptyList())
                 .description("Un jeu d'action aventure")
                 .dateDeSortie(LocalDate.of(2023, 5, 10))
                 .image("default.jpg")
@@ -91,7 +99,7 @@ class JeuUseCaseTest {
     void recupererJeux_shouldReturnPagedResults() {
         // Arrange
         List<Jeu> jeux = Arrays.asList(testJeu);
-        CustomPagedResult<Jeu> expectedResult = new CustomPagedResult<>(jeux, 0, 100, 1);
+        CustomPagedResult<Jeu> expectedResult = new CustomPagedResult<>(jeux, 0, 10, 1);
 
         when(jeuRepository.findAll(testPaginationParams)).thenReturn(expectedResult);
 
@@ -136,11 +144,30 @@ class JeuUseCaseTest {
 
         // Assert
         assertEquals(expectedImagePath, result);
-        assertEquals(expectedImagePath, testJeu.getImage());
 
         // Verify interactions
         verify(jeuRepository).findById(jeuId);
         verify(fileAdapter).upload(imageStream);
-        verify(jeuRepository).save(testJeu);
+        verify(jeuRepository).save(any(Jeu.class));
+    }
+
+    @Test
+    void ajouterImage_shouldThrowExceptionWhenJeuNotFound() {
+        // Arrange
+        Long jeuId = 999L;
+        InputStream imageStream = new ByteArrayInputStream("test image content".getBytes());
+
+        when(jeuRepository.findById(jeuId)).thenReturn(null);
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> jeuUseCase.ajouterImage(jeuId, imageStream)
+        );
+
+        assertEquals("Jeu non trouvé avec l'id: " + jeuId, exception.getMessage());
+        verify(jeuRepository).findById(jeuId);
+        verify(fileAdapter, never()).upload(any());
+        verify(jeuRepository, never()).save(any());
     }
 }

@@ -9,8 +9,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Map /uploads/** to the /uploads directory
+        // Permettre l'accès aux fichiers uploadés via l'URL /uploads/**
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:/uploads/");
+                .addResourceLocations("file:uploads/");
+        
+        System.out.println("[LOG] Configuration des ressources statiques : /uploads/** -> file:uploads/");
     }
 }

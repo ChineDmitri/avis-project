@@ -1,9 +1,12 @@
 package fr.esgi.port.decorator;
 
 import fr.esgi.port.FileUploader;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.InputStream;
 
+@Log
 public abstract class FileUploaderDecorator implements FileUploader {
 
     private final FileUploader delegate;
@@ -14,9 +17,9 @@ public abstract class FileUploaderDecorator implements FileUploader {
 
     @Override
     public String upload(InputStream io) {
-        System.out.println("[LOG] Téléversement standard démarré");
+        log.info("[ABSTRACT] Téléversement standard démarré");
         String fileName = delegate.upload(io);
-        System.out.println("[LOG] Téléversement standard terminé. FileName: " + fileName);
+        log.info("[ABSTRACT] Téléversement standard terminé. FileName: " + fileName);
         return fileName;
     }
 

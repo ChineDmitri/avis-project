@@ -2,15 +2,198 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ajouter une image du jeu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .upload-area {
+            border: 3px dashed #007bff;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .upload-area:hover {
+            border-color: #0056b3;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            transform: translateY(-2px);
+        }
+        .upload-area.dragover {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        }
+        .file-input {
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .upload-icon {
+            font-size: 4rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+        .game-info {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-left: 4px solid #ffc107;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-light">
 <div th:replace="~{entete}"></div>
-<h1>Ajouter une image du jeu</h1>
-<form th:action="@{'televersement/'+ ${jeu.id}}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" accept="image/jpg, image/jpeg" />
-    <input type="submit" value="Envoyer" />
-</form>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-4">
+                <h1 class="display-6 text-primary">
+                    <i class="fas fa-upload me-3"></i>Ajouter une image
+                </h1>
+                <p class="text-muted">Téléversez une image pour le jeu sélectionné</p>
+            </div>
+
+            <!-- Informations du jeu -->
+            <div class="card game-info border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-gamepad text-warning me-3" style="font-size: 2rem;"></i>
+                        <div>
+                            <h5 class="mb-1">Jeu sélectionné</h5>
+                            <p class="mb-0 fw-bold" th:text="${jeu.nom}">Nom du jeu</p>
+                            <small class="text-muted">ID: <span th:text="${jeu.id}">1</span></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zone de téléversement -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-image me-2"></i>Téléversement d'image
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{'televersement/'+ ${jeu.id}}" method="post" enctype="multipart/form-data" id="uploadForm">
+                        <div class="upload-area text-center p-5" id="uploadArea">
+                            <input type="file" name="file" accept="image/jpg, image/jpeg" class="file-input" id="fileInput" required />
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <h4 class="text-primary mb-3">Glissez-déposez votre image ici</h4>
+                                <p class="text-muted mb-3">ou cliquez pour sélectionner un fichier</p>
+                                <div class="badge bg-info p-2">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Formats acceptés: JPG, JPEG
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="file-info mt-3" id="fileInfo" style="display: none;">
+                            <div class="alert alert-success d-flex align-items-center">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <div>
+                                    <strong>Fichier sélectionné:</strong>
+                                    <span id="fileName"></span>
+                                    <br>
+                                    <small class="text-muted">Taille: <span id="fileSize"></span></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn" disabled>
+                                <i class="fas fa-upload me-2"></i>Téléverser l'image
+                            </button>
+                            <a href="jeux" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Retour à la liste des jeux
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body">
+                    <h6 class="text-primary mb-3">
+                        <i class="fas fa-lightbulb me-2"></i>Instructions
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Utilisez des images de haute qualité pour un meilleur rendu
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Les formats JPEG et JPG sont acceptés
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            L'image sera automatiquement redimensionnée si nécessaire
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Gestion du drag and drop
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            displayFileInfo(files[0]);
+        }
+    });
+
+    // Gestion de la sélection de fichier
+    fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+            displayFileInfo(e.target.files[0]);
+        }
+    });
+
+    function displayFileInfo(file) {
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        fileInfo.style.display = 'block';
+        submitBtn.disabled = false;
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+});
+</script>
 </body>
 </html>

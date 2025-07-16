@@ -2,24 +2,36 @@ package fr.esgi.controller;
 
 import fr.esgi.adapter.page.PageAdapter;
 import fr.esgi.api.JeuService;
+import fr.esgi.api.EditeurService;
+import fr.esgi.api.PlateformeService;
 import fr.esgi.exception.TechnicalException;
 import fr.esgi.model.Jeu;
+import fr.esgi.model.Editeur;
+import fr.esgi.model.Plateforme;
 import fr.esgi.model.page.CustomPagedResult;
 import fr.esgi.model.page.PaginationParams;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import java.beans.PropertyEditorSupport;
 
 @Controller
 @RequestMapping("/")
@@ -27,10 +39,13 @@ import java.util.Iterator;
 public class JeuController {
 
     @Autowired
-    private JeuService  jeuService;
+    private JeuService jeuService;
+    @Autowired
+    private EditeurService editeurService;
+    @Autowired
+    private PlateformeService plateformeService;
     @Autowired
     private PageAdapter pageAdapter;
-
 
     @GetMapping({"jeux"})
     public ModelAndView getJeux(
@@ -88,11 +103,107 @@ public class JeuController {
                                           MultipartFile image) throws
                                                                TechnicalException {
         try {
-            String fnfp = jeuService.ajouterImage(idJeu, image.getInputStream());
+            String fnfp = jeuService.ajouterImage(idJeu, image);  // Utiliser la nouvelle méthode avec MultipartFile
             System.out.println("File name with path: " + fnfp);
-        } catch (IOException e) {
-            throw new TechnicalException(e.getMessage());
+            
+            // Rediriger vers la page avec un message de succès
+            ModelAndView mav = new ModelAndView("redirect:/jeux");
+            mav.addObject("imageUploadSuccess", true);
+            return mav;
+        } catch (Exception e) {
+            System.err.println("Erreur lors du téléversement: " + e.getMessage());
+            e.printStackTrace();
+            throw new TechnicalException("Erreur lors du téléversement: " + e.getMessage());
         }
-        return new ModelAndView("redirect:/jeux");
+    }
+
+    @GetMapping("jeu")
+    public ModelAndView afficherFormulaireJeu() {
+        ModelAndView mav = new ModelAndView("jeu");
+        
+        // Créer un nouveau jeu vide pour éviter les problèmes avec @NonNull
+        Jeu jeu = new Jeu();
+        mav.addObject("jeu", jeu);
+        
+        // Récupérer les données nécessaires pour les sélections
+        List<Editeur> editeurs = editeurService.recupererEditeurs();
+        List<Plateforme> plateformes = plateformeService.recupererPlateformes();
+        
+        mav.addObject("editeurs", editeurs);
+        mav.addObject("plateformes", plateformes);
+        
+        return mav;
+    }
+
+    @PostMapping("jeu")
+    public ModelAndView sauvegarderJeu(
+            @Valid @ModelAttribute Jeu jeu,
+            BindingResult bindingResult,
+            @RequestParam(value = "plateformeIds", required = false) List<Long> plateformeIds
+    ) {
+        if (bindingResult.hasErrors()) {
+            ModelAndView mav = new ModelAndView("jeu");
+            mav.addObject("jeu", jeu);
+            
+            // Récupérer les données nécessaires pour les sélections
+            List<Editeur> editeurs = editeurService.recupererEditeurs();
+            List<Plateforme> plateformes = plateformeService.recupererPlateformes();
+            
+            mav.addObject("editeurs", editeurs);
+            mav.addObject("plateformes", plateformes);
+            
+            return mav;
+        }
+
+        try {
+            // Associer les plateformes sélectionnées au jeu
+            if (plateformeIds != null && !plateformeIds.isEmpty()) {
+                List<Plateforme> plateformesSelectionnees = plateformeService.recupererPlateformes()
+                        .stream()
+                        .filter(p -> plateformeIds.contains(p.getId()))
+                        .toList();
+                jeu.setPlateformes(plateformesSelectionnees);
+            }
+
+            jeuService.ajouterJeu(jeu);
+            return new ModelAndView("redirect:/jeux");
+        } catch (Exception e) {
+            ModelAndView mav = new ModelAndView("jeu");
+            mav.addObject("jeu", jeu);
+            mav.addObject("errorMessage", "Erreur lors de l'ajout du jeu: " + e.getMessage());
+            
+            // Récupérer les données nécessaires pour les sélections
+            List<Editeur> editeurs = editeurService.recupererEditeurs();
+            List<Plateforme> plateformes = plateformeService.recupererPlateformes();
+            
+            mav.addObject("editeurs", editeurs);
+            mav.addObject("plateformes", plateformes);
+            
+            return mav;
+        }
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Editeur.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                if (text != null && !text.trim().isEmpty()) {
+                    try {
+                        Long id = Long.valueOf(text);
+                        Editeur editeur = editeurService.recupererEditeurs()
+                                .stream()
+                                .filter(e -> e.getId().equals(id))
+                                .findFirst()
+                                .orElse(null);
+                        setValue(editeur);
+                    } catch (NumberFormatException e) {
+                        setValue(null);
+                    }
+                } else {
+                    setValue(null);
+                }
+            }
+        });
     }
 }

@@ -2,10 +2,252 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Avis Gaming - Accueil</title>
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .stats-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        .cta-section {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
 </head>
 <body>
-test
+<div th:replace="~{entete}"></div>
+
+<!-- Section Hero -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-3 fw-bold mb-4">
+                    Bienvenue sur <span class="text-warning">Avis Gaming</span>
+                </h1>
+                <p class="lead mb-4">
+                    Votre plateforme complète pour gérer et consulter les avis sur vos jeux vidéo préférés.
+                    Découvrez, évaluez et partagez votre passion du gaming !
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="jeux" class="btn btn-warning btn-lg">
+                        <i class="fas fa-gamepad me-2"></i>Voir les jeux
+                    </a>
+                    <a href="editeurs" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-building me-2"></i>Éditeurs
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="fas fa-gamepad floating-icon" style="font-size: 8rem; color: rgba(255,255,255,0.8);"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Fonctionnalités -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-primary">Fonctionnalités principales</h2>
+            <p class="lead text-muted">Tout ce dont vous avez besoin pour gérer vos jeux</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-gamepad feature-icon text-primary"></i>
+                        <h5 class="card-title">Gestion des Jeux</h5>
+                        <p class="card-text">
+                            Consultez une bibliothèque complète de jeux vidéo avec leurs informations détaillées,
+                            images et données de sortie.
+                        </p>
+                        <a href="jeux" class="btn btn-outline-primary">
+                            <i class="fas fa-eye me-2"></i>Voir les jeux
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-building feature-icon text-success"></i>
+                        <h5 class="card-title">Éditeurs</h5>
+                        <p class="card-text">
+                            Gérez les éditeurs de jeux vidéo, ajoutez de nouveaux studios et 
+                            organisez votre base de données.
+                        </p>
+                        <a href="editeurs" class="btn btn-outline-success">
+                            <i class="fas fa-plus me-2"></i>Gérer les éditeurs
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-laptop feature-icon text-info"></i>
+                        <h5 class="card-title">Plateformes</h5>
+                        <p class="card-text">
+                            Explorez les différentes plateformes de jeu : PC, consoles,
+                            mobile et bien plus encore.
+                        </p>
+                        <a href="plateformes" class="btn btn-outline-info">
+                            <i class="fas fa-list me-2"></i>Voir les plateformes
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-upload feature-icon text-warning"></i>
+                        <h5 class="card-title">Images</h5>
+                        <p class="card-text">
+                            Téléversez et gérez les images de vos jeux préférés pour
+                            enrichir la base de données.
+                        </p>
+                        <button class="btn btn-outline-warning" disabled>
+                            <i class="fas fa-image me-2"></i>Gestion d'images
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-chart-bar feature-icon text-danger"></i>
+                        <h5 class="card-title">Statistiques</h5>
+                        <p class="card-text">
+                            Consultez des statistiques détaillées sur les performances
+                            et l'utilisation de la plateforme.
+                        </p>
+                        <a href="statistiques" class="btn btn-outline-danger" target="statistiques">
+                            <i class="fas fa-analytics me-2"></i>Voir les stats
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-cog feature-icon text-secondary"></i>
+                        <h5 class="card-title">Configuration</h5>
+                        <p class="card-text">
+                            Accédez aux paramètres système, à la configuration
+                            et aux outils d'administration.
+                        </p>
+                        <a href="configuration" class="btn btn-outline-secondary">
+                            <i class="fas fa-tools me-2"></i>Configuration
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Statistiques -->
+<section class="stats-section py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="d-flex flex-column align-items-center">
+                    <i class="fas fa-gamepad mb-3" style="font-size: 3rem;"></i>
+                    <h3 class="fw-bold">∞</h3>
+                    <p class="mb-0">Jeux disponibles</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="d-flex flex-column align-items-center">
+                    <i class="fas fa-building mb-3" style="font-size: 3rem;"></i>
+                    <h3 class="fw-bold">∞</h3>
+                    <p class="mb-0">Éditeurs référencés</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="d-flex flex-column align-items-center">
+                    <i class="fas fa-laptop mb-3" style="font-size: 3rem;"></i>
+                    <h3 class="fw-bold">∞</h3>
+                    <p class="mb-0">Plateformes supportées</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="d-flex flex-column align-items-center">
+                    <i class="fas fa-users mb-3" style="font-size: 3rem;"></i>
+                    <h3 class="fw-bold">24/7</h3>
+                    <p class="mb-0">Disponibilité</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section CTA -->
+<section class="cta-section py-5">
+    <div class="container text-center text-white">
+        <h2 class="display-5 fw-bold mb-4">Prêt à commencer ?</h2>
+        <p class="lead mb-4">
+            Explorez dès maintenant notre collection de jeux et découvrez de nouveaux univers gaming !
+        </p>
+        <a href="jeux" class="btn btn-light btn-lg me-3">
+            <i class="fas fa-rocket me-2"></i>Explorer les jeux
+        </a>
+        <a href="editeur" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-plus me-2"></i>Ajouter un éditeur
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5><i class="fas fa-gamepad me-2"></i>Avis Gaming</h5>
+                <p class="text-muted">Votre plateforme de référence pour les avis de jeux vidéo.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="text-muted mb-0">
+                    <i class="fas fa-code me-2"></i>Développé avec Spring Boot & Thymeleaf
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

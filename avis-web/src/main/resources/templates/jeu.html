@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ajouter un Jeu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .form-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+        .form-floating > .form-control:focus ~ label {
+            color: #0d6efd;
+        }
+        .form-floating > .form-select:focus ~ label {
+            color: #0d6efd;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+        }
+        .platform-checkbox {
+            transform: scale(1.2);
+            margin-right: 0.5rem;
+        }
+        .platform-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .platform-card:hover {
+            background-color: #f8f9fa !important;
+            transform: translateY(-1px);
+        }
+        .platform-card.selected {
+            background-color: #e3f2fd !important;
+            border-color: #2196f3 !important;
+        }
+        .step-indicator {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        .section-divider {
+            background: linear-gradient(90deg, transparent 0%, #dee2e6 50%, transparent 100%);
+            height: 1px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div th:replace="~{entete}"></div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="text-center mb-4">
+                <h1 class="display-6 text-primary">
+                    <i class="fas fa-plus-circle me-3"></i>Ajouter un Jeu
+                </h1>
+                <p class="text-muted">Créez une nouvelle fiche de jeu vidéo</p>
+            </div>
+
+            <!-- Message d'erreur global -->
+            <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <span th:text="${errorMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <!-- Formulaire d'ajout -->
+            <div class="card form-card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-gamepad me-2"></i>Informations du jeu
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form action="jeu" th:object="${jeu}" method="post" novalidate>
+                        
+                        <!-- Section 1: Informations de base -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="step-indicator">1</div>
+                            <h6 class="mb-0 text-primary">Informations de base</h6>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="text" 
+                                           class="form-control form-control-lg" 
+                                           th:field="*{nom}" 
+                                           id="nom" 
+                                           placeholder="Nom du jeu"
+                                           th:classappend="${#fields.hasErrors('nom')} ? 'is-invalid' : ''"
+                                           required>
+                                    <label for="nom">
+                                        <i class="fas fa-gamepad me-2"></i>Nom du jeu *
+                                    </label>
+                                    <div th:if="${#fields.hasErrors('nom')}" class="invalid-feedback">
+                                        <i class="fas fa-exclamation-triangle me-1"></i>
+                                        <span th:errors="*{nom}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="number" 
+                                           class="form-control form-control-lg" 
+                                           th:field="*{prix}" 
+                                           id="prix" 
+                                           placeholder="Prix"
+                                           step="0.01"
+                                           min="0">
+                                    <label for="prix">
+                                        <i class="fas fa-euro-sign me-2"></i>Prix (€)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-floating">
+                                <input type="date" 
+                                       class="form-control form-control-lg" 
+                                       th:field="*{dateDeSortie}" 
+                                       id="dateDeSortie" 
+                                       placeholder="Date de sortie">
+                                <label for="dateDeSortie">
+                                    <i class="fas fa-calendar me-2"></i>Date de sortie
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-floating">
+                                <textarea class="form-control" 
+                                          th:field="*{description}" 
+                                          id="description" 
+                                          placeholder="Description du jeu"
+                                          style="height: 100px"></textarea>
+                                <label for="description">
+                                    <i class="fas fa-align-left me-2"></i>Description
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="section-divider"></div>
+
+                        <!-- Section 2: Éditeur -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="step-indicator">2</div>
+                            <h6 class="mb-0 text-primary">Éditeur</h6>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-floating">
+                                <select class="form-select form-select-lg" 
+                                        th:field="*{editeur}" 
+                                        id="editeur"
+                                        th:classappend="${#fields.hasErrors('editeur')} ? 'is-invalid' : ''"
+                                        required>
+                                    <option value="">-- Sélectionnez un éditeur --</option>
+                                    <option th:each="editeur : ${editeurs}" 
+                                            th:value="${editeur.id}" 
+                                            th:text="${editeur.nom}">
+                                    </option>
+                                </select>
+                                <label for="editeur">
+                                    <i class="fas fa-building me-2"></i>Éditeur *
+                                </label>
+                                <div th:if="${#fields.hasErrors('editeur')}" class="invalid-feedback">
+                                    <i class="fas fa-exclamation-triangle me-1"></i>
+                                    <span th:errors="*{editeur}"></span>
+                                </div>
+                            </div>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle text-primary me-1"></i>
+                                Pas d'éditeur dans la liste ? <a href="editeur" target="_blank">Ajoutez-en un nouveau</a>
+                            </div>
+                        </div>
+
+                        <div class="section-divider"></div>
+
+                        <!-- Section 3: Plateformes -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="step-indicator">3</div>
+                            <h6 class="mb-0 text-primary">Plateformes de jeu</h6>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="text-muted mb-3">
+                                <i class="fas fa-mouse-pointer me-2"></i>
+                                Sélectionnez les plateformes sur lesquelles le jeu est disponible :
+                            </p>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4 mb-3" th:each="plateforme : ${plateformes}">
+                                    <div class="card platform-card border h-100" onclick="togglePlatform(this)">
+                                        <div class="card-body p-3 text-center">
+                                            <input type="checkbox" 
+                                                   name="plateformeIds" 
+                                                   th:value="${plateforme.id}" 
+                                                   class="platform-checkbox"
+                                                   style="display: none;">
+                                            <div>
+                                                <!-- Icônes dynamiques basées sur le nom -->
+                                                <i th:if="${#strings.containsIgnoreCase(plateforme.nom, 'PC')}" 
+                                                   class="fas fa-desktop text-info mb-2" style="font-size: 2rem;"></i>
+                                                <i th:if="${#strings.containsIgnoreCase(plateforme.nom, 'PlayStation') or #strings.containsIgnoreCase(plateforme.nom, 'PS')}" 
+                                                   class="fab fa-playstation text-primary mb-2" style="font-size: 2rem;"></i>
+                                                <i th:if="${#strings.containsIgnoreCase(plateforme.nom, 'Xbox')}" 
+                                                   class="fab fa-xbox text-success mb-2" style="font-size: 2rem;"></i>
+                                                <i th:if="${#strings.containsIgnoreCase(plateforme.nom, 'Nintendo') or #strings.containsIgnoreCase(plateforme.nom, 'Switch')}" 
+                                                   class="fas fa-gamepad text-danger mb-2" style="font-size: 2rem;"></i>
+                                                <i th:if="${#strings.containsIgnoreCase(plateforme.nom, 'Mobile') or #strings.containsIgnoreCase(plateforme.nom, 'iOS') or #strings.containsIgnoreCase(plateforme.nom, 'Android')}" 
+                                                   class="fas fa-mobile-alt text-warning mb-2" style="font-size: 2rem;"></i>
+                                                <i th:unless="${#strings.containsIgnoreCase(plateforme.nom, 'PC') or #strings.containsIgnoreCase(plateforme.nom, 'PlayStation') or #strings.containsIgnoreCase(plateforme.nom, 'PS') or #strings.containsIgnoreCase(plateforme.nom, 'Xbox') or #strings.containsIgnoreCase(plateforme.nom, 'Nintendo') or #strings.containsIgnoreCase(plateforme.nom, 'Switch') or #strings.containsIgnoreCase(plateforme.nom, 'Mobile') or #strings.containsIgnoreCase(plateforme.nom, 'iOS') or #strings.containsIgnoreCase(plateforme.nom, 'Android')}" 
+                                                   class="fas fa-question text-secondary mb-2" style="font-size: 2rem;"></i>
+                                            </div>
+                                            <h6 class="card-title mb-0" th:text="${plateforme.nom}">Plateforme</h6>
+                                            <div class="platform-indicator" style="display: none;">
+                                                <i class="fas fa-check-circle text-success mt-2"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle text-primary me-1"></i>
+                                Vous pouvez sélectionner plusieurs plateformes en cliquant sur les cartes
+                            </div>
+                        </div>
+
+                        <div class="section-divider"></div>
+
+                        <!-- Boutons d'action -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg btn-submit">
+                                <i class="fas fa-plus me-2"></i>Ajouter le jeu
+                            </button>
+                            <a href="jeux" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-arrow-left me-2"></i>Retour à la liste des jeux
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Card d'informations -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body">
+                    <h6 class="text-primary mb-3">
+                        <i class="fas fa-lightbulb me-2"></i>Conseils pour bien remplir le formulaire
+                    </h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Utilisez le nom officiel complet du jeu
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Sélectionnez l'éditeur principal du jeu
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Choisissez toutes les plateformes sur lesquelles le jeu est disponible
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Renseignez la date de sortie originale du jeu
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Exemples de jeux populaires -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="fas fa-star me-2"></i>Exemples de jeux populaires
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">The Witcher 3: Wild Hunt</span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">Cyberpunk 2077</span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">Assassin's Creed Valhalla</span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">Call of Duty: Modern Warfare</span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">FIFA 24</span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <span class="badge bg-light text-dark me-1">The Legend of Zelda: Breath of the Wild</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Validation en temps réel
+    const nomInput = document.getElementById('nom');
+    const editeurSelect = document.getElementById('editeur');
+    const form = document.querySelector('form');
+    
+    // Validation du nom
+    nomInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        
+        this.classList.remove('is-valid', 'is-invalid');
+        
+        if (value.length >= 2) {
+            this.classList.add('is-valid');
+        } else if (value.length > 0) {
+            this.classList.add('is-invalid');
+        }
+    });
+
+    // Validation de l'éditeur
+    editeurSelect.addEventListener('change', function() {
+        this.classList.remove('is-valid', 'is-invalid');
+        
+        if (this.value !== '') {
+            this.classList.add('is-valid');
+        } else {
+            this.classList.add('is-invalid');
+        }
+    });
+
+    // Animation de soumission
+    form.addEventListener('submit', function(e) {
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Ajout en cours...';
+        submitBtn.disabled = true;
+    });
+
+    // Focus automatique sur le champ nom
+    nomInput.focus();
+});
+
+// Fonction pour gérer la sélection des plateformes
+function togglePlatform(card) {
+    const checkbox = card.querySelector('input[type="checkbox"]');
+    const indicator = card.querySelector('.platform-indicator');
+    
+    checkbox.checked = !checkbox.checked;
+    
+    if (checkbox.checked) {
+        card.classList.add('selected');
+        indicator.style.display = 'block';
+    } else {
+        card.classList.remove('selected');
+        indicator.style.display = 'none';
+    }
+}
+
+// Initialiser l'état des plateformes sélectionnées au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    const platformCards = document.querySelectorAll('.platform-card');
+    platformCards.forEach(card => {
+        const checkbox = card.querySelector('input[type="checkbox"]');
+        const indicator = card.querySelector('.platform-indicator');
+        
+        if (checkbox.checked) {
+            card.classList.add('selected');
+            indicator.style.display = 'block';
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -40,10 +40,8 @@ public class JeuRepositoryAdapter implements JeuRepository {
 
     @Override
     public List<Jeu> findAll() {
-        return jeuJpaRepository.findAll()
-                               .stream()
-                               .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
-                               .toList();
+        CycleAvoidingMappingContext context = new CycleAvoidingMappingContext();
+        return jeuMapper.entityListToDomainList(jeuJpaRepository.findAll(), context);
     }
 
     @Override
@@ -54,7 +52,10 @@ public class JeuRepositoryAdapter implements JeuRepository {
                 jeuJpaRepository.findAll(
                         pageAdapter.toSpringPageable(paginationParams)
                 ),
-                entity -> jeuMapper.entityToDomain(entity, new CycleAvoidingMappingContext()) // 💡 ici
+                entity -> {
+                    CycleAvoidingMappingContext context = new CycleAvoidingMappingContext();
+                    return jeuMapper.entityToDomain(entity, context);
+                }
         );
     }
 
@@ -67,18 +68,16 @@ public class JeuRepositoryAdapter implements JeuRepository {
 
     @Override
     public List<Jeu> findByEditeur(final Editeur editeur) {
-        final List<JeuEntity> entities = jeuJpaRepository.findByEditeur(editeurMapper.domainToEntity(editeur, new CycleAvoidingMappingContext()));
-        return entities.stream()
-                       .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
-                       .toList();
+        CycleAvoidingMappingContext context = new CycleAvoidingMappingContext();
+        final List<JeuEntity> entities = jeuJpaRepository.findByEditeur(editeurMapper.domainToEntity(editeur, context));
+        return jeuMapper.entityListToDomainList(entities, context);
     }
 
     @Override
     public List<Jeu> findByEditeurNom(final String nom) {
+        CycleAvoidingMappingContext context = new CycleAvoidingMappingContext();
         final List<JeuEntity> entities = jeuJpaRepository.findByEditeurNom(nom);
-        return entities.stream()
-                       .map(jeuEntity -> jeuMapper.entityToDomain(jeuEntity, new CycleAvoidingMappingContext()))
-                       .toList();
+        return jeuMapper.entityListToDomainList(entities, context);
     }
 
     @Override

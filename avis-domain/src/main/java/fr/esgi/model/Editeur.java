@@ -8,11 +8,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Editeur {
 
     private Long id;
 
-    @NonNull
     private String nom;
 
     @ToString.Exclude
