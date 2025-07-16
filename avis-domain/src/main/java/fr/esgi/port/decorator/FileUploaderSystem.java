@@ -45,6 +45,10 @@ public class FileUploaderSystem implements FileUploader {
             System.err.println("Error uploading file: " + e.getMessage());
             e.printStackTrace();
             return StringUtils.EMPTY;
+        } catch (Exception e) {
+            System.err.println("Unexpected error uploading file: " + e.getMessage());
+            e.printStackTrace();
+            return StringUtils.EMPTY;
         }
     }
 }

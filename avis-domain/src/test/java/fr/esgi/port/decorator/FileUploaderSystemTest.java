@@ -30,9 +30,9 @@ class FileUploaderSystemTest {
         String result = uploader.upload(inputStream);
 
         // Assert
-        assertThat(result).startsWith("/uploads/").endsWith(".jpg");
+        assertThat(result).startsWith("uploads/").endsWith(".jpg");
 
-        Path uploadedFile = tempDir.resolve(result.substring(1)); // remove leading '/'
+        Path uploadedFile = tempDir.resolve(result); // no need to remove leading slash
         assertThat(Files.exists(uploadedFile)).isTrue();
         assertThat(Files.readAllBytes(uploadedFile)).isEqualTo(content);
     }

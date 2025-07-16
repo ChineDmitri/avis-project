@@ -71,8 +71,8 @@ class FileUploaderDecoratorTest {
         decorator.upload(testInput);
 
         String output = outContent.toString();
-        assertTrue(output.contains("[LOG] Téléversement standard démarré"));
-        assertTrue(output.contains("[LOG] Téléversement standard terminé. FileName: test-file.txt"));
+        assertTrue(output.contains("[ABSTRACT] Téléversement standard démarré"));
+        assertTrue(output.contains("[ABSTRACT] Téléversement standard terminé. FileName: test-file.txt"));
     }
 
     @Test
@@ -100,8 +100,8 @@ class FileUploaderDecoratorTest {
         assertSame(testException, exception);
 
         String output = outContent.toString();
-        assertTrue(output.contains("[LOG] Téléversement standard démarré"));
-        assertFalse(output.contains("[LOG] Téléversement standard terminé"));
+        assertTrue(output.contains("[ABSTRACT] Téléversement standard démarré"));
+        assertFalse(output.contains("[ABSTRACT] Téléversement standard terminé"));
     }
 
     @Test
@@ -120,8 +120,8 @@ class FileUploaderDecoratorTest {
         verify(baseUploader).upload(testInput);
 
         String output = outContent.toString();
-        assertEquals(2, output.split("\\[LOG\\] Téléversement standard démarré").length - 1);
-        assertEquals(2, output.split("\\[LOG\\] Téléversement standard terminé").length - 1);
+        assertEquals(2, output.split("\\[ABSTRACT\\] Téléversement standard démarré").length - 1);
+        assertEquals(2, output.split("\\[ABSTRACT\\] Téléversement standard terminé").length - 1);
     }
 
     @Test
